@@ -182,7 +182,7 @@ FOREIGN KEY (id_candidate) REFERENCES candidate(id_physical);
 --DROP TABLE photo_stay;
 --DROP TABLE candidate;
 --
-
+--
 
 
 

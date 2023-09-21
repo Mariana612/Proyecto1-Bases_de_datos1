@@ -22,6 +22,31 @@ USING INDEX
 TABLESPACE Proyecto1_ind PCTFREE 20
 STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 -------------------------------------------
+--------------PERSONxDISTRICT--------------
+CREATE TABLE personXdistrict
+(
+       id_person NUMBER(6),         --PK & FK
+       id_district NUMBER(6)        --PK & FK
+);
+
+--alters--
+--PK
+ALTER TABLE personXdistrict
+ADD 
+CONSTRAINT pk_personXdistrict PRIMARY KEY (id_person,id_district)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE personXdistrict
+ADD CONSTRAINT FK_PxD_idPerson
+FOREIGN KEY (id_person) REFERENCES person(id);
+--
+ALTER TABLE personXdistrict
+ADD CONSTRAINT FK_PxD_idDistrict
+FOREIGN KEY (id_district) REFERENCES person(id);
+-------------------------------------------
 ------------------EMAIL--------------------
 CREATE TABLE email
 (
@@ -157,5 +182,6 @@ FOREIGN KEY (id_legal) REFERENCES legal_person(id_legal);
 --DROP TABLE user_type;
 --DROP TABLE user_person;
 --DROP TABLE email;
+--DROP TABLE personXdistrict;
 --DROP TABLE person;
---DROP TABLE association;
+

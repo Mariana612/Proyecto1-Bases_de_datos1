@@ -1,3 +1,4 @@
+-------------------------------------------
 -------------------ENERGY------------------
 CREATE TABLE energy
 (
@@ -87,6 +88,31 @@ ALTER TABLE rescued
 ADD CONSTRAINT FK_rescued_idSeverity
 FOREIGN KEY (id_severity) REFERENCES severity(id);
 -------------------------------------------
+---------------RESCUEDxDISTRICT---------------
+CREATE TABLE rescuedXdistrict
+(
+       id_rescued NUMBER(6),        --PK & FK
+       id_district NUMBER(6)        --PK & FK
+);
+
+--alters--
+--PK
+ALTER TABLE rescuedXdistrict
+ADD 
+CONSTRAINT pk_rescuedXdistrict PRIMARY KEY (id_rescued,id_district)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE rescuedXdistrict
+ADD CONSTRAINT FK_RxD_idRescued
+FOREIGN KEY (id_rescued) REFERENCES rescued(id_pet);
+--
+ALTER TABLE rescuedXdistrict
+ADD CONSTRAINT FK_RxD_idDistrict
+FOREIGN KEY (id_district) REFERENCES district(id);
+-------------------------------------------
 ----------------PHOTO_BEFORE---------------
 CREATE TABLE photo_before
 (
@@ -148,24 +174,6 @@ TABLESPACE Proyecto1_ind PCTFREE 20
 STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 
 -------------------------------------------
------------------TREATMENT-----------------
-CREATE TABLE treatment
-(
-       id NUMBER(6),                --PK
-       id_illness NUMBER(6),        --FK
-       treatment_description VARCHAR(30) CONSTRAINT treatment_TD_nn NOT NULL
-);
-
---alters--
---PK
-ALTER TABLE treatment
-ADD 
-CONSTRAINT pk_treatment PRIMARY KEY (id)
-USING INDEX
-TABLESPACE Proyecto1_ind PCTFREE 20
-STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
-
--------------------------------------------
 --------------RESCUEDxILLNESS--------------
 CREATE TABLE rescuedXillness
 (
@@ -191,7 +199,26 @@ ALTER TABLE rescuedXillness
 ADD CONSTRAINT FK_RxI_idIllness
 FOREIGN KEY (id_illness) REFERENCES illness(id);
 -------------------------------------------
+-----------------TREATMENT-----------------
+CREATE TABLE treatment
+(
+       id NUMBER(6),                --PK
+       id_illness NUMBER(6),        --FK
+       treatment_description VARCHAR(30) CONSTRAINT treatment_TD_nn NOT NULL
+);
 
+--alters--
+--PK
+ALTER TABLE treatment
+ADD 
+CONSTRAINT pk_treatment PRIMARY KEY (id)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+-------------------------------------------
+
+--DROP TABLE rescuedXdistrict;
 --DROP TABLE rescuedXillness;
 --DROP TABLE treatment;
 --DROP TABLE illness;
