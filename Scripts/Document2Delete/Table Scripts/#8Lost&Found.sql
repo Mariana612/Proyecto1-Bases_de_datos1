@@ -118,7 +118,7 @@ ALTER TABLE foundXdistrict
 ADD CONSTRAINT FK_FxD_idDistrict
 FOREIGN KEY (id_district) REFERENCES district(id);
 -------------------------------------------
---
+
 --DROP TABLE foundXdistrict;
 --DROP TABLE found_pet;
 --DROP TABLE lostXdistrict;

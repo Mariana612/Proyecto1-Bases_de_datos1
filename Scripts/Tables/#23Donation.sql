@@ -29,12 +29,12 @@ FOREIGN KEY (id_type) REFERENCES donation_type(id);
 COMMENT ON TABLE donation
 IS
 'Repositorio para almacenar las donaciones';
-COMMENT ON COLUMN donation_type.id
+COMMENT ON COLUMN donation.id
 IS
 'Identificador de la donación';
-COMMENT ON COLUMN donation_type.id_foster_home
+COMMENT ON COLUMN donation.id_foster_home
 IS
 'Identificación de la casa cuna';
-COMMENT ON COLUMN donation_type.id_type
+COMMENT ON COLUMN donation.id_type
 IS
 'Identificación del tipo de donación';
