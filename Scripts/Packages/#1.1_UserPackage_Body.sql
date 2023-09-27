@@ -1,112 +1,3 @@
-CREATE SEQUENCE sPerson
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-
-CREATE SEQUENCE sContinent
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-
-CREATE SEQUENCE sCountry
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-CREATE SEQUENCE sProvince
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-CREATE SEQUENCE sCanton
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
- CREATE SEQUENCE sDistrict
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-CREATE SEQUENCE sTelephone
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-  CREATE SEQUENCE sEmail
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-CREATE SEQUENCE sUser
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-CREATE SEQUENCE sUserPassword
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
-CREATE SEQUENCE sPhotoStay
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  CREATE SEQUENCE sPhotoSleep
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  CREATE SEQUENCE sOtherPet
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  CREATE SEQUENCE sPhotoOP
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-  
 CREATE OR REPLACE PACKAGE BODY createUser AS
 
 -------------------------
@@ -118,7 +9,7 @@ PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
 IS
 BEGIN
     INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
-    VALUES (sPerson.NEXTVAL(),pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
+    VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
   --
     INSERT INTO Continent(id, continent_name)
     VALUES (sContinent.NEXTVAL, pcContinentN);
@@ -146,7 +37,7 @@ IS
 BEGIN
     INSERT INTO telephone(id,phone_number)
     VALUES (sTelephone.NEXTVAL, pnPhoneNumber);
-    
+  --  
     INSERT INTO telephoneXperson(id_person, id_telephone)
     VALUES (pnIdPerson, sTelephone.CURRVAL);
     COMMIT;
@@ -167,9 +58,24 @@ IS
 BEGIN
     INSERT INTO user_person(id, id_person,username)
     VALUES (sUser.NEXTVAL, pnIdPerson, pcName);
-    
+  --
     INSERT INTO user_password(id, id_user,name_type)
     VALUES (sUserPassword.NEXTVAL, sUser.CURRVAL, pcPassword);
+    COMMIT;
+END;
+-------------------------
+-----ANSER CANDIDATE-----
+PROCEDURE answerCandidate(pnIdPerson NUMBER, pcOwnHouse VARCHAR, 
+          pcAuthorization VARCHAR, pcPurpose VARCHAR,pcInterestAdoption VARCHAR, 
+          pcAccompainmentA VARCHAR, pcMinimumMA VARCHAR, pcMaximumMA VARCHAR,
+          pnIdTest NUMBER)
+IS
+BEGIN
+    INSERT INTO candidate(id_physical,id_test,own_house,has_authorization, 
+                          purpose, interest_in_adoption, accompaniment_average,
+                          minimum_monthly_amount, maximum_monthly_amount)
+    VALUES (pnIdPerson,pnIdTest,pcOwnHouse,pcAuthorization,pcPurpose,
+    pcInterestAdoption,pcAccompainmentA,pcMinimumMA,pcMaximumMA);
     COMMIT;
 END;
 -------------------------
@@ -177,7 +83,7 @@ END;
 PROCEDURE incertPhotoStay(pnIdPerson NUMBER, pcPhotoPath VARCHAR2)
 IS
 BEGIN 
-    INSERT INTO photo_stay(id, id_candidate,pitcutre_path)
+    INSERT INTO photo_stay(id, id_candidate,picture_path)
     VALUES (sPhotoStay.NEXTVAL, pnIdPerson, pcPhotoPath);
     COMMIT;
 END;
@@ -186,10 +92,26 @@ END;
 PROCEDURE incertPhotoSleep(pnIdPerson NUMBER, pcPhotoPath VARCHAR2)
 IS
 BEGIN 
-    INSERT INTO photo_sleep(id, id_candidate,pitcutre_path)
+    INSERT INTO photo_sleep(id, id_candidate,picture_path)
     VALUES (sPhotoSleep.NEXTVAL, pnIdPerson, pcPhotoPath);
     COMMIT;
 END;
 -------------------------
-
+--------OTHER PET--------
+PROCEDURE incertOtherPet(pnIdPerson NUMBER, pnYearAdopted DATE)
+IS
+BEGIN 
+    INSERT INTO other_pet(id,id_candidate,date_adopted)
+    VALUES(sOtherPet.NEXTVAL,pnIdPerson,pnYearAdopted);
+    COMMIT;
+END;
+-------------------------
+-----PHOTO OTHER PET-----
+PROCEDURE incertPhotoOP(pnIdOtherpet NUMBER, pcPhotoPath VARCHAR2)
+IS
+BEGIN
+    INSERT INTO photo_other_pet(id,id_otherpet,picture_path)
+    VALUES (sPhotoOP.NEXTVAL,pnIdOtherpet, pcPhotoPath);
+    COMMIT;
+END;
 END createUser;
