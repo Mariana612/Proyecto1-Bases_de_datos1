@@ -1,5 +1,5 @@
 CREATE tablespace Proyecto1_Data
-datafile 'C:\app\maria\oradata\MarianaBD\Proyecto1data01.dbf'
+datafile 'C:\app\fabia\oradata\daniela\Proyecto1data01.dbf'
 size 10M
 Reuse
 autoextend On
@@ -7,7 +7,7 @@ next 512k
 maxsize 200m;
 
 CREATE tablespace Proyecto1_ind
-datafile 'C:\app\maria\oradata\MarianaBD\Proyecto1ind01.dbf'
+datafile 'C:\app\fabia\oradata\daniela\Proyecto1ind01.dbf'
 size 10M
 Reuse
 autoextend On
