@@ -80,7 +80,7 @@ BEGIN
 END;
 -------------------------
 -------PHOTO STAY--------
-PROCEDURE incertPhotoStay(pnIdPerson NUMBER, pcPhotoPath VARCHAR2)
+PROCEDURE insertPhotoStay(pnIdPerson NUMBER, pcPhotoPath VARCHAR2)
 IS
 BEGIN 
     INSERT INTO photo_stay(id, id_candidate,picture_path)
@@ -89,7 +89,7 @@ BEGIN
 END;
 -------------------------
 ------PHOTO SLEEP--------
-PROCEDURE incertPhotoSleep(pnIdPerson NUMBER, pcPhotoPath VARCHAR2)
+PROCEDURE insertPhotoSleep(pnIdPerson NUMBER, pcPhotoPath VARCHAR2)
 IS
 BEGIN 
     INSERT INTO photo_sleep(id, id_candidate,picture_path)
@@ -98,7 +98,7 @@ BEGIN
 END;
 -------------------------
 --------OTHER PET--------
-PROCEDURE incertOtherPet(pnIdPerson NUMBER, pnYearAdopted DATE)
+PROCEDURE insertOtherPet(pnIdPerson NUMBER, pnYearAdopted DATE)
 IS
 BEGIN 
     INSERT INTO other_pet(id,id_candidate,date_adopted)
@@ -107,7 +107,7 @@ BEGIN
 END;
 -------------------------
 -----PHOTO OTHER PET-----
-PROCEDURE incertPhotoOP(pnIdOtherpet NUMBER, pcPhotoPath VARCHAR2)
+PROCEDURE insertPhotoOP(pnIdOtherpet NUMBER, pcPhotoPath VARCHAR2)
 IS
 BEGIN
     INSERT INTO photo_other_pet(id,id_otherpet,picture_path)
