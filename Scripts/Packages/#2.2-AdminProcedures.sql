@@ -1,3 +1,8 @@
+CREATE OR REPLACE PACKAGE adminProcedures 
+PROCEDURE alterUserType (pnIdPerson NUMBER, pcType VARCHAR)
+PROCEDURE changeStatus (pnIdTest NUMBER,pcStatus VARCHAR)
+END adminProcedures; 
+
 CREATE OR REPLACE PACKAGE BODY adminProcedures
 AS
 
