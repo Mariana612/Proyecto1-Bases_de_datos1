@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author fabia
+ * @author fabian
  */
 public class Proyecto1BD {
 
