@@ -1,6 +1,75 @@
 -------------------------
 CREATE OR REPLACE PACKAGE BODY createUser AS
 -------------------------
+------INSERT ADRESS------
+
+PROCEDURE insertAddress(
+    pcContinentN   VARCHAR2,
+    pcCountryN     VARCHAR2,
+    pcProvinceN    VARCHAR2,
+    pcCantonN      VARCHAR2,
+    pcDistrictN    VARCHAR2
+) AS
+-- Variables que necesito
+continent_id NUMBER;
+country_id NUMBER;
+province_id NUMBER;
+canton_id NUMBER;
+district_id NUMBER;
+
+BEGIN
+--======================CONTINENT================================
+    -- Attempt to find an existing continent_id or use the next value from the sequence
+    SELECT COALESCE((SELECT id FROM continent WHERE continent_name = pcContinentN), sContinent.NEXTVAL)
+    INTO continent_id
+    FROM dual;
+    -- Insert the data into the continent table
+    INSERT INTO continent (id, continent_name)
+    VALUES (continent_id, pcContinentN);
+--======================COUNTRY===================================
+    -- Attempt to find an existing country_id or use the next value from the sequence
+    SELECT COALESCE((SELECT id FROM country WHERE COUNTRY_NAME = pcCountryN), sCountry.NEXTVAL)
+    INTO country_id
+    FROM dual;
+    -- Insert the data into the continent table
+    INSERT INTO country (id, id_continent,COUNTRY_NAME)
+    VALUES (country_id,continent_id, pcCountryN);
+--========================PROVINCE================================  
+    -- Attempt to find an existing province_id or use the next value from the sequence
+    SELECT COALESCE((SELECT id FROM province WHERE province_name = pcProvinceN), sProvince.NEXTVAL)
+    INTO province_id
+    FROM dual;
+    -- Insert the data into the continent table
+    INSERT INTO province (id, id_country,province_name)
+    VALUES (province_id,country_id, pcProvinceN);
+--==========================CANTON================================   
+    -- Attempt to find an existing canton_id or use the next value from the sequence
+    SELECT COALESCE((SELECT id FROM canton WHERE canton_name = pcCantonN), sCanton.NEXTVAL)
+    INTO canton_id
+    FROM dual;
+    -- Insert the data into the continent table
+    INSERT INTO canton (id, id_province,canton_name)
+    VALUES (canton_id,province_id, pcCantonN); 
+--========================DISTRICT================================   
+    -- Attempt to find an existing district_id or use the next value from the sequence
+    SELECT COALESCE((SELECT id FROM district WHERE district_name = pcDistrictN), sDistrict.NEXTVAL)
+    INTO district_id
+    FROM dual;
+    -- Insert the data into the continent table
+    INSERT INTO district (id,district_name,id_canton)
+    VALUES (district_id,pcDistrictN, canton_id); 
+
+    -- Commit the transaction
+    COMMIT;
+--================================================================   
+
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Handle exceptions if any errors occur during insertion
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+-------------------------
 ------INSERT PERSON------
 PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
           pcProvinceN VARCHAR2, pcCountryN VARCHAR2, pcContinentN VARCHAR2, 
@@ -10,24 +79,13 @@ IS
 BEGIN
     INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
     VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
-  --
-    INSERT INTO Continent(id, continent_name)
-    VALUES (sContinent.NEXTVAL, pcContinentN);
   --  
-    INSERT INTO Country(id, id_continent, country_name)
-    VALUES (sCountry.NEXTVAL,sContinent.CURRVAL, pcCountryN);
-  --  
-    INSERT INTO province(id, id_country, province_name)
-    VALUES (sProvince.NEXTVAL,sCountry.CURRVAL, pcProvinceN);
-  --  
-    INSERT INTO canton(id, id_province, canton_name)
-    VALUES (sCanton.NEXTVAL,sProvince.CURRVAL, pcCantonN);
-  --  
-    INSERT INTO District(id, id_canton, district_name)
-    VALUES (sDistrict.CURRVAL, sCanton.CURRVAL, pcDistrictN);
-  --  
-    INSERT INTO personxDistrict(id_person, id_district)
-    VALUES (sPerson.CURRVAL, sDistrict.CURRVAL);
+    insertAddress(pcContinentN,pcCountryN,pcProvinceN,pcCantonN,pcDistrictN);
+    
+    INSERT INTO personxdistrict (id_person, id_district)
+    VALUES (sPerson.currval,
+        (SELECT id FROM district WHERE district_name = pcDistrictN)
+    );
     COMMIT;      
 END;
 -------------------------
