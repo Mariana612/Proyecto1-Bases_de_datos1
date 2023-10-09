@@ -109,3 +109,12 @@ CREATE SEQUENCE sPhotoStay
   MAXVALUE 999999
   NOCACHE
   CYCLE;
+  
+--drop sequence sPerson;
+--drop sequence sContinent ;
+--drop sequence sCountry ;
+--drop sequence sProvince ;
+--drop sequence sCanton ;
+--drop sequence sDistrict ;
+
+  
