@@ -21,7 +21,7 @@ FOREIGN KEY (id_person) REFERENCES person(id);
 --
 ALTER TABLE personXdistrict
 ADD CONSTRAINT FK_PxD_idDistrict
-FOREIGN KEY (id_district) REFERENCES person(id);
+FOREIGN KEY (id_district) REFERENCES district(id);
 
 --comments--
 COMMENT ON TABLE personXdistrict
@@ -33,3 +33,4 @@ IS
 COMMENT ON COLUMN personXdistrict.id_district
 IS
 'Identificador del distrito';
+

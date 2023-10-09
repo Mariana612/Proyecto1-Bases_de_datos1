@@ -19,48 +19,65 @@ district_id NUMBER;
 
 BEGIN
 --======================CONTINENT================================
-    -- Attempt to find an existing continent_id or use the next value from the sequence
-    SELECT COALESCE((SELECT id FROM continent WHERE continent_name = pcContinentN), sContinent.NEXTVAL)
+    SELECT id
     INTO continent_id
-    FROM dual;
-    -- Insert the data into the continent table
-    INSERT INTO continent (id, continent_name)
-    VALUES (continent_id, pcContinentN);
---======================COUNTRY===================================
-    -- Attempt to find an existing country_id or use the next value from the sequence
-    SELECT COALESCE((SELECT id FROM country WHERE COUNTRY_NAME = pcCountryN), sCountry.NEXTVAL)
-    INTO country_id
-    FROM dual;
-    -- Insert the data into the continent table
-    INSERT INTO country (id, id_continent,COUNTRY_NAME)
-    VALUES (country_id,continent_id, pcCountryN);
---========================PROVINCE================================  
-    -- Attempt to find an existing province_id or use the next value from the sequence
-    SELECT COALESCE((SELECT id FROM province WHERE province_name = pcProvinceN), sProvince.NEXTVAL)
-    INTO province_id
-    FROM dual;
-    -- Insert the data into the continent table
-    INSERT INTO province (id, id_country,province_name)
-    VALUES (province_id,country_id, pcProvinceN);
---==========================CANTON================================   
-    -- Attempt to find an existing canton_id or use the next value from the sequence
-    SELECT COALESCE((SELECT id FROM canton WHERE canton_name = pcCantonN), sCanton.NEXTVAL)
-    INTO canton_id
-    FROM dual;
-    -- Insert the data into the continent table
-    INSERT INTO canton (id, id_province,canton_name)
-    VALUES (canton_id,province_id, pcCantonN); 
---========================DISTRICT================================   
-    -- Attempt to find an existing district_id or use the next value from the sequence
-    SELECT COALESCE((SELECT id FROM district WHERE district_name = pcDistrictN), sDistrict.NEXTVAL)
-    INTO district_id
-    FROM dual;
-    -- Insert the data into the continent table
-    INSERT INTO district (id,district_name,id_canton)
-    VALUES (district_id,pcDistrictN, canton_id); 
+    FROM continent
+    WHERE continent_name = pcContinentN;
 
-    -- Commit the transaction
-    COMMIT;
+-- Insert the data into the continent table if continent_id is NULL
+    IF continent_id IS NULL THEN
+      INSERT INTO continent (id, continent_name)
+      VALUES (sContinent.NEXTVAL, pcContinentN);
+    END IF;
+      
+--======================COUNTRY===================================
+    SELECT id
+    INTO country_id
+    FROM country
+    WHERE country_name = pcCountryN;
+
+-- Insert the data into the country table if continent_id is NULL
+    IF country_id IS NULL THEN
+      INSERT INTO country (id, id_continent,COUNTRY_NAME)
+      VALUES (sCountry.NEXTVAL,(select id from continent where continent.continent_name = pcContinentN), pcCountryN);
+    END IF;
+      
+--========================PROVINCE================================  
+    SELECT id
+    INTO province_id
+    FROM province
+    WHERE province_name = pcProvinceN;
+
+-- Insert the data into the province table if continent_id is NULL
+    IF province_id IS NULL THEN
+      INSERT INTO province (id, id_country,province_name)
+      VALUES (sProvince.NEXTVAL,(select id from country where country.country_name = pcCountryN), pcProvinceN);
+    END IF;
+
+--==========================CANTON================================   
+    SELECT id
+    INTO canton_id
+    FROM canton
+    WHERE canton_name = pcCantonN;
+
+-- Insert the data into the province table if continent_id is NULL
+    IF canton_id IS NULL THEN
+      INSERT INTO canton (id, id_province,canton_name)
+      VALUES (sCanton.NEXTVAL,(select id from province where province.province_name = pcProvinceN), pcCantonN);
+    END IF;
+
+--========================DISTRICT================================   
+    SELECT id
+    INTO district_id
+    FROM district
+    WHERE district_name = pcDistrictN;
+
+-- Insert the data into the province table if continent_id is NULL
+    IF district_id IS NULL THEN
+      INSERT INTO district (id,district_name,id_canton)
+      VALUES (sDistrict.NEXTVAL,(select id from canton where canton.canton_name = pcCantonN), pcDistrictN);
+    END IF;
+COMMIT;
 --================================================================   
 
 EXCEPTION
@@ -81,6 +98,7 @@ BEGIN
     VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
   --  
     insertAddress(pcContinentN,pcCountryN,pcProvinceN,pcCantonN,pcDistrictN);
+    commit;
     
     INSERT INTO personxdistrict (id_person, id_district)
     VALUES (sPerson.currval,
