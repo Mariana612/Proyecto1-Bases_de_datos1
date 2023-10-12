@@ -9,13 +9,16 @@ package proyectobd;
  * @author marie
  */
 import BD.CallProcedureInPackage;
+import Views.Login;
 public class ProyectoBD {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        CallProcedureInPackage.callInsertPerson("SampleDistrict", "SampleCanton", "SampleProvince", "SampleCountry", "SampleContinent", "John", "Doe", "JohnSmith", "DoeJr", "abcdedasdas", "abcdedasdas");
+        // CallProcedureInPackage.callInsertPerson("SampleDistrict", "SampleCanton", "SampleProvince", "SampleCountry", "SampleContinent", "John", "Doe", "JohnSmith", "DoeJr", "abcdedasdas", "abcdedasdas");
+        Login mainWindow = new Login(); 
+        mainWindow.setVisible(true); 
     }
     
 }

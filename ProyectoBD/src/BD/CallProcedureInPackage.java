@@ -18,10 +18,10 @@ public class CallProcedureInPackage {
 
         try {
             // Establece la conexión a la base de datos utilizando la clase ConnectionDB
-            ConnectionDB conn = new ConnectionDB();
+            ConnectionDB connection = new ConnectionDB();
             // Llama al procedimiento almacenado en el paquete
             String procedureCall = "{call createUser.insertPerson(?,?,?,?,?,?,?,?,?,?,?)}";
-            callableStatement = conn.conn.prepareCall(procedureCall);
+            callableStatement = connection.conn.prepareCall(procedureCall);
 
             // Configura los parámetros del procedimiento almacenado
             callableStatement.setString(1, pcDistrictN);
