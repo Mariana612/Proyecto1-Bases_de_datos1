@@ -15,6 +15,7 @@ public class Proyecto1BD {
 
     public static void main(String[] args) throws SQLException{
         // System.out.println("Hello World!");
-        ConnectDB.insertPerson("San Antonio", "Coronado", "San Jose", "Costa Rica", "Centroamerica", "Juanito", "Antonio", "Sanchez", "Soto"); 
+        // ConnectDB.insertPerson("San Antonio", "Coronado", "San Jose", "Costa Rica", "Centroamerica", "Juanito", "Antonio", "Sanchez", "Soto"); 
+        ConnectDB.agregarPerson("Juan", "Antonio", "Santos", "Valdez"); 
     }
 }

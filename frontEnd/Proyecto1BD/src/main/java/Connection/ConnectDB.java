@@ -49,4 +49,21 @@ public class ConnectDB {
         state.setString(9, second_lastname);
         state.execute();
     }
+    
+    public static void agregarPerson(String firstName, String middleName, String firstLastname, String secondLastname) throws SQLException{
+        String host = "jdbc:oracle:thin:@localhost:1521:daniela"; 
+        String userNameDB = "PR1"; 
+        String userPasswordDb = "PR1"; 
+        Connection con = DriverManager.getConnection(host, userNameDB, userPasswordDb);
+        CallableStatement state = con.prepareCall("{ call testPerson(?, ?, ?, ?)}");
+        
+        state.setString(1, firstName); 
+        state.setString(2, middleName);
+        state.setString(3, firstLastname);
+        state.setString(4, secondLastname); 
+        state.execute(); 
+
+        
+
+    }
 }
