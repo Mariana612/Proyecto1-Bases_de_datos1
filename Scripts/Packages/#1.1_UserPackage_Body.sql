@@ -1,5 +1,17 @@
 -------------------------
 CREATE OR REPLACE PACKAGE BODY createUser AS
+
+PROCEDURE insertJustPerson(pFirst_name VARCHAR2, pMiddle_name VARCHAR2, pFirst_lastname VARCHAR2, pSecond_lastname VARCHAR2,
+                           pUsername VARCHAR2, pPassword VARCHAR2, pEmail VARCHAR2)
+IS 
+BEGIN
+    INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
+    VALUES (sPerson.NEXTVAL, pFirst_name, pMiddle_name, pFirst_lastname, pSecond_lastname);
+    createUserPerson(pUsername, pPassword); 
+    insertEmail(sPerson.CURRVAL, pEmail); 
+    COMMIT;
+END; 
+
 ---------------------------------------------------------------------------
 -------------------------------INSERT ADRESS-------------------------------
 PROCEDURE insertAddress(
@@ -74,6 +86,9 @@ BEGIN
   --
     INSERT INTO user_password(id, id_user,name_type)
     VALUES (sUserPassword.NEXTVAL, sUser.CURRVAL, pcPassword);
+    
+    INSERT INTO user_type(id_user_type, id_user, name_type)
+    VALUES (sUserType.NEXTVAL, sUser.CURRVAL, 'Normal');
     COMMIT;
 END;
 ---------------------------------------------------------------------------
@@ -81,7 +96,8 @@ END;
 PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
           pcProvinceN VARCHAR2, pcCountryN VARCHAR2, pcContinentN VARCHAR2, 
           pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
-          pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2)
+          pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2,
+          pcEmail VARCHAR2)
 IS
 BEGIN
     INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
@@ -89,6 +105,7 @@ BEGIN
   --  
     insertAddress(pcContinentN,pcCountryN,pcProvinceN,pcCantonN,pcDistrictN);
     createUserPerson(pcUsername, pcPassword);
+    insertEmail(sPerson.CURRVAL, pcEmail); 
     INSERT INTO personxdistrict (id_person, id_district)
     VALUES (sPerson.currval,
         (SELECT id FROM district WHERE district_name = pcDistrictN)
