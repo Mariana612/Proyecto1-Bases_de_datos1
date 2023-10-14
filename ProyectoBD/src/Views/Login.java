@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author fabia
+ * @author fabian
  */
 public class Login extends javax.swing.JFrame {
 
@@ -271,6 +271,9 @@ public class Login extends javax.swing.JFrame {
         String pass = passwordTextfield.getText();
         System.out.println(user);
         System.out.println(pass);
+        if(user.equals("admin") || pass.equals("admin")){
+            // aca va donde se devuelve el tipo de usuario que es
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
