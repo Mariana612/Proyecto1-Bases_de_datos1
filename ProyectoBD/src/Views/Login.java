@@ -4,8 +4,8 @@
  */
 package Views;
 
-import java.awt.CardLayout;
-import javax.swing.JPanel;
+import BD.LoginFunctions;
+
 
 /**
  *
@@ -16,15 +16,9 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    private JPanel cardPanel; 
-    private CardLayout cardLayout; 
+
     public Login() {
-        cardPanel = new JPanel(); 
-        cardLayout = new CardLayout(); 
-        cardPanel.setLayout(cardLayout); 
-        SignUp signUpPanel = new SignUp(); 
-        
-        cardPanel.add(signUpPanel, "SignUpPanel"); 
+
         initComponents();
     }
 
@@ -65,7 +59,10 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 255));
+        setMaximumSize(new java.awt.Dimension(840, 635));
+        setMinimumSize(new java.awt.Dimension(840, 635));
         setPreferredSize(new java.awt.Dimension(840, 635));
+        setSize(new java.awt.Dimension(840, 635));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -271,8 +268,16 @@ public class Login extends javax.swing.JFrame {
         String pass = passwordTextfield.getText();
         System.out.println(user);
         System.out.println(pass);
-        if(user.equals("admin") || pass.equals("admin")){
-            // aca va donde se devuelve el tipo de usuario que es
+        boolean res = LoginFunctions.validateInput(user, pass);
+        System.out.println(res);
+        if(res){
+            String userType = LoginFunctions.loginType(user, pass);
+            System.out.println(userType);
+            if(userType.equals("Normal")){
+                NormalUserMain normalWindow = new NormalUserMain();
+                normalWindow.setVisible(true);
+                dispose();
+            }
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
