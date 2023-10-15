@@ -16,7 +16,8 @@ public class ProyectoBD {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // CallProcedureInPackage.callInsertPerson("SampleDistrict", "SampleCanton", "SampleProvince", "SampleCountry", "SampleContinent", "John", "Doe", "JohnSmith", "DoeJr", "abcdedasdas", "abcdedasdas");
+        //CallProcedureInPackage.createJustPerson("Julio", "Rafael", "Jaramillo", "Guzman", "julioAOO", "motica12", "julio@gmail.com");
+        //CallProcedureInPackage.callCreateUserPerson("Benito", "bad123");
         Login mainWindow = new Login(); 
         mainWindow.setVisible(true); 
     }
