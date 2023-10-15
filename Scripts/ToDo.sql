@@ -3,7 +3,7 @@
 * se agrega la columna id
 */
 
-
+/*
 DROP TABLE user_type
 
 -------------------------------------------
@@ -52,3 +52,4 @@ IS
 ALTER TABLE email MODIFY email_text VARCHAR2(30);
 
 ALTER TABLE email DROP CONSTRAINT email_emailtext_format
+*/ 

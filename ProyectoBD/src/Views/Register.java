@@ -4,6 +4,10 @@
  */
 package Views;
 
+import BD.LoginFunctions;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author marie
@@ -15,6 +19,15 @@ public class Register extends javax.swing.JFrame {
      */
     public Register() {
         initComponents();
+        requiredFieldLabel.setVisible(false); 
+
+    }
+    
+    public static boolean checkEmail(String address){
+        String regExpression = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(regExpression);
+        Matcher checkMatch = pattern.matcher(address);
+        return checkMatch.matches();
     }
 
     /**
@@ -51,9 +64,11 @@ public class Register extends javax.swing.JFrame {
         usernameLabel1 = new javax.swing.JLabel();
         passwordTextfield = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        requiredFieldLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(839, 635));
+        setSize(new java.awt.Dimension(840, 635));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setMaximumSize(new java.awt.Dimension(840, 635));
@@ -76,7 +91,6 @@ public class Register extends javax.swing.JFrame {
 
         nameTextfield.setBackground(new java.awt.Color(102, 0, 102));
         nameTextfield.setForeground(new java.awt.Color(153, 153, 153));
-        nameTextfield.setText("Type your first name");
         nameTextfield.setBorder(null);
         nameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +104,6 @@ public class Register extends javax.swing.JFrame {
 
         middlenameTextfield.setBackground(new java.awt.Color(102, 0, 102));
         middlenameTextfield.setForeground(new java.awt.Color(153, 153, 153));
-        middlenameTextfield.setText("Type your middle name");
         middlenameTextfield.setBorder(null);
         middlenameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +117,6 @@ public class Register extends javax.swing.JFrame {
 
         firstLastNameTextfield.setBackground(new java.awt.Color(102, 0, 102));
         firstLastNameTextfield.setForeground(new java.awt.Color(153, 153, 153));
-        firstLastNameTextfield.setText("Type your last name");
         firstLastNameTextfield.setBorder(null);
         firstLastNameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +130,6 @@ public class Register extends javax.swing.JFrame {
 
         secondLastNameTextfield.setBackground(new java.awt.Color(102, 0, 102));
         secondLastNameTextfield.setForeground(new java.awt.Color(153, 153, 153));
-        secondLastNameTextfield.setText("Type your last name");
         secondLastNameTextfield.setBorder(null);
         secondLastNameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +143,6 @@ public class Register extends javax.swing.JFrame {
 
         emailTextfield.setBackground(new java.awt.Color(102, 0, 102));
         emailTextfield.setForeground(new java.awt.Color(153, 153, 153));
-        emailTextfield.setText("Type your last name");
         emailTextfield.setBorder(null);
         emailTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +235,7 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(TitleLabel)
                 .addGap(29, 29, 29)
                 .addComponent(PersonjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(204, 153, 255));
@@ -294,6 +304,11 @@ public class Register extends javax.swing.JFrame {
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
+        requiredFieldLabel.setBackground(new java.awt.Color(255, 255, 255));
+        requiredFieldLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        requiredFieldLabel.setForeground(new java.awt.Color(255, 51, 51));
+        requiredFieldLabel.setText("The fields with * are required!");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -301,7 +316,11 @@ public class Register extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -310,7 +329,9 @@ public class Register extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(355, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -363,13 +384,28 @@ public class Register extends javax.swing.JFrame {
         String email = emailTextfield.getText(); 
         String username = usernameTextfield.getText(); 
         String password = passwordTextfield.getText(); 
-        System.out.println(firstName);
-        System.out.println(middleName);
-        System.out.println(firstLastname);
-        System.out.println(secondLastname);
-        System.out.println(email);
-        System.out.println(username);
-        System.out.println(password);
+        if (!firstName.isEmpty() || !firstLastname.isEmpty() || !email.isEmpty() || !username.isEmpty() || !password.isEmpty()){
+            if(checkEmail(email)){
+                System.out.println(firstName);
+                System.out.println(middleName);
+                System.out.println(firstLastname);
+                System.out.println(secondLastname);
+                System.out.println(email);
+                System.out.println(username);
+                System.out.println(password);
+                LoginFunctions.createJustPerson(firstName, middleName, firstLastname, secondLastname, username, password, email); 
+            }
+            else { 
+                requiredFieldLabel.setText("Email format is not valid");
+                requiredFieldLabel.setVisible(true);
+            }
+        }
+        else {
+            requiredFieldLabel.setText("Fields with * are required!");
+            requiredFieldLabel.setVisible(true);
+        }
+        // Preguntar si esto se vale o si tiene que ser directamente en SQL 
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -429,6 +465,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField middlenameTextfield;
     private javax.swing.JTextField nameTextfield;
     private javax.swing.JTextField passwordTextfield;
+    private javax.swing.JLabel requiredFieldLabel;
     private javax.swing.JTextField secondLastNameTextfield;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel usernameLabel1;

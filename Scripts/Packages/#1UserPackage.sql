@@ -2,7 +2,7 @@ CREATE OR REPLACE PACKAGE createUser IS
 
 -- CREATE USER PROCEDURES
 PROCEDURE insertJustPerson(pFirst_name VARCHAR2, pMiddle_name VARCHAR2, pFirst_lastname VARCHAR2, pSecond_lastname VARCHAR2,
-                           pUsername VARCHAR2, pPassword VARCHAR2);
+                           pUsername VARCHAR2, pPassword VARCHAR2, pEmail VARCHAR2);
 PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
           pcProvinceN VARCHAR2, pcCountryN VARCHAR2, pcContinentN VARCHAR2, 
           pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 

@@ -1,0 +1,4 @@
+CREATE OR REPLACE PACKAGE loginPack IS 
+    FUNCTION validateInput(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER; 
+    FUNCTION loginMain(pUsername VARCHAR2, pPassword VARCHAR2) RETURN VARCHAR2;
+END loginPack;
