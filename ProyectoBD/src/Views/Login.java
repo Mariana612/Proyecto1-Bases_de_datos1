@@ -70,7 +70,6 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Username:");
 
-        usernameTextfield.setBackground(new java.awt.Color(255, 255, 255));
         usernameTextfield.setForeground(new java.awt.Color(51, 51, 51));
         usernameTextfield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         usernameTextfield.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +82,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Password:");
 
-        passwordTextfield.setBackground(new java.awt.Color(255, 255, 255));
         passwordTextfield.setForeground(new java.awt.Color(51, 51, 51));
         passwordTextfield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         passwordTextfield.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +101,6 @@ public class Login extends javax.swing.JFrame {
         });
 
         loginLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        loginLabel1.setForeground(new java.awt.Color(0, 0, 0));
         loginLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginLabel1.setText("Login");
         loginLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -157,7 +154,6 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Don't have an account?");
 
-        registerButton.setBackground(new java.awt.Color(255, 255, 255));
         registerButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         registerButton.setForeground(new java.awt.Color(102, 0, 102));
         registerButton.setText("Register");
@@ -284,6 +280,7 @@ public class Login extends javax.swing.JFrame {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         Register registerWindow = new Register(); 
         registerWindow.setVisible(true); 
+        this.setVisible(false);
         // cardLayout.show(cardPanel, "SignUpPanel"); 
         
     }//GEN-LAST:event_registerButtonActionPerformed
