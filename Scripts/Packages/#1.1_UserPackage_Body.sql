@@ -1,5 +1,8 @@
+SET SERVEROUTPUT ON 
+
 -------------------------
 CREATE OR REPLACE PACKAGE BODY createUser AS
+
 ---------------------------------------------------------------------------
 -------------------------------INSERT ADRESS-------------------------------
 PROCEDURE insertAddress(
@@ -58,7 +61,10 @@ WHEN NOT MATCHED THEN
   VALUES (sDistrict.NEXTVAL, src.district_name, (SELECT id FROM canton WHERE canton_name = pcCantonN));
 --  
 
+
 EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Error: Cannot insert null data. Please provide valid values.');
     WHEN OTHERS THEN
         -- Handle exceptions if any errors occur during insertion
         ROLLBACK;
@@ -83,7 +89,9 @@ PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
           pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
           pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2)
 IS
+
 BEGIN
+
     INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
     VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
   --  
@@ -93,7 +101,14 @@ BEGIN
     VALUES (sPerson.currval,
         (SELECT id FROM district WHERE district_name = pcDistrictN)
     );
-    COMMIT;      
+    COMMIT;   
+EXCEPTION
+    WHEN null_data_exception THEN
+      DBMS_OUTPUT.PUT_LINE('Error: Cannot insert null data. Please provide valid values.');
+    WHEN OTHERS THEN
+        -- Handle exceptions if any errors occur during insertion
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
 END;
 ---------------------------------------------------------------------------
 ------------------------------INSERT TELEPHONE-----------------------------
