@@ -37,7 +37,6 @@ public class SelectSignUp extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 635));
         setMinimumSize(new java.awt.Dimension(840, 635));
-        setPreferredSize(new java.awt.Dimension(840, 635));
         setResizable(false);
         setSize(new java.awt.Dimension(840, 635));
 
@@ -47,7 +46,6 @@ public class SelectSignUp extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Select the type of User: ");
 
         individualRadioBtn.setBackground(new java.awt.Color(255, 255, 255));
@@ -160,7 +158,9 @@ public class SelectSignUp extends javax.swing.JFrame {
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         if(associationRadioBtn.isSelected()){
-            System.out.println("Association");
+            RegisterAssociation regAssoWindow = new RegisterAssociation(); 
+            regAssoWindow.setVisible(true);
+            dispose();
         }
         else if(individualRadioBtn.isSelected()){
             Register regWindow = new Register(); 
