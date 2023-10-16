@@ -33,3 +33,4 @@ IS
 COMMENT ON COLUMN user_password.name_type
 IS
 'Contraseña de usuario';
+

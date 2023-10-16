@@ -4,6 +4,7 @@ CREATE TABLE user_person
 (
        id NUMBER(6),                --PK
        id_person NUMBER(6),         --FK
+       id_user_type  NUMBER(6),     --FK
        username VARCHAR2(20) CONSTRAINT userPerson_username_nn UNIQUE NOT NULL,
        
        CHECK (LENGTH(username) >= 6 AND LENGTH(username) <= 20), -- Username lencht between 6 and 20
@@ -23,6 +24,10 @@ STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 ALTER TABLE user_person
 ADD CONSTRAINT FK_userPerson_idperson
 FOREIGN KEY (id_person) REFERENCES person(id);
+--
+ALTER TABLE user_person
+ADD CONSTRAINT FK_userPerson_idUserType
+FOREIGN KEY (id_user_type) REFERENCES user_type(id);
 
 --comments--
 COMMENT ON TABLE user_person
@@ -34,6 +39,10 @@ IS
 COMMENT ON COLUMN user_person.id_person
 IS
 'Identificador de la persona';
+COMMENT ON COLUMN user_person.id_user_type
+IS
+'Identificador del tipo de usuario';
 COMMENT ON COLUMN user_person.username
 IS
 'Nombre de usuario';
+
