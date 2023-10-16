@@ -22,7 +22,7 @@ public class ConnectionDB {
     private void conectar(){
         try {
             Class.forName("oracle.jdbc.OracleDriver"); //DRIVER
-            url = "jdbc:oracle:thin:@localhost:1521:daniela";
+            url = "jdbc:oracle:thin:@localhost:1521:daniela"; // Git ignored
             user = "PR1";
             pass = "PR1";
             conn  = DriverManager.getConnection(url, user, pass);
