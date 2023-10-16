@@ -5,6 +5,7 @@
 package Views;
 
 import BD.LoginFunctions;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -278,10 +279,31 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        Register registerWindow = new Register(); 
-        registerWindow.setVisible(true); 
-        this.setVisible(false);
-        // cardLayout.show(cardPanel, "SignUpPanel"); 
+        String[] opciones = {"Regular", "Association"};
+
+        // Mostrar un cuadro de diálogo de selección de opción
+        int seleccion = JOptionPane.showOptionDialog(
+            null,                    // Componente padre (en este caso, ninguno)
+            "Choose an account:",  // Mensaje
+            "Account",        // Título del cuadro de diálogo
+            JOptionPane.DEFAULT_OPTION,  // Tipo de cuadro de diálogo
+            JOptionPane.QUESTION_MESSAGE, // Icono
+            null,                    // Icono personalizado (en este caso, ninguno)
+            opciones,                // Opciones disponibles
+            opciones[0]);            // Opción predeterminada seleccionada
+
+        // Verificar la opción seleccionada por el usuario
+        if (seleccion == 0) {
+            Register registerWindow = new Register(); 
+            registerWindow.setVisible(true); 
+            this.setVisible(false);        
+        } else if (seleccion == 1) {
+            RegisterAssociation registerAssociationWindow = new RegisterAssociation(); 
+            registerAssociationWindow.setVisible(true); 
+            this.setVisible(false);
+        }
+        //hola
+        // cardLayout.show(cardPanel, "SignUpPanel"); */
         
     }//GEN-LAST:event_registerButtonActionPerformed
 

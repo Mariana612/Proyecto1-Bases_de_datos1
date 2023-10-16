@@ -1,3 +1,4 @@
+
 -------------------------------------------
 -----------------USER_TYPE-----------------
 CREATE TABLE user_type
@@ -24,6 +25,7 @@ COMMENT ON TABLE user_type
 IS
 'Repositorio para almacenar tipos de usuario';
 COMMENT ON COLUMN user_type.id_user_type IS 'Llave primaria de tabla user_type'; 
+
 COMMENT ON COLUMN user_type.id_user
 IS
 'Identificador del tipo de usuario';
