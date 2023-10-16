@@ -36,9 +36,9 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         usernameTextfield = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        passwordTextfield = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         loginLabel1 = new javax.swing.JLabel();
+        passwordTextfield = new javax.swing.JPasswordField();
         jPanelRegister = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
@@ -82,14 +82,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Password:");
 
-        passwordTextfield.setForeground(new java.awt.Color(51, 51, 51));
-        passwordTextfield.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        passwordTextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTextfieldActionPerformed(evt);
-            }
-        });
-
         loginButton.setBackground(new java.awt.Color(255, 153, 255));
         loginButton.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -109,18 +101,18 @@ public class Login extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(passwordTextfield)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameTextfield)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 64, Short.MAX_VALUE)
-                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
+                    .addComponent(usernameTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addContainerGap(94, Short.MAX_VALUE)
@@ -138,9 +130,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwordTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(40, 40, 40)
                 .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                .addGap(26, 26, 26))
+                .addGap(18, 18, 18))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(40, 40, 40)
@@ -154,9 +146,10 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Don't have an account?");
 
+        registerButton.setBackground(new java.awt.Color(255, 255, 255));
         registerButton.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         registerButton.setForeground(new java.awt.Color(102, 0, 102));
-        registerButton.setText("Register");
+        registerButton.setText("Sign Up");
         registerButton.setBorder(null);
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +221,7 @@ public class Login extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40))))
         );
@@ -255,10 +248,6 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameTextfieldActionPerformed
 
-    private void passwordTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTextfieldActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String user = usernameTextfield.getText();
         String pass = passwordTextfield.getText();
@@ -278,9 +267,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        Register registerWindow = new Register(); 
-        registerWindow.setVisible(true); 
-        this.setVisible(false);
+//        Register registerWindow = new Register(); 
+//        registerWindow.setVisible(true); 
+//        this.setVisible(false);
+          SelectSignUp selectWindow = new SelectSignUp();
+          selectWindow.setVisible(true);
+          dispose();
         // cardLayout.show(cardPanel, "SignUpPanel"); 
         
     }//GEN-LAST:event_registerButtonActionPerformed
@@ -333,7 +325,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelRegister;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel1;
-    private javax.swing.JTextField passwordTextfield;
+    private javax.swing.JPasswordField passwordTextfield;
     private javax.swing.JButton registerButton;
     private javax.swing.JTextField usernameTextfield;
     // End of variables declaration//GEN-END:variables
