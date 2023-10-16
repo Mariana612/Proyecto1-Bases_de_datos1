@@ -1,0 +1,3 @@
+CREATE OR REPLACE PACKAGE frontEndPackage IS
+    FUNCTION getCountries RETURN SYS.ODCIVARCHAR2LIST;
+END frontEndPackage;
