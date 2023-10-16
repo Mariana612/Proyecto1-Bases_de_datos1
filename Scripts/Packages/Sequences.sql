@@ -118,11 +118,11 @@ CREATE SEQUENCE sPhotoStay
   NOCACHE
   NOCYCLE; 
   
---drop sequence sPerson;
---drop sequence sContinent ;
---drop sequence sCountry ;
---drop sequence sProvince ;
---drop sequence sCanton ;
---drop sequence sDistrict ;
+drop sequence sPerson;
+drop sequence sContinent ;
+drop sequence sCountry ;
+drop sequence sProvince ;
+drop sequence sCanton ;
+drop sequence sDistrict ;
 
   
