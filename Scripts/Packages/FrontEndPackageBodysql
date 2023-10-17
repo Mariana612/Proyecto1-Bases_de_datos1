@@ -1,5 +1,0 @@
-CREATE OR REPLACE PACKAGE BODY frontEndPackage AS 
-    FUNCTION getCountries
-        
-    END;
-END frontEndPackage;

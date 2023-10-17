@@ -6,6 +6,7 @@ package BD;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /**
  *
@@ -115,4 +116,158 @@ public class LoginFunctions {
             }
         }
     }
+    public static int getAmountContinents(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getContinentAmount()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
+            
+
+            callableStatement.close();
+  
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+    
+    public static String[] getAllContinents(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getAllContinents()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getAmountContinents();
+            System.out.println("Cantidad");
+            System.out.println(listSize);
+            String[] continentList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("continent_name");
+                continentList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return continentList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
+    public static int getCountryAmountByContinent(String continentName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getCountryAmountByContinent(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setString(2, continentName);
+
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
+            
+
+            callableStatement.close();
+  
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+    
+    public static String[] getCountriesByContinent(String continentName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getCountriesByContinentName( ? )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setString(2, continentName);
+
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getCountryAmountByContinent(continentName);
+
+            String[] countryList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("country_name");
+                countryList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return countryList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
+
 }

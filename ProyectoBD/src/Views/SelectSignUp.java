@@ -163,9 +163,12 @@ public class SelectSignUp extends javax.swing.JFrame {
             dispose();
         }
         else if(individualRadioBtn.isSelected()){
-            Register regWindow = new Register(); 
-            regWindow.setVisible(true);
-            dispose();
+            SelectIndividual individualWindow = new SelectIndividual();
+            individualWindow.setVisible(true);
+            dispose(); 
+//            Register regWindow = new Register(); 
+//            regWindow.setVisible(true);
+            //dispose();
         }
     }//GEN-LAST:event_selectButtonActionPerformed
 
