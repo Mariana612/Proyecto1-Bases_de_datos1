@@ -8,7 +8,16 @@ CREATE TABLE adoption_form
        id_status NUMBER(6),                 --FK
        id_association NUMBER(6),            --FK
        id_rescuer NUMBER(6),                --FK
-       form_name VARCHAR(30) CONSTRAINT adoptionForm_name_nn NOT NULL
+       form_name VARCHAR(30) CONSTRAINT adoptionForm_name_nn NOT NULL,
+       
+       
+       own_house VARCHAR(3) CONSTRAINT own_house_bool CHECK (own_house IN ('No', 'Yes')),
+       has_authorization VARCHAR(3) CONSTRAINT authorization_bool CHECK (has_authorization IN ('No', 'Yes')),
+       purpose VARCHAR2(10 BYTE) CONSTRAINT purpose_boolean CHECK (purpose IN ('Cuido', 'Compañía')),
+       interest_in_adoption VARCHAR(50) CONSTRAINT candidate_IIA_nn NOT NULL, -- description of candidate's interest
+       accompaniment_average VARCHAR(50) CONSTRAINT candidate_AA_nn NOT NULL,
+       minimum_monthly_amount VARCHAR(50) CONSTRAINT candidate_MinMA_nn NOT NULL,
+       maximum_monthly_amount VARCHAR(50) CONSTRAINT candidate_MaxMa_nn NOT NULL
 );
 
 --alters--
@@ -67,3 +76,7 @@ IS
 COMMENT ON COLUMN adoption_form.form_name
 IS
 'Nombre del formulario';
+
+
+
+

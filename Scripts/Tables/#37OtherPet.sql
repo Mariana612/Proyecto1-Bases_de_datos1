@@ -3,7 +3,7 @@
 CREATE TABLE other_pet
 (
        id NUMBER(6),                --PK
-       id_candidate NUMBER(6),      --FK
+       id_adoptionForm NUMBER(6),      --FK
        date_adopted DATE
 );
 
@@ -19,7 +19,7 @@ STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 --FK
 ALTER TABLE other_pet
 ADD CONSTRAINT FK_PQT_idCandidate
-FOREIGN KEY (id_candidate) REFERENCES candidate(id_physical);
+FOREIGN KEY (id_adoptionForm) REFERENCES adoption_form(id);
 
 --comments--
 COMMENT ON TABLE other_pet
@@ -29,7 +29,7 @@ IS
 COMMENT ON COLUMN other_pet.id
 IS
 'Identificador de la mascota';
-COMMENT ON COLUMN other_pet.id_candidate
+COMMENT ON COLUMN other_pet.id_adoptionForm
 IS
 'Identificador del candidato';
 COMMENT ON COLUMN other_pet.date_adopted
