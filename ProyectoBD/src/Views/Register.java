@@ -25,6 +25,7 @@ public class Register extends javax.swing.JFrame {
     
     public Register(String userType) {
         initComponents();
+        userTypeLabel.setText(userType);
     }
     
     public static boolean checkEmail(String address){

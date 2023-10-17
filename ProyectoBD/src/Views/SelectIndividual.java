@@ -303,18 +303,25 @@ public class SelectIndividual extends javax.swing.JFrame {
     }//GEN-LAST:event_fosterRadioBtnActionPerformed
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
+        String uType; 
         if(rescuerRadioBtn.isSelected()){
-            System.out.println("Rescuer");
+            uType = "Rescue";
         }
         else if(candidateRadioBtn.isSelected()){
-            System.out.println("candidate");
+            uType = "Candidate";
         }
         else if(ownerRadioBtn.isSelected()){
-            System.out.println("owner");
+            uType = "Owner";
         }
         else if(fosterRadioBtn.isSelected()){
-            System.out.println("foster");
+            uType = "Foster";
         }
+        else{
+            uType = "";
+        }
+        Register regWindow = new Register(uType);
+        regWindow.setVisible(true);
+        
     }//GEN-LAST:event_selectButtonActionPerformed
 
     /**
@@ -365,10 +372,6 @@ public class SelectIndividual extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JPanel ownerPanel;
     private javax.swing.JRadioButton ownerRadioBtn;
     private javax.swing.JPanel rescuerPanel;
