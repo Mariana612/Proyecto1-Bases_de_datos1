@@ -269,5 +269,48 @@ public class LoginFunctions {
         }
     } 
 
+    public static String[] CostaRicanProvinces(String countryName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getProvincesCostaRica( ? )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setString(2, countryName);
+
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = 7;
+
+            String[] provinceList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("province_name");
+                provinceList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return provinceList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
 
 }

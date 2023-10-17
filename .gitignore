@@ -5,3 +5,5 @@ ProyectoBD/src/BD/ConnectionDB.java
 *.class
 
 ProyectoBD/nbproject/private/private.properties
+
+ProyectoBD/nbproject/private/private.xml

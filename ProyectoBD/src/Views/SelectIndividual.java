@@ -301,7 +301,7 @@ public class SelectIndividual extends javax.swing.JFrame {
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
         String uType; 
         if(rescuerRadioBtn.isSelected()){
-            uType = "Rescue";
+            uType = "Rescuer";
         }
         else if(candidateRadioBtn.isSelected()){
             uType = "Candidate";

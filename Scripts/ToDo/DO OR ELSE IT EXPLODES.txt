@@ -1,0 +1,267 @@
+
+-----------------CANDIDATE-----------------
+CREATE TABLE candidate1
+(
+       id_physical NUMBER(6)               --PK & FK
+);
+--alters--
+--PK
+ALTER TABLE candidate1
+ADD 
+CONSTRAINT pk_candidate1_idPhysical PRIMARY KEY (id_physical)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE candidate1
+ADD CONSTRAINT FK_candidate1_idPhysical
+FOREIGN KEY (id_physical) REFERENCES physical_person(id_physical);
+-----------------------------------------------------------
+ALTER TABLE adoption_form DROP CONSTRAINT FK_AF_idCandidate;
+
+-- Add a new foreign key constraint referencing the "candidate1" table
+ALTER TABLE adoption_form
+ADD CONSTRAINT fk_candidate1 FOREIGN KEY (id_candidate)
+REFERENCES candidate1(id_physical);
+
+
+ALTER TABLE candidate DROP CONSTRAINT FK_candidate_idPhysical;
+ALTER TABLE candidate DROP CONSTRAINT FK_candidate_idtest;
+
+drop table photo_stay;
+drop table photo_sleep;
+drop table photo_other_pet;
+drop table other_pet;
+
+ALTER TABLE associationXcandidate DROP CONSTRAINT FK_AxC_idCandidate;
+ALTER TABLE rescuerXcandidate DROP CONSTRAINT FK_RxC_idCandidate;
+drop table candidate;
+
+-----------------CANDIDATE-----------------
+CREATE TABLE candidate
+(
+       id_physical NUMBER(6),               --PK & FK
+       id_test NUMBER(6)                   --FK
+
+);
+--alters--
+--PK
+ALTER TABLE candidate
+ADD 
+CONSTRAINT pk_candidate_idPhysical PRIMARY KEY (id_physical)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE candidate
+ADD CONSTRAINT FK_candidate_idPhysical
+FOREIGN KEY (id_physical) REFERENCES physical_person(id_physical);
+--
+ALTER TABLE candidate
+ADD CONSTRAINT FK_candidate_idtest
+FOREIGN KEY (id_test) REFERENCES personal_test(id);
+
+--comments--
+COMMENT ON TABLE candidate
+IS
+'Repositorio para almacenar información sobre las personas que son candidatas';
+
+COMMENT ON COLUMN candidate.id_physical
+IS
+'Identificador del candidato';
+
+
+ALTER TABLE adoption_form
+ADD own_house VARCHAR(3) CONSTRAINT own_house_bool CHECK (own_house IN ('No', 'Yes'));
+
+-- Add 'has_authorization' column with constraint
+ALTER TABLE adoption_form
+ADD has_authorization VARCHAR(3) CONSTRAINT authorization_bool CHECK (has_authorization IN ('No', 'Yes'));
+
+-- Add 'purpose' column with constraint
+ALTER TABLE adoption_form
+ADD purpose VARCHAR2(10) CONSTRAINT purpose_boolean CHECK (purpose IN ('Cuido', 'Compañía'));
+
+-- Add 'interest_in_adoption' column with NOT NULL constraint
+ALTER TABLE adoption_form
+ADD interest_in_adoption VARCHAR(50) CONSTRAINT adoptionF_IIA_nn NOT NULL;
+
+-- Add 'accompaniment_average' column with NOT NULL constraint
+ALTER TABLE adoption_form
+ADD accompaniment_average VARCHAR(50) CONSTRAINT adoptionF_AA_nn NOT NULL;
+
+-- Add 'minimum_monthly_amount' column with NOT NULL constraint
+ALTER TABLE adoption_form
+ADD minimum_monthly_amount VARCHAR(50) CONSTRAINT adoptionF_MinMA_nn NOT NULL;
+
+-- Add 'maximum_monthly_amount' column with NOT NULL constraint
+ALTER TABLE adoption_form
+ADD maximum_monthly_amount VARCHAR(50) CONSTRAINT adoptionF_MaxMa_nn NOT NULL;
+
+-----------
+ALTER TABLE adoption_form DROP CONSTRAINT fk_candidate1;
+
+-- Add a new foreign key constraint referencing the "candidate1" table
+ALTER TABLE adoption_form
+ADD CONSTRAINT fk_candidate FOREIGN KEY (id_candidate)
+REFERENCES candidate(id_physical);
+
+
+drop table candidate1;
+
+-------------------------------------------
+-----------------PHOTO_STAY----------------
+CREATE TABLE photo_stay
+(
+       id NUMBER(6),                --PK
+       id_adoptionForm NUMBER(6),      --FK
+       picture_path VARCHAR2(255)   --Path for the photo
+);
+
+--alters--
+--PK
+ALTER TABLE photo_stay
+ADD 
+CONSTRAINT pk_photostay PRIMARY KEY (id)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE photo_stay
+ADD CONSTRAINT FK_photostay_idCandidate
+FOREIGN KEY (id_adoptionForm) REFERENCES adoption_form(id);
+
+--comments--
+COMMENT ON TABLE photo_stay
+IS
+'Repositorio para guardar las fotos donde se va a quedar la mascota';
+
+COMMENT ON COLUMN photo_stay.id
+IS
+'Identificador de la foto';
+COMMENT ON COLUMN photo_stay.id_adoptionForm
+IS
+'Identificador del adoption_form';
+COMMENT ON COLUMN photo_stay.picture_path
+IS
+'Path de la foto';
+
+-------------------------------------------
+----------------PHOTO_SLEEP----------------
+CREATE TABLE photo_sleep
+(
+       id NUMBER(6),                --PK
+       id_adoptionForm NUMBER(6),      --FK
+       picture_path VARCHAR2(255)   --Path for the photo
+);
+
+--alters--
+--PK
+ALTER TABLE photo_sleep
+ADD 
+CONSTRAINT pk_photoSleep PRIMARY KEY (id)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE photo_sleep
+ADD CONSTRAINT FK_pk_photoSleep_idCandidate
+FOREIGN KEY (id_adoptionForm) REFERENCES adoption_form(id);
+
+--comments--
+COMMENT ON TABLE photo_sleep
+IS
+'Repositorio para guardar las fotos donde se va a dormir la mascota';
+
+COMMENT ON COLUMN photo_sleep.id
+IS
+'Identificador de la foto';
+COMMENT ON COLUMN photo_sleep.id_adoptionForm
+IS
+'Identificador del candidato';
+COMMENT ON COLUMN photo_sleep.picture_path
+IS
+'Path de la foto';
+
+-------------------------------------------
+-----------------OTHER_PET-----------------
+CREATE TABLE other_pet
+(
+       id NUMBER(6),                --PK
+       id_adoptionForm NUMBER(6),      --FK
+       date_adopted DATE
+);
+
+--alters--
+--PK
+ALTER TABLE other_pet
+ADD 
+CONSTRAINT pk_otherPet PRIMARY KEY (id)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE other_pet
+ADD CONSTRAINT FK_PQT_idCandidate
+FOREIGN KEY (id_adoptionForm) REFERENCES adoption_form(id);
+
+--comments--
+COMMENT ON TABLE other_pet
+IS
+'Repositorio para guardar la información sobre otras mascotas';
+
+COMMENT ON COLUMN other_pet.id
+IS
+'Identificador de la mascota';
+COMMENT ON COLUMN other_pet.id_adoptionForm
+IS
+'Identificador del candidato';
+COMMENT ON COLUMN other_pet.date_adopted
+IS
+'Fecha de adopción de la mascota';
+
+-------------------------------------------
+------------PHOTO_OTHER_PET----------------
+CREATE TABLE photo_other_pet
+(
+       id NUMBER(6),                --PK
+       id_otherPet NUMBER(6),       --FK
+       picture_path VARCHAR2(255)   --Path for the photo
+);
+
+--alters--
+--PK
+ALTER TABLE photo_other_pet
+ADD 
+CONSTRAINT pk_POP PRIMARY KEY (id)
+USING INDEX
+TABLESPACE Proyecto1_ind PCTFREE 20
+STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
+
+--FK
+ALTER TABLE photo_other_pet
+ADD CONSTRAINT FK_POP_idOtherPet
+FOREIGN KEY (id_otherPet) REFERENCES other_pet(id);
+
+--comments--
+COMMENT ON TABLE photo_other_pet
+IS
+'Repositorio para guardar las fotos de otras mascotas';
+
+COMMENT ON COLUMN photo_other_pet.id
+IS
+'Identificador de la foto';
+COMMENT ON COLUMN photo_other_pet.id_otherPet
+IS
+'Identificador de la mascota';
+COMMENT ON COLUMN photo_other_pet.picture_path
+IS
+'Path de la foto';
+
+
+
