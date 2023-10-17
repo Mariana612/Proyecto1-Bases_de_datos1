@@ -312,5 +312,80 @@ public class LoginFunctions {
         }
     } 
 
+    public static int getCantonAmount(String provinceName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getCantonsProvAmount(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setString(2, provinceName);
 
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
+            
+
+            callableStatement.close();
+  
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+    
+    public static String[] cantonPerProvinces(String provinceName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getCantonsProvince( ? )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setString(2, provinceName);
+
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getCantonAmount(provinceName);
+
+            String[] cantonList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("canton_name");
+                cantonList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return cantonList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
 }

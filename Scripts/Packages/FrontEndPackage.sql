@@ -6,4 +6,6 @@ CREATE OR REPLACE PACKAGE frontEndPackage IS
     FUNCTION getCountriesByContinentName(pContinentName VARCHAR2) RETURN SYS_REFCURSOR;
     FUNCTION getCountryAmountByContinent(pContinentName VARCHAR2) RETURN NUMBER;
     FUNCTION getProvincesCostaRica(pCountry VARCHAR2) RETURN SYS_REFCURSOR;
+    FUNCTION getCantonsProvince(pProvince VARCHAR2) RETURN SYS_REFCURSOR;
+    FUNCTION getCantonsProvAmount(pProvince VARCHAR2) RETURN NUMBER;
 END frontEndPackage;

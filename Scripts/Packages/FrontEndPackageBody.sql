@@ -95,5 +95,43 @@ CREATE OR REPLACE PACKAGE BODY frontEndPackage AS
         CLOSE costaRicanCursor;
     END getProvincesCostaRica;
     
+    FUNCTION getCantonsProvince(pProvince VARCHAR2)
+    RETURN SYS_REFCURSOR
+    AS
+        provinceCursor SYS_REFCURSOR;
+    BEGIN 
+        OPEN provinceCursor FOR
+        SELECT c.canton_name FROM canton c 
+        INNER JOIN province p
+        ON c.id_province = p.id
+        WHERE p.province_name = pProvince;
+        RETURN provinceCursor;
+        CLOSE provinceCursor;
+    END getCantonsProvince;
+    
+/*
+    vIdContinent NUMBER(10);
+    BEGIN
+        SELECT id 
+        INTO vIdContinent
+        FROM continent
+        WHERE continent_name = pContinent;
+        RETURN vIdContinent;
+    END getContinentId;
+*/
+    FUNCTION getCantonsProvAmount(pProvince VARCHAR2)
+    RETURN NUMBER 
+    IS 
+        vProvince NUMBER(10);
+    BEGIN
+        SELECT COUNT(*) 
+        INTO vProvince
+        FROM province p 
+        INNER JOIN canton c
+        ON c.id_province = p.id
+        WHERE p.province_name = pProvince;
+        RETURN vProvince;
+    END getCantonsProvAmount;
+    
         
 END frontEndPackage;

@@ -311,6 +311,11 @@ public class Register extends javax.swing.JFrame {
         provinceComboBox.setBackground(new java.awt.Color(0, 102, 153));
         provinceComboBox.setForeground(new java.awt.Color(255, 255, 255));
         provinceComboBox.setEnabled(false);
+        provinceComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                provinceComboBoxItemStateChanged(evt);
+            }
+        });
         provinceComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -337,6 +342,20 @@ public class Register extends javax.swing.JFrame {
         cantonComboBox.setBackground(new java.awt.Color(0, 102, 153));
         cantonComboBox.setForeground(new java.awt.Color(255, 255, 255));
         cantonComboBox.setEnabled(false);
+        cantonComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cantonComboBoxItemStateChanged(evt);
+            }
+        });
+        cantonComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cantonComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
         cantonComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantonComboBoxActionPerformed(evt);
@@ -771,6 +790,25 @@ public class Register extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeVisible
+
+    private void provinceComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_provinceComboBoxItemStateChanged
+        cantonComboBox.enable(true);
+        cantonComboBox.removeAllItems();
+    }//GEN-LAST:event_provinceComboBoxItemStateChanged
+
+    private void cantonComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cantonComboBoxPopupMenuWillBecomeVisible
+        cantonComboBox.removeAllItems();
+        String selectedProvince = provinceComboBox.getSelectedItem().toString();
+        String[] cantons = LoginFunctions.cantonPerProvinces(selectedProvince);
+        for(int i = 0; i < cantons.length; i++){
+            cantonComboBox.addItem(cantons[i]);
+        }
+    }//GEN-LAST:event_cantonComboBoxPopupMenuWillBecomeVisible
+
+    private void cantonComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cantonComboBoxItemStateChanged
+        districtComboBox.enable(true);
+        districtComboBox.removeAllItems();
+    }//GEN-LAST:event_cantonComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
