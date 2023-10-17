@@ -81,5 +81,19 @@ CREATE OR REPLACE PACKAGE BODY frontEndPackage AS
         RETURN vCountries;
     END getCountryAmountByContinent;
     
+    FUNCTION getProvincesCostaRica(pCountry VARCHAR2)
+    RETURN SYS_REFCURSOR
+    AS
+        costaRicanCursor SYS_REFCURSOR;
+    BEGIN
+        OPEN costaRicanCursor FOR 
+        SELECT p.province_name FROM province p
+        INNER JOIN country c
+        ON p.id_country = c.id
+        WHERE c.country_name = pCountry;
+        RETURN costaRicanCursor;
+        CLOSE costaRicanCursor;
+    END getProvincesCostaRica;
+    
         
 END frontEndPackage;
