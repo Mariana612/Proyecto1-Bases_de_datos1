@@ -35,3 +35,5 @@ IS
 COMMENT ON COLUMN photo_other_pet.picture_path
 IS
 'Path de la foto';
+
+

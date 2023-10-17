@@ -3,7 +3,7 @@
 CREATE TABLE photo_stay
 (
        id NUMBER(6),                --PK
-       id_candidate NUMBER(6),      --FK
+       id_adoptionForm NUMBER(6),      --FK
        picture_path VARCHAR2(255)   --Path for the photo
 );
 
@@ -19,7 +19,7 @@ STORAGE (INITIAL 10K NEXT 10K PCTINCREASE 0);
 --FK
 ALTER TABLE photo_stay
 ADD CONSTRAINT FK_photostay_idCandidate
-FOREIGN KEY (id_candidate) REFERENCES candidate(id_physical);
+FOREIGN KEY (id_adoptionForm) REFERENCES adoption_form(id);
 
 --comments--
 COMMENT ON TABLE photo_stay
@@ -29,9 +29,9 @@ IS
 COMMENT ON COLUMN photo_stay.id
 IS
 'Identificador de la foto';
-COMMENT ON COLUMN photo_stay.id_candidate
+COMMENT ON COLUMN photo_stay.id_adoptionForm
 IS
-'Identificador del candidato';
+'Identificador del adoption_form';
 COMMENT ON COLUMN photo_stay.picture_path
 IS
 'Path de la foto';
