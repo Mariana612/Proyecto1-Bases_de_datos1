@@ -57,7 +57,6 @@ public class SelectIndividual extends javax.swing.JFrame {
 
         buttonGroup1.add(rescuerRadioBtn);
         rescuerRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rescuerRadioBtn.setForeground(new java.awt.Color(0, 0, 0));
         rescuerRadioBtn.setText("Rescuer");
         rescuerRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +93,6 @@ public class SelectIndividual extends javax.swing.JFrame {
 
         buttonGroup1.add(candidateRadioBtn);
         candidateRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        candidateRadioBtn.setForeground(new java.awt.Color(0, 0, 0));
         candidateRadioBtn.setText("Candidate");
         candidateRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +129,6 @@ public class SelectIndividual extends javax.swing.JFrame {
 
         buttonGroup1.add(ownerRadioBtn);
         ownerRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ownerRadioBtn.setForeground(new java.awt.Color(0, 0, 0));
         ownerRadioBtn.setText("Owner");
         ownerRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +165,6 @@ public class SelectIndividual extends javax.swing.JFrame {
 
         buttonGroup1.add(fosterRadioBtn);
         fosterRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        fosterRadioBtn.setForeground(new java.awt.Color(0, 0, 0));
         fosterRadioBtn.setText("Foster Home");
         fosterRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

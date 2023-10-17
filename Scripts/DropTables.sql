@@ -76,3 +76,4 @@ DROP TABLE country;
 DROP TABLE province;
 DROP TABLE canton;
 DROP TABLE district;
+

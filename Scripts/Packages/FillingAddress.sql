@@ -3,28 +3,28 @@
 
 
 --1
---DELETE FROM user_password;
---DELETE FROM user_type;
+DELETE FROM user_password;
+DELETE FROM user_type;
 
 --2
---DELETE FROM user_person
+DELETE FROM user_person;
 
 --3 
---DELETE FROM email;
+DELETE FROM email;
 
 --4
---DELETE FROM person;
+DELETE FROM person;
 
 --5 
---DELETE FROM district;
---DELETE FROM canton; 
---delete from province; 
---delete from country;
---delete from continent;
+DELETE FROM district;
+DELETE FROM canton; 
+delete from province; 
+delete from country;
+delete from continent;
 
 --6
---drop sequence sContinent;
-/*
+drop sequence sContinent;
+
 CREATE SEQUENCE sContinent
   START WITH 1
   INCREMENT BY 1
@@ -32,8 +32,7 @@ CREATE SEQUENCE sContinent
   MAXVALUE 100
   NOCACHE
   NOCYCLE;
-*/
-/*
+
 INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'North America');
 INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'South America');
 INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'Europe');
@@ -41,12 +40,12 @@ INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'Africa');
 INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'Asia');
 INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'Oceania');
 INSERT INTO continent(id, continent_name) VALUES (sContinent.NEXTVAL, 'Antartica');
-*/
+
 select * from continent order by id;
 
 --7
---drop sequence sCountry;
-/*
+drop sequence sCountry;
+
 CREATE SEQUENCE sCountry
   START WITH 1
   INCREMENT BY 1
@@ -54,9 +53,9 @@ CREATE SEQUENCE sCountry
   MAXVALUE 999999
   NOCACHE
   NOCYCLE;
-*/
+
 -- Assuming you have a sequence named sCountry to generate unique IDs.
-/*
+
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 'Canada');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 'United States');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 'Mexico');
@@ -80,10 +79,7 @@ INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 'Saint Lucia');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 'Saint Vincent and Grenadines');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 1, 'Grenada');
-*/
 
-
-/*
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 'Argentina');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 'Bolivia');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 'Brazil');
@@ -96,8 +92,8 @@ INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 'Suriname');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 'Uruguay');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 2, 'Venezuela');
-*/
-/*
+
+
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 'Albania');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 'Andorra');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 'Austria');
@@ -142,9 +138,8 @@ INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 'Switzerland');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 'Ukraine');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 3, 'United Kingdom');
-*/
 
-/*
+
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 'Algeria');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 'Angola');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 'Benin');
@@ -155,9 +150,8 @@ INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 'Egypt');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 'Eritrea');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 4, 'Ethiopia');
-*/
 
-/*
+
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 5, 'Afghanistan');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 5, 'Bahrain');
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 5, 'Bangladesh');
@@ -187,7 +181,7 @@ INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 6, 
 
 
 INSERT INTO country(id, id_continent, country_name) VALUES(sCountry.NEXTVAL, 7, 'Antartica');
-*/
+
 
 
 

@@ -159,7 +159,7 @@ public class Register extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Email*");
 
-        emailTextfield.setBackground(new java.awt.Color(204, 102, 0));
+        emailTextfield.setBackground(new java.awt.Color(102, 0, 102));
         emailTextfield.setForeground(new java.awt.Color(153, 153, 153));
         emailTextfield.setBorder(null);
         emailTextfield.addActionListener(new java.awt.event.ActionListener() {
