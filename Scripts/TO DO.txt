@@ -1,7 +1,0 @@
-Drop table User_type;
-Drop table User_Password;
-drop table user_person;
-
-correr codigo del sql #10UserType
-correr el codigo #9User
-correr el codigo #11Password
