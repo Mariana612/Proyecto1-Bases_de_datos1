@@ -76,31 +76,31 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         TitleLabel.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        TitleLabel.setForeground(new java.awt.Color(102, 0, 102));
+        TitleLabel.setForeground(new java.awt.Color(0, 102, 153));
         TitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TitleLabel.setText("Register Pet Rescued");
         TitleLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel4.setForeground(new java.awt.Color(0, 102, 153));
         jLabel4.setText("Energy");
 
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel5.setForeground(new java.awt.Color(0, 102, 153));
         jLabel5.setText("Training");
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel6.setForeground(new java.awt.Color(0, 102, 153));
         jLabel6.setText("Ilness");
 
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel7.setForeground(new java.awt.Color(0, 102, 153));
         jLabel7.setText("Treatment");
 
-        uploadPhotoBeforejButton.setBackground(new java.awt.Color(204, 0, 255));
+        uploadPhotoBeforejButton.setBackground(new java.awt.Color(51, 102, 255));
         uploadPhotoBeforejButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         uploadPhotoBeforejButton.setForeground(new java.awt.Color(255, 255, 255));
         uploadPhotoBeforejButton.setText("Upload photos before");
@@ -110,7 +110,7 @@ public class RegisterRescued extends javax.swing.JFrame {
             }
         });
 
-        uploadPhotoAfterjButton.setBackground(new java.awt.Color(153, 0, 153));
+        uploadPhotoAfterjButton.setBackground(new java.awt.Color(51, 102, 255));
         uploadPhotoAfterjButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         uploadPhotoAfterjButton.setForeground(new java.awt.Color(255, 255, 255));
         uploadPhotoAfterjButton.setText("Upload photos after");
@@ -121,11 +121,11 @@ public class RegisterRescued extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setForeground(new java.awt.Color(0, 102, 153));
         jLabel8.setText("Severity");
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel9.setForeground(new java.awt.Color(0, 102, 153));
         jLabel9.setText("Notes");
 
         notesjTextArea.setColumns(20);
@@ -133,31 +133,31 @@ public class RegisterRescued extends javax.swing.JFrame {
         jScrollPane1.setViewportView(notesjTextArea);
 
         jLabel11.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel11.setForeground(new java.awt.Color(0, 102, 153));
         jLabel11.setText("Continent*");
 
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel13.setForeground(new java.awt.Color(0, 102, 153));
         jLabel13.setText("Province*");
 
         jLabel14.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel14.setForeground(new java.awt.Color(0, 102, 153));
         jLabel14.setText("District*");
 
         jLabel12.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel12.setForeground(new java.awt.Color(0, 102, 153));
         jLabel12.setText("Canton*");
 
         jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel15.setForeground(new java.awt.Color(0, 102, 153));
         jLabel15.setText("Country*");
 
         requiredFieldLabel.setBackground(new java.awt.Color(255, 255, 255));
         requiredFieldLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        requiredFieldLabel.setForeground(new java.awt.Color(102, 0, 102));
+        requiredFieldLabel.setForeground(new java.awt.Color(0, 102, 153));
         requiredFieldLabel.setText("The fields with * are required!");
 
-        registerjButton2.setBackground(new java.awt.Color(255, 153, 255));
+        registerjButton2.setBackground(new java.awt.Color(0, 102, 153));
         registerjButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         registerjButton2.setForeground(new java.awt.Color(255, 255, 255));
         registerjButton2.setText("Register");
@@ -211,8 +211,10 @@ public class RegisterRescued extends javax.swing.JFrame {
                                                 .addComponent(districtComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(66, 66, 66)
                                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                                        .addGap(12, 12, 12)
+                                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(127, 127, 127)
                                         .addComponent(jLabel13)
