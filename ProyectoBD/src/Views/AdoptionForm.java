@@ -54,7 +54,7 @@ public class AdoptionForm extends javax.swing.JFrame {
 
         jLabel1.setText("ADOPTION FROM");
 
-        jPanel2.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

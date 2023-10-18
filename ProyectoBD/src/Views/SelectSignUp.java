@@ -40,7 +40,7 @@ public class SelectSignUp extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(840, 635));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(207, 232, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -71,7 +71,7 @@ public class SelectSignUp extends javax.swing.JFrame {
             }
         });
 
-        selectButton.setBackground(new java.awt.Color(204, 153, 255));
+        selectButton.setBackground(new java.awt.Color(51, 102, 255));
         selectButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         selectButton.setForeground(new java.awt.Color(255, 255, 255));
         selectButton.setText("Next > ");
