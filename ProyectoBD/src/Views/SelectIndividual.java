@@ -51,7 +51,7 @@ public class SelectIndividual extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(840, 640));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(207, 232, 255));
 
         rescuerPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -234,7 +234,7 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        selectButton.setBackground(new java.awt.Color(153, 102, 255));
+        selectButton.setBackground(new java.awt.Color(51, 102, 255));
         selectButton.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         selectButton.setForeground(new java.awt.Color(255, 255, 255));
         selectButton.setText("Next >");
