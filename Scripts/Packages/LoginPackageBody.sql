@@ -3,7 +3,6 @@ CREATE OR REPLACE PACKAGE BODY loginPack AS
     RETURN NUMBER
     IS
     userExist NUMBER; 
-    passwordExist NUMBER; 
     BEGIN
     
         SELECT COUNT(*) INTO userExist 
@@ -13,7 +12,7 @@ CREATE OR REPLACE PACKAGE BODY loginPack AS
         
 
         
-        IF userExist THEN 
+        IF userExist > 0 THEN 
             RETURN 1; 
         ELSE
             RETURN 0; 
