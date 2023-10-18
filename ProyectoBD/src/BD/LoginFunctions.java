@@ -312,5 +312,271 @@ public class LoginFunctions {
         }
     } 
 
+    public static int getCantonAmount(String provinceName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getCantonsProvAmount(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setString(2, provinceName);
 
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
+            
+
+            callableStatement.close();
+  
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+    
+    public static String[] cantonPerProvinces(String provinceName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getCantonsProvince( ? )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setString(2, provinceName);
+
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getCantonAmount(provinceName);
+
+            String[] cantonList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("canton_name");
+                cantonList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return cantonList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+    
+    public static int getDistrictAmount(String cantonName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getDistrictsCNum(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setString(2, cantonName);
+
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
+            
+
+            callableStatement.close();
+  
+            return result;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+   
+    public static String[] districtsPerCanton(String cantonName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getDistrictsCanton( ? )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setString(2, cantonName);
+
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getDistrictAmount(cantonName);
+
+            String[] cantonList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("district_name");
+                cantonList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return cantonList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
+    public static String[] getGenders(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getGender( )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = 3;
+
+            String[] genderList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("name_gender");
+                genderList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return genderList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static int getTelephoneTypeAmount(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getTelTypeAmount()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
+            
+            callableStatement.close();
+  
+            return result;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
+    
+    public static String[] getTelephoneTypes(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call frontEndPackage.getTelTypes( )}";
+            callableStatement = connection.conn.prepareCall(procedureCall);            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.execute();
+          
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getTelephoneTypeAmount();
+
+            String[] phoneList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("type_name");
+                phoneList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+            return phoneList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
