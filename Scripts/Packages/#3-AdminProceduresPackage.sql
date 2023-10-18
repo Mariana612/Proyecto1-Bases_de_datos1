@@ -2,7 +2,7 @@
 ---------------------------------------------------------------------------
 -------------------------------INSERT ADRESS-------------------------------
 CREATE OR REPLACE PACKAGE BODY adminProcedures AS
-  PROCEDURE incertUserType (pcType VARCHAR)
+  PROCEDURE insertUserType (pcType VARCHAR2)
   IS
   BEGIN
     INSERT INTO user_type (id, name_type)
@@ -92,3 +92,7 @@ END;
 ---------------------------------------------------------------------------
 END adminProcedures;
 /
+
+
+
+
