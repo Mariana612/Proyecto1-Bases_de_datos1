@@ -83,6 +83,28 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
 END;
 ---------------------------------------------------------------------------
+-------------------------------INSERT PERSON-------------------------------
+PROCEDURE insertJustPerson (pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
+          pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
+          pcUserType VARCHAR2)
+IS
+BEGIN
+
+    INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
+    VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
+  --  
+    createUserPerson(pcUsername, pcPassword, pcUserType);
+    insertEmail(sPerson.CURRVAL, pcEmail); 
+
+    COMMIT;
+EXCEPTION
+    WHEN null_data_exception THEN
+      DBMS_OUTPUT.PUT_LINE('Error: Cannot insert null data. Please provide valid values.');
+    WHEN OTHERS THEN
+        -- Handle exceptions if any errors occur during insertion
+        ROLLBACK;
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
 ------------------------------INSERT TELEPHONE-----------------------------
 PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER)
 IS

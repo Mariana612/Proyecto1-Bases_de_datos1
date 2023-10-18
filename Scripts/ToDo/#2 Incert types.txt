@@ -1,0 +1,7 @@
+BEGIN
+    adminProcedures.insertUserType('Normal');
+    adminProcedures.insertUserType('Foster_Home');
+    adminProcedures.insertUserType('Rescuer');
+    adminProcedures.insertUserType('Candidate');
+    adminProcedures.insertUserType('Owner');
+END;

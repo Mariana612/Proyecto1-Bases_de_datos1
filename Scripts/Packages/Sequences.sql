@@ -118,11 +118,28 @@ CREATE SEQUENCE sPhotoStay
   NOCACHE
   NOCYCLE; 
   
-drop sequence sPerson;
-drop sequence sContinent ;
-drop sequence sCountry ;
-drop sequence sProvince ;
-drop sequence sCanton ;
-drop sequence sDistrict ;
+  CREATE SEQUENCE sAdoptionForm
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE; 
+  
+  CREATE SEQUENCE sStatus
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE; 
+  
+  
+--drop sequence sPerson;
+--drop sequence sContinent ;
+--drop sequence sCountry ;
+--drop sequence sProvince ;
+--drop sequence sCanton ;
+--drop sequence sDistrict ;
 
   
