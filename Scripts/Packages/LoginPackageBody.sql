@@ -5,15 +5,15 @@ CREATE OR REPLACE PACKAGE BODY loginPack AS
     userExist NUMBER; 
     passwordExist NUMBER; 
     BEGIN
-        SELECT COUNT(*) INTO userExist
-        FROM user_person
-        WHERE username = pUsername;
+    
+        SELECT COUNT(*) INTO userExist 
+        FROM user_person userp
+        JOIN user_password userPass ON userp.id = userpass.id_user
+        WHERE userp.username = pUsername AND userpass.name_type = pPassword;
         
-        SELECT COUNT(*) INTO passwordExist
-        FROM user_password
-        WHERE name_type = pPassword;
+
         
-        IF userExist > 0 AND passwordExist > 0 THEN 
+        IF userExist THEN 
             RETURN 1; 
         ELSE
             RETURN 0; 
@@ -35,3 +35,4 @@ CREATE OR REPLACE PACKAGE BODY loginPack AS
         RETURN userType;
     END;
 END loginPack;
+

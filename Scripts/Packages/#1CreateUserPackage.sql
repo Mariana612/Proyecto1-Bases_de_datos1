@@ -17,5 +17,9 @@ FUNCTION getDistrictId( pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
 PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER);
 PROCEDURE insertEmail(pnIdPerson NUMBER, pcEmailText VARCHAR2);
 PROCEDURE createUserPerson(pcUsername VARCHAR2,pcPassword VARCHAR2,pcUserType VARCHAR2) ;  
-          
+
 END createUser;
+
+BEGIN
+createUser.createUserTry('prueba','algo','Normal') ;  
+END;
