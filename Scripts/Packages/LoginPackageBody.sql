@@ -23,14 +23,14 @@ CREATE OR REPLACE PACKAGE BODY loginPack AS
     FUNCTION loginMain(pUsername VARCHAR2, pPassword VARCHAR2)
     RETURN VARCHAR2
     IS
-    userType VARCHAR2(40);
+    userType VARCHAR2(20);
     BEGIN
         SELECT t.name_type INTO userType
         FROM user_person u 
         INNER JOIN user_password p 
         ON u.id = p.id_user 
         INNER JOIN user_type t
-        ON u.id = t.id_user
+        ON u.id_user_type = t.id
         WHERE u.username = pUsername AND p.name_type = pPassword;
         RETURN userType;
     END;
