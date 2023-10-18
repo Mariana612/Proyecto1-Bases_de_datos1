@@ -5,6 +5,7 @@
 package Views;
 
 import BD.LoginFunctions;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,10 +60,10 @@ public class Register extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         telephoneTextfield = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        typeofTelephonejComboBox = new javax.swing.JComboBox<>();
+        telTypeComboBox = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        genderjComboBox = new javax.swing.JComboBox<>();
+        genderLabel = new javax.swing.JLabel();
+        genderComboBox = new javax.swing.JComboBox<>();
         continentLabel = new javax.swing.JLabel();
         continentComboBox = new javax.swing.JComboBox<>();
         provinceComboBox = new javax.swing.JComboBox<>();
@@ -77,7 +78,7 @@ public class Register extends javax.swing.JFrame {
         districtComboBox = new javax.swing.JComboBox<>();
         signUpjButton = new javax.swing.JButton();
         ReturnjButton1 = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        birthDateChooser = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         usernameLabel = new javax.swing.JLabel();
         usernameTextfield = new javax.swing.JTextField();
@@ -179,11 +180,19 @@ public class Register extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Type of telephone");
 
-        typeofTelephonejComboBox.setBackground(new java.awt.Color(0, 102, 153));
-        typeofTelephonejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        typeofTelephonejComboBox.addActionListener(new java.awt.event.ActionListener() {
+        telTypeComboBox.setBackground(new java.awt.Color(0, 102, 153));
+        telTypeComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                telTypeComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        telTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeofTelephonejComboBoxActionPerformed(evt);
+                telTypeComboBoxActionPerformed(evt);
             }
         });
 
@@ -210,7 +219,7 @@ public class Register extends javax.swing.JFrame {
                             .addComponent(nameTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                             .addComponent(firstLastNameTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                             .addComponent(telephoneTextfield)
-                            .addComponent(typeofTelephonejComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(telTypeComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         PersonjPanelLayout.setVerticalGroup(
@@ -243,30 +252,31 @@ public class Register extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(typeofTelephonejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(telTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(102, 204, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel8.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Gender");
+        genderLabel.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        genderLabel.setForeground(new java.awt.Color(255, 255, 255));
+        genderLabel.setText("Gender");
 
-        genderjComboBox.setBackground(new java.awt.Color(0, 102, 153));
-        genderjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+        genderComboBox.setBackground(new java.awt.Color(0, 102, 153));
+        genderComboBox.setForeground(new java.awt.Color(255, 255, 255));
+        genderComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                genderjComboBoxPopupMenuWillBecomeVisible(evt);
+                genderComboBoxPopupMenuWillBecomeVisible(evt);
             }
         });
-        genderjComboBox.addActionListener(new java.awt.event.ActionListener() {
+        genderComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                genderjComboBoxActionPerformed(evt);
+                genderComboBoxActionPerformed(evt);
             }
         });
 
@@ -404,6 +414,15 @@ public class Register extends javax.swing.JFrame {
         districtComboBox.setBackground(new java.awt.Color(0, 102, 153));
         districtComboBox.setForeground(new java.awt.Color(255, 255, 255));
         districtComboBox.setEnabled(false);
+        districtComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                districtComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
         districtComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 districtComboBoxActionPerformed(evt);
@@ -430,13 +449,13 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        jDateChooser1.setBackground(new java.awt.Color(0, 102, 153));
+        birthDateChooser.setBackground(new java.awt.Color(0, 102, 153));
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
-        usernameLabel.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(255, 255, 255));
-        usernameLabel.setText("Username:");
+        usernameLabel.setText("Username*:");
 
         usernameTextfield.setBackground(new java.awt.Color(0, 102, 153));
         usernameTextfield.addActionListener(new java.awt.event.ActionListener() {
@@ -445,9 +464,9 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        usernameLabel1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        usernameLabel1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         usernameLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        usernameLabel1.setText("Password:");
+        usernameLabel1.setText("Password*:");
 
         passwordTextfield.setBackground(new java.awt.Color(0, 102, 153));
         passwordTextfield.addActionListener(new java.awt.event.ActionListener() {
@@ -505,14 +524,14 @@ public class Register extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(genderjComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(genderComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(birthDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 21, Short.MAX_VALUE))
                     .addComponent(districtComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(52, 52, 52)
@@ -574,11 +593,11 @@ public class Register extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(birthDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
+                .addComponent(genderLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(genderjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(164, Short.MAX_VALUE))
         );
 
@@ -657,6 +676,12 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_ReturnjButton1ActionPerformed
 
     private void signUpjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpjButtonActionPerformed
+        Date bDate = birthDateChooser.getDate();
+        String continent = continentComboBox.getSelectedItem().toString();
+        String country = countryComboBox.getSelectedItem().toString();
+        String province = provinceComboBox.getSelectedItem().toString();
+        String canton = cantonComboBox.getSelectedItem().toString();
+        String district = districtComboBox.getSelectedItem().toString();
         String firstName = nameTextfield.getText();
         String middleName = middlenameTextfield.getText();
         String firstLastname = firstLastNameTextfield.getText();
@@ -664,6 +689,7 @@ public class Register extends javax.swing.JFrame {
         String email = emailTextfield.getText();
         String username = usernameTextfield.getText();
         String password = passwordTextfield.getText();
+        String userType = userTypeLabel.getText();
         if (!firstName.isEmpty() || !firstLastname.isEmpty() || !email.isEmpty() || !username.isEmpty() || !password.isEmpty()){
             if(checkEmail(email)){
                 System.out.println(firstName);
@@ -673,7 +699,14 @@ public class Register extends javax.swing.JFrame {
                 System.out.println(email);
                 System.out.println(username);
                 System.out.println(password);
-                LoginFunctions.createJustPerson(firstName, middleName, firstLastname, secondLastname, username, password, email);
+                System.out.println(bDate);
+                System.out.println(continent);
+                System.out.println(country);
+                System.out.println(province);
+                System.out.println(canton);
+                System.out.println(district);
+                System.out.println(userType);
+                // LoginFunctions.createJustPerson(firstName, middleName, firstLastname, secondLastname, username, password, email);
             }
             else {
                 requiredFieldLabel.setText("Email format is not valid");
@@ -707,13 +740,17 @@ public class Register extends javax.swing.JFrame {
         //TODO 
     }//GEN-LAST:event_continentComboBoxActionPerformed
 
-    private void genderjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderjComboBoxActionPerformed
+    private void genderComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_genderjComboBoxActionPerformed
+    }//GEN-LAST:event_genderComboBoxActionPerformed
 
-    private void genderjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_genderjComboBoxPopupMenuWillBecomeVisible
-        // TODO
-    }//GEN-LAST:event_genderjComboBoxPopupMenuWillBecomeVisible
+    private void genderComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_genderComboBoxPopupMenuWillBecomeVisible
+        genderComboBox.removeAllItems();
+        String[] genders = LoginFunctions.getGenders();
+        for(int i = 0; i < genders.length; i++){
+            genderComboBox.addItem(genders[i]);
+        }
+    }//GEN-LAST:event_genderComboBoxPopupMenuWillBecomeVisible
 
     private void continentComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_continentComboBoxPopupMenuWillBecomeVisible
         continentComboBox.removeAllItems();
@@ -751,9 +788,9 @@ public class Register extends javax.swing.JFrame {
         provinceComboBox.removeAllItems();
     }//GEN-LAST:event_countryComboBoxItemStateChanged
 
-    private void typeofTelephonejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeofTelephonejComboBoxActionPerformed
+    private void telTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telTypeComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_typeofTelephonejComboBoxActionPerformed
+    }//GEN-LAST:event_telTypeComboBoxActionPerformed
 
     private void telephoneTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telephoneTextfieldActionPerformed
         // TODO add your handling code here:
@@ -810,6 +847,23 @@ public class Register extends javax.swing.JFrame {
         districtComboBox.removeAllItems();
     }//GEN-LAST:event_cantonComboBoxItemStateChanged
 
+    private void districtComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_districtComboBoxPopupMenuWillBecomeVisible
+        districtComboBox.removeAllItems();
+        String selectedCanton = cantonComboBox.getSelectedItem().toString();
+        String[] districts = LoginFunctions.districtsPerCanton(selectedCanton);
+        for(int i = 0; i < districts.length; i++){
+            districtComboBox.addItem(districts[i]);
+        }
+    }//GEN-LAST:event_districtComboBoxPopupMenuWillBecomeVisible
+
+    private void telTypeComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_telTypeComboBoxPopupMenuWillBecomeVisible
+        telTypeComboBox.removeAllItems();
+        String[] types = LoginFunctions.getTelephoneTypes();
+        for(int i = 0; i < types.length; i++){
+            telTypeComboBox.addItem(types[i]);
+        }
+    }//GEN-LAST:event_telTypeComboBoxPopupMenuWillBecomeVisible
+
     /**
      * @param args the command line arguments
      */
@@ -849,6 +903,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JPanel PersonjPanel;
     private javax.swing.JButton ReturnjButton1;
     private javax.swing.JLabel TitleLabel;
+    private com.toedter.calendar.JDateChooser birthDateChooser;
     private javax.swing.JComboBox<String> cantonComboBox;
     private javax.swing.JComboBox<String> continentComboBox;
     private javax.swing.JLabel continentLabel;
@@ -857,8 +912,8 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> districtComboBox;
     private javax.swing.JTextField emailTextfield;
     private javax.swing.JTextField firstLastNameTextfield;
-    private javax.swing.JComboBox<String> genderjComboBox;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox<String> genderComboBox;
+    private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
@@ -869,7 +924,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -882,8 +936,8 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel requiredFieldLabel;
     private javax.swing.JTextField secondLastNameTextfield;
     private javax.swing.JButton signUpjButton;
+    private javax.swing.JComboBox<String> telTypeComboBox;
     private javax.swing.JTextField telephoneTextfield;
-    private javax.swing.JComboBox<String> typeofTelephonejComboBox;
     private javax.swing.JLabel userTypeLabel;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel usernameLabel1;

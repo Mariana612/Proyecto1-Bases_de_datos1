@@ -317,6 +317,7 @@ public class SelectIndividual extends javax.swing.JFrame {
         }
         Register regWindow = new Register(uType);
         regWindow.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_selectButtonActionPerformed
 

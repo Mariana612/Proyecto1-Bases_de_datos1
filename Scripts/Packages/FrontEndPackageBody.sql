@@ -98,15 +98,15 @@ CREATE OR REPLACE PACKAGE BODY frontEndPackage AS
     FUNCTION getCantonsProvince(pProvince VARCHAR2)
     RETURN SYS_REFCURSOR
     AS
-        provinceCursor SYS_REFCURSOR;
+        cantonCursor SYS_REFCURSOR;
     BEGIN 
-        OPEN provinceCursor FOR
+        OPEN cantonCursor FOR
         SELECT c.canton_name FROM canton c 
         INNER JOIN province p
         ON c.id_province = p.id
         WHERE p.province_name = pProvince;
-        RETURN provinceCursor;
-        CLOSE provinceCursor;
+        RETURN cantonCursor;
+        CLOSE cantonCursor;
     END getCantonsProvince;
     
 /*
@@ -122,16 +122,76 @@ CREATE OR REPLACE PACKAGE BODY frontEndPackage AS
     FUNCTION getCantonsProvAmount(pProvince VARCHAR2)
     RETURN NUMBER 
     IS 
-        vProvince NUMBER(10);
+        vCanton NUMBER(10);
     BEGIN
         SELECT COUNT(*) 
-        INTO vProvince
-        FROM province p 
-        INNER JOIN canton c
+        INTO vCanton
+        FROM canton c 
+        INNER JOIN province p
         ON c.id_province = p.id
         WHERE p.province_name = pProvince;
-        RETURN vProvince;
+        RETURN vCanton;
     END getCantonsProvAmount;
     
-        
+    FUNCTION getDistrictsCanton(pCanton VARCHAR2)
+    RETURN SYS_REFCURSOR
+    AS
+        districtCursor SYS_REFCURSOR;
+    BEGIN
+        OPEN districtCursor FOR
+        SELECT d.district_name FROM district d
+        INNER JOIN canton c 
+        ON d.id_canton = c.id
+        WHERE c.canton_name = pCanton;
+        RETURN districtCursor; 
+        CLOSE districtCursor;
+    END getDistrictsCanton;
+    
+    FUNCTION getDistrictsCNum(pCanton VARCHAR2)
+    RETURN NUMBER 
+    IS
+        vDistrict NUMBER(10);
+    BEGIN
+        SELECT COUNT(*)
+        INTO vDistrict
+        FROM district d
+        INNER JOIN canton c
+        ON d.id_canton = c.id
+        WHERE c.canton_name = pCanton;
+        RETURN vDistrict;
+    END getDistrictsCNum;
+    
+    FUNCTION getGender
+    RETURN SYS_REFCURSOR
+    AS
+        genderCursor SYS_REFCURSOR;
+    BEGIN 
+        OPEN genderCursor FOR 
+        SELECT name_gender FROM gender;
+        RETURN genderCursor;
+        CLOSE genderCursor; 
+    END getGender;
+    
+    FUNCTION getTelTypeAmount   
+    RETURN NUMBER
+    IS 
+        vPhoneType NUMBER(10);
+    BEGIN 
+        SELECT COUNT(*)
+        INTO vPhoneType
+        FROM telephone_type;
+        RETURN vPhoneType;
+    END getTelTypeAmount;
+    
+    FUNCTION getTelTypes
+    RETURN SYS_REFCURSOR
+    AS 
+        vTypesCursor SYS_REFCURSOR;
+    BEGIN
+        OPEN vTypesCursor FOR
+        SELECT type_name FROM telephone_type;
+        RETURN vTypesCursor;
+        CLOSE vTypesCursor;
+    END getTelTypes;
+    
 END frontEndPackage;
