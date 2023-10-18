@@ -63,14 +63,14 @@ public class RegisterAssociation extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(840, 635));
         setPreferredSize(new java.awt.Dimension(840, 635));
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Telephone");
 
-        telephoneTextfield.setBackground(new java.awt.Color(102, 0, 102));
-        telephoneTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        telephoneTextfield.setBackground(new java.awt.Color(0, 102, 153));
+        telephoneTextfield.setForeground(new java.awt.Color(255, 255, 255));
         telephoneTextfield.setBorder(null);
         telephoneTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,18 +78,19 @@ public class RegisterAssociation extends javax.swing.JFrame {
             }
         });
 
+        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Type of telephone");
 
-        typeofTelephonejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         typeofTelephonejComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeofTelephonejComboBoxActionPerformed(evt);
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel3.setBackground(new java.awt.Color(102, 204, 255));
 
         requiredFieldLabel.setBackground(new java.awt.Color(255, 255, 255));
         requiredFieldLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -100,14 +101,12 @@ public class RegisterAssociation extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Continent*");
 
-        ContinentjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ContinentjComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ContinentjComboBoxActionPerformed(evt);
             }
         });
 
-        ProvincejComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ProvincejComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProvincejComboBoxActionPerformed(evt);
@@ -122,7 +121,6 @@ public class RegisterAssociation extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("District*");
 
-        DistrictjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         DistrictjComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DistrictjComboBoxActionPerformed(evt);
@@ -133,7 +131,6 @@ public class RegisterAssociation extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Country*");
 
-        CountryjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         CountryjComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CountryjComboBoxActionPerformed(evt);
@@ -144,7 +141,6 @@ public class RegisterAssociation extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Canton*");
 
-        CantonjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         CantonjComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CantonjComboBoxActionPerformed(evt);
@@ -171,7 +167,7 @@ public class RegisterAssociation extends javax.swing.JFrame {
         usernameLabel1.setForeground(new java.awt.Color(255, 255, 255));
         usernameLabel1.setText("Password:");
 
-        signUpjButton.setBackground(new java.awt.Color(255, 153, 255));
+        signUpjButton.setBackground(new java.awt.Color(0, 102, 153));
         signUpjButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         signUpjButton.setForeground(new java.awt.Color(255, 255, 255));
         signUpjButton.setText("Sign Up");
@@ -181,7 +177,7 @@ public class RegisterAssociation extends javax.swing.JFrame {
             }
         });
 
-        ReturnjButton1.setBackground(new java.awt.Color(255, 153, 255));
+        ReturnjButton1.setBackground(new java.awt.Color(0, 102, 153));
         ReturnjButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         ReturnjButton1.setForeground(new java.awt.Color(255, 255, 255));
         ReturnjButton1.setText("Return");
@@ -286,8 +282,8 @@ public class RegisterAssociation extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name*");
 
-        nameTextfield.setBackground(new java.awt.Color(102, 0, 102));
-        nameTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        nameTextfield.setBackground(new java.awt.Color(0, 102, 153));
+        nameTextfield.setForeground(new java.awt.Color(255, 255, 255));
         nameTextfield.setBorder(null);
         nameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,12 +291,14 @@ public class RegisterAssociation extends javax.swing.JFrame {
             }
         });
 
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Email*");
 
-        emailTextfield.setBackground(new java.awt.Color(102, 0, 102));
-        emailTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        emailTextfield.setBackground(new java.awt.Color(0, 102, 153));
+        emailTextfield.setForeground(new java.awt.Color(255, 255, 255));
         emailTextfield.setBorder(null);
         emailTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,41 +306,43 @@ public class RegisterAssociation extends javax.swing.JFrame {
             }
         });
 
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(telephoneTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(typeofTelephonejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(typeofTelephonejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1)
+                    .addComponent(nameTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                    .addComponent(jSeparator5)
+                    .addComponent(telephoneTextfield)
+                    .addComponent(jSeparator6))
+                .addGap(42, 42, 42)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(38, 38, 38)
                 .addComponent(TitleLabel)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
