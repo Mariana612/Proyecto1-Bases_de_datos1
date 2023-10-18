@@ -5,10 +5,9 @@ CREATE TABLE pet
        id NUMBER(6),                --PK
        chip NUMBER(6),
        pet_name VARCHAR2(20),
-       
        id_personal_test NUMBER (6), --FK
-       id_pet_status NUMBER (6),    --FK
-       id_pet_type NUMBER (6),      --FK
+       id_pet_status NUMBER (6) CONSTRAINT pet_id_status_nn NOT NULL,    --FK
+       id_pet_type NUMBER (6) CONSTRAINT pet_id_type_nn NOT NULL,      --FK
        id_color NUMBER (6),         --FK
        id_breed NUMBER (6),         --FK
        id_owner NUMBER (6)          --FK
@@ -41,13 +40,12 @@ ADD CONSTRAINT FK_color
 FOREIGN KEY (id_color) REFERENCES color(id);
 --
 ALTER TABLE pet
-ADD CONSTRAINT FK_breed
-FOREIGN KEY (id_breed) REFERENCES breed(id);
---
-ALTER TABLE pet
 ADD CONSTRAINT FK_owner
 FOREIGN KEY (id_owner) REFERENCES pet_owner(id_physical);
-
+--
+ALTER TABLE pet
+ADD CONSTRAINT FK_id_breed
+FOREIGN KEY (id_breed) REFERENCES breed(id);
 --comments--
 COMMENT ON TABLE pet
 IS
@@ -73,9 +71,11 @@ IS
 COMMENT ON COLUMN pet.id_color
 IS
 'Identificador de color de mascota';
-COMMENT ON COLUMN pet.id_breed
-IS
-'Identificador de raza de mascota';
 COMMENT ON COLUMN pet.id_owner
 IS
 'Identificador del dueño';
+COMMENT ON COLUMN pet.id_breed
+IS
+'Identificador de la raza';
+
+

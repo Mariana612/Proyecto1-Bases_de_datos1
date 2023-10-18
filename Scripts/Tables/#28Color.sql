@@ -3,7 +3,9 @@
 CREATE TABLE color
 (
        id NUMBER(6),                --PK
-       color_name VARCHAR2(20) CONSTRAINT color_colorName_nn NOT NULL
+       color_name VARCHAR2(20) CONSTRAINT color_colorName_nn NOT NULL,
+       CONSTRAINT color_name_unique UNIQUE (color_name)
+
 );
 
 --alters--
@@ -25,3 +27,5 @@ IS
 COMMENT ON COLUMN color.color_name
 IS
 'Nombre del color';
+
+
