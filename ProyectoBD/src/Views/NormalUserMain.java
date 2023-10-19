@@ -185,7 +185,7 @@ private void addComponents() {
         JLabel textLabel = new JLabel(imageText);
         Font newFont = new Font("Roboto", Font.BOLD, 20);
         textLabel.setFont(newFont);
-        textLabel.setForeground(Color.GRAY);
+        
 
 
         // Create a button for each image

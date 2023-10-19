@@ -75,7 +75,12 @@ public class NormalUserFunctions {
             while (res.next()) {
                 String petName = res.getString("pet_name");
                 String status = res.getString("status_name");
-                String combinedInfo = "<html> Pet Name: " + petName +"<br>Status: " + status  + "</html>";
+                String petType = res.getString("type_name");
+                String colorName = res.getString("color_name");
+                String breedName = res.getString("breed_name");
+                String combinedInfo = "<html> Status: " + status +
+                        "<br>Pet Name: " + petName +"<br>Pet Type: " + petType  
+                        +"<br>Color: " + colorName +"<br>Breed " + breedName + "</html>";
                 petListWithStatus[index] = combinedInfo;
                 index++;
             }
