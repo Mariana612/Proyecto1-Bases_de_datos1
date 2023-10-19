@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Views;
-
+import BD.NormalUserFunctions;
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.lang.String;
 /**
  *
  * @author fabia
@@ -15,6 +19,10 @@ public class NormalUserMain extends javax.swing.JFrame {
      */
     public NormalUserMain() {
         initComponents();
+        addComponents();
+//        NormalUserFunctions.displayPets(this);
+//        
+        
     }
 
     /**
@@ -30,12 +38,12 @@ public class NormalUserMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        PetDisplay = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 635));
         setMinimumSize(new java.awt.Dimension(840, 635));
-        setPreferredSize(new java.awt.Dimension(840, 635));
         setSize(new java.awt.Dimension(840, 635));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
@@ -61,15 +69,19 @@ public class NormalUserMain extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+        PetDisplay.setLayout(new java.awt.GridLayout(1, 2));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PetDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(PetDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -78,13 +90,14 @@ public class NormalUserMain extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(507, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,12 +105,10 @@ public class NormalUserMain extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(469, Short.MAX_VALUE))
         );
-
-        jPanel4.getAccessibleContext().setAccessibleName("");
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -109,7 +120,7 @@ public class NormalUserMain extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         pack();
@@ -118,7 +129,54 @@ public class NormalUserMain extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+private ImageIcon resizeImage(String imagePath, int width, int height) {
+    ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
+    Image image = originalIcon.getImage();
+    Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+    return new ImageIcon(resizedImage);
+}
+    private void addComponents() {
+    PetDisplay.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
 
+    ArrayList<String> imagePaths = new ArrayList<>();
+    ArrayList<String> imageTexts = new ArrayList<>();
+
+    // Add your image paths and text here
+    imagePaths.add("/Images/perritosenadopcion (1).jpg");
+    imageTexts.add("<html>Name: perrito.<br>Raza: Perrito. <br> Le gustan los frijoles aunque le caen mal <br> al estomago.</html>");
+    imagePaths.add("/Images/perritosenadopcion (1).jpg");
+    imageTexts.add("Image 2");
+    imagePaths.add("/Images/Untitled.jpg");
+    imageTexts.add("Image 3");
+    imagePaths.add("/Images/perritosenadopcion (1).jpg");
+    imageTexts.add("Image 1");
+    imagePaths.add("/Images/perritosenadopcion (1).jpg");
+    imageTexts.add("Image 2");
+    imagePaths.add("/Images/perritosenadopcion (1).jpg");
+    imageTexts.add("Image 3");
+
+    int imageWidth = 400; // Set the width you want for the images
+    int imageHeight = 300; // Set the height you want for the images
+
+    for (int i = 0; i < imagePaths.size(); i++) {
+        String imagePath = imagePaths.get(i);
+        String imageText = imageTexts.get(i);
+
+        ImageIcon resizedIcon = resizeImage(imagePath, imageWidth, imageHeight);
+        JLabel imageLabel = new JLabel(resizedIcon);
+        JLabel textLabel = new JLabel(imageText);
+
+        JPanel imageTextPanel = new JPanel(new BorderLayout());
+
+        // Add a 20px gap to the right of the image
+        imageLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+
+        imageTextPanel.add(imageLabel, BorderLayout.WEST);
+        imageTextPanel.add(textLabel, BorderLayout.CENTER);
+
+        PetDisplay.add(imageTextPanel);
+    }
+}
     /**
      * @param args the command line arguments
      */
@@ -144,6 +202,8 @@ public class NormalUserMain extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -155,10 +215,11 @@ public class NormalUserMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JPanel PetDisplay;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
