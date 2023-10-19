@@ -4,6 +4,8 @@
  */
 package Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fabia
@@ -27,6 +29,7 @@ public class SelectIndividual extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        warningDialog = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         rescuerPanel = new javax.swing.JPanel();
@@ -44,6 +47,17 @@ public class SelectIndividual extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         selectButton = new javax.swing.JButton();
 
+        javax.swing.GroupLayout warningDialogLayout = new javax.swing.GroupLayout(warningDialog.getContentPane());
+        warningDialog.getContentPane().setLayout(warningDialogLayout);
+        warningDialogLayout.setHorizontalGroup(
+            warningDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        warningDialogLayout.setVerticalGroup(
+            warningDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 640));
         setMinimumSize(new java.awt.Dimension(840, 640));
@@ -53,8 +67,11 @@ public class SelectIndividual extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(207, 232, 255));
 
-        rescuerPanel.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 255));
 
+        rescuerPanel.setBackground(new java.awt.Color(245, 243, 228));
+
+        rescuerRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
         buttonGroup1.add(rescuerRadioBtn);
         rescuerRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         rescuerRadioBtn.setText("Rescuer");
@@ -89,8 +106,9 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        candidatePanel.setBackground(new java.awt.Color(255, 255, 255));
+        candidatePanel.setBackground(new java.awt.Color(245, 243, 228));
 
+        candidateRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
         buttonGroup1.add(candidateRadioBtn);
         candidateRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         candidateRadioBtn.setText("Candidate");
@@ -125,8 +143,9 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        ownerPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ownerPanel.setBackground(new java.awt.Color(245, 243, 228));
 
+        ownerRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
         buttonGroup1.add(ownerRadioBtn);
         ownerRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         ownerRadioBtn.setText("Owner");
@@ -161,8 +180,9 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        fosterPanel.setBackground(new java.awt.Color(255, 255, 255));
+        fosterPanel.setBackground(new java.awt.Color(245, 243, 228));
 
+        fosterRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
         buttonGroup1.add(fosterRadioBtn);
         fosterRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         fosterRadioBtn.setText("Foster Home");
@@ -198,7 +218,7 @@ public class SelectIndividual extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setForeground(new java.awt.Color(213, 241, 241));
         jLabel1.setText("Select the type of user you want to create: ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -314,6 +334,9 @@ public class SelectIndividual extends javax.swing.JFrame {
         }
         else{
             uType = "";
+            // jOptionPane war = new jOptionPane();
+            JOptionPane.showMessageDialog(this, "Please choose an option to continue", "Option selection needed", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         Register regWindow = new Register(uType);
         regWindow.setVisible(true);
@@ -374,5 +397,6 @@ public class SelectIndividual extends javax.swing.JFrame {
     private javax.swing.JPanel rescuerPanel;
     private javax.swing.JRadioButton rescuerRadioBtn;
     private javax.swing.JButton selectButton;
+    private javax.swing.JDialog warningDialog;
     // End of variables declaration//GEN-END:variables
 }
