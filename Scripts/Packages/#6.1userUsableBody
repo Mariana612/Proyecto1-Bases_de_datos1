@@ -1,0 +1,29 @@
+CREATE OR REPLACE PACKAGE BODY userUsablePackage AS 
+    FUNCTION getAllPets 
+    RETURN SYS_REFCURSOR
+    AS
+        petsCursor SYS_REFCURSOR;
+    BEGIN 
+        OPEN petsCursor FOR 
+        SELECT pet_name from pet;
+        RETURN petsCursor;
+        Close petsCursor;
+    END getAllPets;
+    
+    --=================================================
+    
+    FUNCTION getPetAmount
+    RETURN NUMBER
+    IS
+    amountP NUMBER(10);
+    BEGIN
+        SELECT COUNT(*)
+        INTO amountP
+        FROM pet;
+        RETURN amountP;
+    
+    END getPetAmount;
+
+END userUsablePackage;
+
+

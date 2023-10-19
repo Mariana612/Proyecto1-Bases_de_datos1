@@ -146,14 +146,22 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
 }
 
 private void addComponents() {
+    ArrayList<String> imageTexts = new ArrayList<>();
+    
+    String[] pets = NormalUserFunctions.getAllPets();
+    System.out.println(pets);
+    
+    for(int i = 0; i < pets.length; i++){
+        imageTexts.add(pets[i]);
+        
+    
+    }
     PetDisplay.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
 
     ArrayList<String> imagePaths = new ArrayList<>();
-    ArrayList<String> imageTexts = new ArrayList<>();
 
     // Add your image paths and text here
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("<html>Nombre: Perrito<br>Raza: Perrito<br>Le gustan los frijoles aunque<br> le caen mal.</html>");
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
     imageTexts.add("Image 2");
     imagePaths.add("/Images/Untitled.jpg");

@@ -6,6 +6,9 @@ package BD;
 
 import Views.NormalUserMain;
 import java.awt.BorderLayout;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,47 +21,82 @@ import javax.swing.JPanel;
  */
 public class NormalUserFunctions {
     public NormalUserFunctions(){}
-    public void displayPets(NormalUserMain something){
-            ArrayList<String> imagePaths = new ArrayList<>();
-            ArrayList<String> imageTexts = new ArrayList<>();
-
-            // Add your image paths and text here
-            imagePaths.add("/Images/perritosenadopcion (1).jpg");
-            imageTexts.add("Image 1");
-            imagePaths.add("/Images/perritosenadopcion (1).jpg");
-            imageTexts.add("Image 2");
-                        imagePaths.add("/Images/perritosenadopcion (1).jpg");
-            imageTexts.add("Image 3");
-            imagePaths.add("/Images/perritosenadopcion (1).jpg");
-            imageTexts.add("Image 1");
-            imagePaths.add("/Images/perritosenadopcion (1).jpg");
-            imageTexts.add("Image 2");
-                        imagePaths.add("/Images/perritosenadopcion (1).jpg");
-            imageTexts.add("Image 3");
+    public static int getPetAmount(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call userUsablePackage.getPetAmount()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
             
-            for (int i = 0; i < imagePaths.size(); i++) {
-            String imagePath = imagePaths.get(i);
-            String imageText = imageTexts.get(i);
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
             
+            callableStatement.execute();
+            
+            int result = callableStatement.getInt(1);
             
 
-            ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-            JLabel imageLabel = new JLabel(icon);
-
-            JLabel textLabel = new JLabel(imageText);
-
-            JPanel imageTextPanel = new JPanel(new BorderLayout());
-            imageTextPanel.add(imageLabel, BorderLayout.WEST);
-            imageTextPanel.add(textLabel, BorderLayout.CENTER);
-
-            something.PetDisplay.add(imageTextPanel);
+            callableStatement.close();
+  
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-
-
-//        something.PetDisplay
-        
+    } 
     
-    }
+    public static String[] getAllPets(){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call userUsablePackage.getAllPets()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getPetAmount();
+            System.out.println("Cantidad");
+            System.out.println(listSize);
+            String[] continentList = new String[listSize]; 
+            int index = 0; 
+            while(res.next()){
+                String val = res.getString("pet_name");
+                continentList[index] = val;
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+  
+            return continentList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return cont;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+
 
     
 }
