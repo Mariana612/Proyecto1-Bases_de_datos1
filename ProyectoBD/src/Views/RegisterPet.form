@@ -69,15 +69,15 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel4" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                                       <Component id="jLabel5" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
-                                      <Component id="typejComboBox1" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <Component id="typejComboBox" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                                       <Component id="statusjComboBox" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel6" min="-2" pref="83" max="-2" attributes="0"/>
-                                      <Component id="breedjComboBox2" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <Component id="breedjComboBox" min="-2" pref="143" max="-2" attributes="0"/>
                                       <Component id="jLabel7" min="-2" pref="83" max="-2" attributes="0"/>
-                                      <Component id="colorjComboBox3" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <Component id="colorjComboBox" min="-2" pref="143" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -120,7 +120,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="statusjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="breedjComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="breedjComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -129,8 +129,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="colorjComboBox3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="typejComboBox1" min="-2" max="-2" attributes="0"/>
+                      <Component id="colorjComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="typejComboBox" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
               </Group>
@@ -180,7 +180,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="66" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Name*"/>
+            <Property name="text" type="java.lang.String" value="Name"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="chipTextfield">
@@ -223,6 +223,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="statusjComboBoxActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -238,12 +241,15 @@
             <Property name="text" type="java.lang.String" value="Type*"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="typejComboBox1">
+        <Component class="javax.swing.JComboBox" name="typejComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="typejComboBoxActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -259,12 +265,15 @@
             <Property name="text" type="java.lang.String" value="Breed"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="breedjComboBox2">
+        <Component class="javax.swing.JComboBox" name="breedjComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="breedjComboBoxPopupMenuWillBecomeVisible"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -280,12 +289,16 @@
             <Property name="text" type="java.lang.String" value="Color"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="colorjComboBox3">
+        <Component class="javax.swing.JComboBox" name="colorjComboBox">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="popupMenuWillBecomeVisible" listener="javax.swing.event.PopupMenuListener" parameters="javax.swing.event.PopupMenuEvent" handler="colorjComboBoxPopupMenuWillBecomeVisible"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="colorjComboBoxActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -323,7 +336,7 @@
                       <Component id="requiredFieldLabel" min="-2" pref="278" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="registerjButton" min="-2" pref="129" max="-2" attributes="0"/>
+                          <Component id="nextjButton" min="-2" pref="129" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="subirFotojButton" min="-2" max="-2" attributes="0"/>
@@ -341,7 +354,7 @@
                   <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Component id="subirFotojButton" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
-                  <Component id="registerjButton" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="nextjButton" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace pref="244" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -379,7 +392,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="subirFotojButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="registerjButton">
+        <Component class="javax.swing.JButton" name="nextjButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="66" red="33" type="rgb"/>
@@ -390,10 +403,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Register"/>
+            <Property name="text" type="java.lang.String" value="Next"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerjButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextjButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

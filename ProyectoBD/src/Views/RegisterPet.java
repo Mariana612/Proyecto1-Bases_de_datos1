@@ -4,19 +4,45 @@
  */
 package Views;
 
+import BD.RegisterPetFunctions;
+import java.util.List;
+
 /**
  *
  * @author marie
  */
 public class RegisterPet extends javax.swing.JFrame {
-
+    private RegisterPetFunctions registerPetFunctions; // Agrega esta variable
+    
     /**
      * Creates new form Pet
      */
     public RegisterPet() {
         initComponents();
-    }
+        registerPetFunctions = new RegisterPetFunctions();
+        // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
+        List<String> petStatusList = registerPetFunctions.getAllPetStatus();
 
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        statusjComboBox.removeAllItems();
+
+        // Agrega los estados de mascotas a JComboBox
+        for (String status : petStatusList) {
+        statusjComboBox.addItem(status);
+        }
+        
+        typejComboBox.removeAllItems();
+        
+        // Llama a la función para obtener la lista de tipos de mascotas
+        List<String> petTypes = registerPetFunctions.getAllPetTypes();
+        
+        // Agrega los valores al ComboBox
+        for (String petType : petTypes) {
+            typejComboBox.addItem(petType);
+        }
+   
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,16 +62,16 @@ public class RegisterPet extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         statusjComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        typejComboBox1 = new javax.swing.JComboBox<>();
+        typejComboBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        breedjComboBox2 = new javax.swing.JComboBox<>();
+        breedjComboBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        colorjComboBox3 = new javax.swing.JComboBox<>();
+        colorjComboBox = new javax.swing.JComboBox<>();
         TitleLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         requiredFieldLabel = new javax.swing.JLabel();
         subirFotojButton = new javax.swing.JButton();
-        registerjButton = new javax.swing.JButton();
+        nextjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(840, 635));
@@ -69,7 +95,7 @@ public class RegisterPet extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel3.setText("Name*");
+        jLabel3.setText("Name");
 
         chipTextfield.setBackground(new java.awt.Color(207, 232, 255));
         chipTextfield.setForeground(new java.awt.Color(153, 153, 153));
@@ -86,17 +112,54 @@ public class RegisterPet extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 102, 153));
         jLabel4.setText("Status*");
 
+        statusjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusjComboBoxActionPerformed(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 153));
         jLabel5.setText("Type*");
+
+        typejComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typejComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 102, 153));
         jLabel6.setText("Breed");
 
+        breedjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                breedjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 153));
         jLabel7.setText("Color");
+
+        colorjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                colorjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        colorjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                colorjComboBoxActionPerformed(evt);
+            }
+        });
 
         TitleLabel.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         TitleLabel.setForeground(new java.awt.Color(0, 102, 153));
@@ -122,14 +185,14 @@ public class RegisterPet extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(typejComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(typejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(statusjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(47, 47, 47)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(breedjComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(breedjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(colorjComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(colorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -162,15 +225,15 @@ public class RegisterPet extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(breedjComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(breedjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(colorjComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(typejComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(colorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typejComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(206, 206, 206))
         );
 
@@ -191,13 +254,13 @@ public class RegisterPet extends javax.swing.JFrame {
             }
         });
 
-        registerjButton.setBackground(new java.awt.Color(51, 102, 255));
-        registerjButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        registerjButton.setForeground(new java.awt.Color(255, 255, 255));
-        registerjButton.setText("Register");
-        registerjButton.addActionListener(new java.awt.event.ActionListener() {
+        nextjButton.setBackground(new java.awt.Color(51, 102, 255));
+        nextjButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        nextjButton.setForeground(new java.awt.Color(255, 255, 255));
+        nextjButton.setText("Next");
+        nextjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerjButtonActionPerformed(evt);
+                nextjButtonActionPerformed(evt);
             }
         });
 
@@ -211,7 +274,7 @@ public class RegisterPet extends javax.swing.JFrame {
                     .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(registerjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(subirFotojButton)
                         .addGap(126, 126, 126))))
@@ -224,7 +287,7 @@ public class RegisterPet extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(subirFotojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(178, 178, 178)
-                .addComponent(registerjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(244, Short.MAX_VALUE))
         );
 
@@ -261,10 +324,57 @@ public class RegisterPet extends javax.swing.JFrame {
 
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 
-    private void registerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButtonActionPerformed
+    private void nextjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextjButtonActionPerformed
+        String name = nameTextfield.getText();
+        String status = (String) statusjComboBox.getSelectedItem();
+        String type = (String) typejComboBox.getSelectedItem();
+        String breed = (String) breedjComboBox.getSelectedItem();
+        String color = (String) colorjComboBox.getSelectedItem();
+        String chipText = chipTextfield.getText(); 
+        Integer chip = null;
+        if (chipText != null && !chipText.isEmpty()) {
+            chip = Integer.valueOf(chipText);
+        }
+        registerPetFunctions.insertPet(name, status, type, color, breed, chip);
+    }//GEN-LAST:event_nextjButtonActionPerformed
 
-        // Preguntar si esto se vale o si tiene que ser directamente en SQL
-    }//GEN-LAST:event_registerjButtonActionPerformed
+    private void typejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typejComboBoxActionPerformed
+        
+    }//GEN-LAST:event_typejComboBoxActionPerformed
+
+    private void colorjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorjComboBoxActionPerformed
+        
+    }//GEN-LAST:event_colorjComboBoxActionPerformed
+
+    private void statusjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusjComboBoxActionPerformed
+    
+    }//GEN-LAST:event_statusjComboBoxActionPerformed
+
+    private void breedjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_breedjComboBoxPopupMenuWillBecomeVisible
+        String selectedValue = (String) typejComboBox.getSelectedItem();
+        System.out.println(selectedValue);
+        breedjComboBox.removeAllItems();
+        
+        // Llama a la función para obtener la lista de tipos de mascotas
+        List<String> petBreeds = registerPetFunctions.getBreedsByPetType(selectedValue);
+        
+        // Agrega los valores al ComboBox
+        for (String petBreed : petBreeds) {
+            breedjComboBox.addItem(petBreed);
+        }
+    }//GEN-LAST:event_breedjComboBoxPopupMenuWillBecomeVisible
+
+    private void colorjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_colorjComboBoxPopupMenuWillBecomeVisible
+        colorjComboBox.removeAllItems();
+        
+        // Llama a la función para obtener la lista de tipos de mascotas
+        List<String> petColors = registerPetFunctions.getAllPetColors();
+        
+        // Agrega los valores al ComboBox
+        for (String petColor : petColors) {
+            colorjComboBox.addItem(petColor);
+        }
+    }//GEN-LAST:event_colorjComboBoxPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -304,9 +414,9 @@ public class RegisterPet extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel;
-    private javax.swing.JComboBox<String> breedjComboBox2;
+    private javax.swing.JComboBox<String> breedjComboBox;
     private javax.swing.JTextField chipTextfield;
-    private javax.swing.JComboBox<String> colorjComboBox3;
+    private javax.swing.JComboBox<String> colorjComboBox;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -318,10 +428,10 @@ public class RegisterPet extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField nameTextfield;
-    private javax.swing.JButton registerjButton;
+    private javax.swing.JButton nextjButton;
     private javax.swing.JLabel requiredFieldLabel;
     private javax.swing.JComboBox<String> statusjComboBox;
     private javax.swing.JButton subirFotojButton;
-    private javax.swing.JComboBox<String> typejComboBox1;
+    private javax.swing.JComboBox<String> typejComboBox;
     // End of variables declaration//GEN-END:variables
 }

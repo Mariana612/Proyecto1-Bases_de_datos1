@@ -35,59 +35,85 @@ CREATE OR REPLACE PACKAGE BODY petProcedures AS
     RETURN vColordId;
   END getColorId;
 ------------------------------------------------------------------------
-  PROCEDURE insertPET(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER, pResultMessage OUT VARCHAR) IS
+PROCEDURE insertPet(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER, pResultMessage OUT VARCHAR) IS
   vStatusId NUMBER;
   vBreedId NUMBER;
-  vTypedId NUMBER;
-  vColordId NUMBER;
-  BEGIN
+  vTypeId NUMBER;
+  vColorId NUMBER;
+BEGIN
   -- Inicializa el mensaje de resultado como exitoso por defecto
   pResultMessage := 'The insertion was successful.';
-  vColordId := getColorId(pcColor);
-  vBreedId  := getBreedId(pcBreed);
-  -- Manejar excepciones
+
+  -- Validación de campos obligatorios
+  IF pcPetStatus IS NULL OR pcPetType IS NULL THEN
+    pResultMessage := 'Error: Pet Status and Pet Type are required fields.';
+    RETURN;
+  END IF;
+
+  -- Inicializar IDs
+  vColorId := NULL;
+  vBreedId := NULL;
+  vStatusId := NULL;
+  vTypeId := NULL;
+
+  -- Manejo de excepciones para obtener IDs
   BEGIN
     -- Obtener el ID de estado utilizando la función getStatusId
     vStatusId := getStatusId(pcPetStatus);
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
-      pResultMessage := 'Error: Pet status not found.';
+      pResultMessage := 'Error: Pet status not found for value ' || pcPetStatus;
       RETURN;
   END;
 
   BEGIN
-    vTypedId := getTypeId(pcPetType);
+    vTypeId := getTypeId(pcPetType);
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
-      pResultMessage := 'Error: Pet type not found.';
+      pResultMessage := 'Error: Pet type not found for value ' || pcPetType;
       RETURN;
   END;
+
+  -- Comprobar si los valores de color y raza son nulos y asignar null en ese caso
+  IF pcColor IS NULL THEN
+    vColorId := NULL;
+  ELSE
+    vColorId := getColorId(pcColor);
+  END IF;
+
+  IF pcBreed IS NULL THEN
+    vBreedId := NULL;
+  ELSE
+    vBreedId := getBreedId(pcBreed);
+  END IF;
 
   -- Realizar la inserción si no se generaron excepciones
   BEGIN
     INSERT INTO pet(id, CHIP, PET_NAME, ID_PERSONAL_TEST, ID_PET_STATUS, ID_PET_TYPE, ID_COLOR, ID_BREED, ID_OWNER)
-    VALUES(sPet.NEXTVAL, pnChip, pcName, NULL, vStatusId, vTypedId, vColordId, vBreedId, NULL);
-    COMMIT;
+    VALUES(sPet.NEXTVAL, pnChip, pcName, NULL, vStatusId, vTypeId, vColorId, vBreedId, NULL);
   EXCEPTION
     WHEN OTHERS THEN
       pResultMessage := 'Insertion failed.';
       ROLLBACK;
-      RETURN;
   END;
+
+  -- COMMIT solo si no se generaron excepciones
+  COMMIT;
 END insertPet;
+
 ------------------------------------------------------------------------
 FUNCTION getAllPetStatus 
     RETURN SYS_REFCURSOR
-    AS
-        PetStatusCursor SYS_REFCURSOR;
-    BEGIN 
-        OPEN PetStatusCursor FOR 
-        SELECT status_name from pet_status;
-        RETURN PetStatusCursor;
-        CLOSE PetStatusCursor;
-    END getAllPetStatus;
+AS
+    PetStatusCursor SYS_REFCURSOR;
+BEGIN 
+    OPEN PetStatusCursor FOR 
+    SELECT status_name from pet_status;
+    RETURN PetStatusCursor;
+END getAllPetStatus;
+
 ------------------------------------------------------------------------    
-FUNCTION getBreedsByPetType(pIdPetType NUMBER)
+FUNCTION getBreedsByPetType(pcPetType VARCHAR2)
 RETURN SYS_REFCURSOR
 AS
     breedsCursor SYS_REFCURSOR;
@@ -96,8 +122,7 @@ BEGIN
     SELECT b.breed_name FROM breed b
     INNER JOIN pet_type pt
     ON b.id_pet_type = pt.id
-    WHERE pt.id = pIdPetType;
-    
+    WHERE pt.type_name = pcPetType;
     RETURN breedsCursor;
 END getBreedsByPetType;
 ------------------------------------------------------------------------   
@@ -124,3 +149,5 @@ FUNCTION getAllPetTypes
     END getAllPetTypes;
 END petProcedures;
 /
+
+
