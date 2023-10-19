@@ -40,6 +40,7 @@ public class NormalUserMain extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         PetDisplay = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 635));
@@ -48,17 +49,8 @@ public class NormalUserMain extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
+        jButton1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("¿DESEA REPORTAR A UNA MASCOTA COMO PERDIDA?");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
@@ -68,6 +60,23 @@ public class NormalUserMain extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
 
         PetDisplay.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -84,30 +93,30 @@ public class NormalUserMain extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Acontinuacion puedes ver algunas de las mascotas disponibles que puedes adoptar.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(507, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(469, Short.MAX_VALUE))
+                .addContainerGap(460, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -135,7 +144,8 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
     Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     return new ImageIcon(resizedImage);
 }
-    private void addComponents() {
+
+private void addComponents() {
     PetDisplay.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
 
     ArrayList<String> imagePaths = new ArrayList<>();
@@ -143,7 +153,7 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
 
     // Add your image paths and text here
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("<html>Name: perrito.<br>Raza: Perrito. <br> Le gustan los frijoles aunque le caen mal <br> al estomago.</html>");
+    imageTexts.add("<html>Nombre: Perrito<br>Raza: Perrito<br>Le gustan los frijoles aunque<br> le caen mal.</html>");
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
     imageTexts.add("Image 2");
     imagePaths.add("/Images/Untitled.jpg");
@@ -165,14 +175,31 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
         ImageIcon resizedIcon = resizeImage(imagePath, imageWidth, imageHeight);
         JLabel imageLabel = new JLabel(resizedIcon);
         JLabel textLabel = new JLabel(imageText);
+        Font newFont = new Font("Roboto", Font.BOLD, 20);
+        textLabel.setFont(newFont);
+        textLabel.setForeground(Color.GRAY);
+
+
+        // Create a button for each image
+        Color customColor = new Color(0, 102, 153);
+
+// Assuming jButton1 is the name of your JButton
+        
+        JButton imageButton = new JButton("ADOPT ME");
+        imageButton.setFont(newFont);
+        imageButton.setForeground(Color.WHITE);
+        imageButton.setBackground(customColor);
 
         JPanel imageTextPanel = new JPanel(new BorderLayout());
 
         // Add a 20px gap to the right of the image
-        imageLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 20));
+        imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 20));
+        
+        
 
         imageTextPanel.add(imageLabel, BorderLayout.WEST);
         imageTextPanel.add(textLabel, BorderLayout.CENTER);
+        imageTextPanel.add(imageButton, BorderLayout.SOUTH);
 
         PetDisplay.add(imageTextPanel);
     }
@@ -217,6 +244,7 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PetDisplay;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
