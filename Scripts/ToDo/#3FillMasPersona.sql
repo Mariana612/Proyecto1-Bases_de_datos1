@@ -38,7 +38,6 @@ insert into gender(id, name_gender) VALUES (1, 'Male');
 insert into gender(id, name_gender) VALUES (2, 'Female');
 insert into gender(id, name_gender) VALUES (3, 'Other');
 
-INSERT INTO telephone_type(id, type_name)
 
   CREATE SEQUENCE sTelephone_type
   START WITH 1
