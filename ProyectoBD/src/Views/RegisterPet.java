@@ -95,7 +95,7 @@ public class RegisterPet extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel3.setText("Name*");
+        jLabel3.setText("Name");
 
         chipTextfield.setBackground(new java.awt.Color(207, 232, 255));
         chipTextfield.setForeground(new java.awt.Color(153, 153, 153));
@@ -325,8 +325,17 @@ public class RegisterPet extends javax.swing.JFrame {
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 
     private void nextjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextjButtonActionPerformed
-
-        // Preguntar si esto se vale o si tiene que ser directamente en SQL
+        String name = nameTextfield.getText();
+        String status = (String) statusjComboBox.getSelectedItem();
+        String type = (String) typejComboBox.getSelectedItem();
+        String breed = (String) breedjComboBox.getSelectedItem();
+        String color = (String) colorjComboBox.getSelectedItem();
+        String chipText = chipTextfield.getText(); 
+        Integer chip = null;
+        if (chipText != null && !chipText.isEmpty()) {
+            chip = Integer.valueOf(chipText);
+        }
+        registerPetFunctions.insertPet(name, status, type, color, breed, chip);
     }//GEN-LAST:event_nextjButtonActionPerformed
 
     private void typejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typejComboBoxActionPerformed

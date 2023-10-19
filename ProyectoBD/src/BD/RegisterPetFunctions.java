@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import oracle.jdbc.OracleTypes;
+import java.sql.Types;
 
 public class RegisterPetFunctions {
     private ConnectionDB connectionDB;
@@ -23,6 +24,40 @@ public class RegisterPetFunctions {
     public RegisterPetFunctions() {
         this.connectionDB = new ConnectionDB();
     }
+    public void insertPet(String pcName, String pcPetStatus, String pcPetType, String pcColor, String pcBreed, Integer pnChip) {
+    String procedureCall = "{ call petProcedures.insertPet(?, ?, ?, ?, ?, ?, ?) }";
+
+    try (Connection connection = connectionDB.getConnection();
+         CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+        // Asignar los valores de entrada
+        callableStatement.setString(1, pcName);
+        callableStatement.setString(2, pcPetStatus);
+        callableStatement.setString(3, pcPetType);
+        callableStatement.setString(4, pcColor);
+        callableStatement.setString(5, pcBreed);
+
+        // Verificar si pnChip es nulo y asignar NULL en lugar de 0 si es necesario
+        if (pnChip == null) {
+            callableStatement.setNull(6, Types.INTEGER);
+        } else {
+            callableStatement.setInt(6, pnChip);
+        }
+
+        // Registrar el parámetro de salida
+        callableStatement.registerOutParameter(7, OracleTypes.VARCHAR);
+
+        // Ejecutar la llamada al procedimiento almacenado
+        callableStatement.execute();
+
+        // Obtener el mensaje de resultado
+        String resultMessage = callableStatement.getString(7);
+
+        System.out.println(resultMessage);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
 
     public List<String> getAllPetStatus() {
     String procedureCall = "{ ? = call petProcedures.getAllPetStatus }";
