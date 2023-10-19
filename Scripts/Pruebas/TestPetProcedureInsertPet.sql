@@ -1,10 +1,10 @@
 SET SERVEROUTPUT ON
 DECLARE
     -- Variables para los parámetros de entrada
-    pcName VARCHAR2(100) := 'Max';  
+    pcName VARCHAR2(100) := 'Maxito';  
     pcPetStatus VARCHAR2(100) := 'RESCUED';  
     pcPetType VARCHAR2(100) := 'Dog';  
-    pcColor VARCHAR2(100) := null;  
+    pcColor VARCHAR2(100) := 'Brown';  
     pcBreed VARCHAR2(100) := 'Labrador Retriever';  
     pnChip NUMBER := 12345;
     vResultMessage VARCHAR2(200);

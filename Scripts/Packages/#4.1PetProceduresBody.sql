@@ -43,7 +43,8 @@ CREATE OR REPLACE PACKAGE BODY petProcedures AS
   BEGIN
   -- Inicializa el mensaje de resultado como exitoso por defecto
   pResultMessage := 'The insertion was successful.';
-
+  vColordId := getColorId(pcColor);
+  vBreedId  := getBreedId(pcBreed);
   -- Manejar excepciones
   BEGIN
     -- Obtener el ID de estado utilizando la función getStatusId
