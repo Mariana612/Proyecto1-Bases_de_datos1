@@ -20,24 +20,24 @@ import javax.swing.JPanel;
  * @author maria
  */
 public class NormalUserFunctions {
-    public NormalUserFunctions(){}
-    public static int getPetAmount(){
+    public NormalUserFunctions() {}
+
+    public static int getPetAmount() {
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();
         try {
             ConnectionDB connection = new ConnectionDB();
             String procedureCall = "{? = call userUsablePackage.getPetAmount()}";
             callableStatement = connection.conn.prepareCall(procedureCall);
-            
+
             callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
-            
+
             callableStatement.execute();
-            
+
             int result = callableStatement.getInt(1);
-            
 
             callableStatement.close();
-  
+
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,39 +52,40 @@ public class NormalUserFunctions {
                 e.printStackTrace();
             }
         }
-    } 
-    
-    public static String[] getAllPets(){
+    }
+
+    public static String[] getAllPets() {
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();
         try {
             ConnectionDB connection = new ConnectionDB();
             String procedureCall = "{? = call userUsablePackage.getAllPets()}";
             callableStatement = connection.conn.prepareCall(procedureCall);
-            
+
             callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
-            
+
             callableStatement.execute();
-            
+
             ResultSet res = (ResultSet) callableStatement.getObject(1);
             int listSize = getPetAmount();
             System.out.println("Cantidad");
             System.out.println(listSize);
-            String[] continentList = new String[listSize]; 
-            int index = 0; 
-            while(res.next()){
-                String val = res.getString("pet_name");
-                continentList[index] = val;
-                index = index + 1;
+            String[] petListWithStatus = new String[listSize];
+            int index = 0;
+            while (res.next()) {
+                String petName = res.getString("pet_name");
+                String status = res.getString("status_name");
+                String combinedInfo = "<html> Pet Name: " + petName +"<br>Status: " + status  + "</html>";
+                petListWithStatus[index] = combinedInfo;
+                index++;
             }
             res.close();
             callableStatement.close();
-  
-            return continentList;
+
+            return petListWithStatus;
         } catch (SQLException e) {
             e.printStackTrace();
-            String[] cont = null;
-            return cont;
+            return null;
         } finally {
             try {
                 if (callableStatement != null) {
@@ -95,9 +96,5 @@ public class NormalUserFunctions {
                 e.printStackTrace();
             }
         }
-    } 
-
-
-    
+    }
 }
-
