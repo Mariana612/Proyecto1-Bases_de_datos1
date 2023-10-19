@@ -22,7 +22,7 @@ public class ConnectionDB {
     private void conectar(){
         try {
             Class.forName("oracle.jdbc.OracleDriver"); //DRIVER
-            url = "jdbc:oracle:thin:@localhost:1521:MarianaBD"; // Git ignored
+            url = "jdbc:oracle:thin:@localhost:1521:MARIELADB"; // Git ignored
             user = "PR1";
             pass = "PR1";
             conn  = DriverManager.getConnection(url, user, pass);
@@ -31,7 +31,12 @@ public class ConnectionDB {
             System.out.println("Error, no se pudo conectar a la BD");
         }
     }
-    
+    public Connection getConnection() throws SQLException {
+        if (conn == null || conn.isClosed()) {
+            conectar(); // Intenta reconectar si la conexión está cerrada o nula
+        }
+        return conn;
+    }
     public void desconectar(){
         try {
             conn.close();

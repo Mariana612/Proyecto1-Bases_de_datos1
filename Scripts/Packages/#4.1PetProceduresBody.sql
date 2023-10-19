@@ -78,16 +78,16 @@ END insertPet;
 ------------------------------------------------------------------------
 FUNCTION getAllPetStatus 
     RETURN SYS_REFCURSOR
-    AS
-        PetStatusCursor SYS_REFCURSOR;
-    BEGIN 
-        OPEN PetStatusCursor FOR 
-        SELECT status_name from pet_status;
-        RETURN PetStatusCursor;
-        CLOSE PetStatusCursor;
-    END getAllPetStatus;
+AS
+    PetStatusCursor SYS_REFCURSOR;
+BEGIN 
+    OPEN PetStatusCursor FOR 
+    SELECT status_name from pet_status;
+    RETURN PetStatusCursor;
+END getAllPetStatus;
+
 ------------------------------------------------------------------------    
-FUNCTION getBreedsByPetType(pIdPetType NUMBER)
+FUNCTION getBreedsByPetType(pcPetType VARCHAR2)
 RETURN SYS_REFCURSOR
 AS
     breedsCursor SYS_REFCURSOR;
@@ -96,8 +96,7 @@ BEGIN
     SELECT b.breed_name FROM breed b
     INNER JOIN pet_type pt
     ON b.id_pet_type = pt.id
-    WHERE pt.id = pIdPetType;
-    
+    WHERE pt.type_name = pcPetType;
     RETURN breedsCursor;
 END getBreedsByPetType;
 ------------------------------------------------------------------------   
@@ -124,3 +123,5 @@ FUNCTION getAllPetTypes
     END getAllPetTypes;
 END petProcedures;
 /
+
+
