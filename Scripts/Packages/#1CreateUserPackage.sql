@@ -27,11 +27,16 @@ END createUser;
 --delete from email;
 --delete from person;
 
---BEGIN
+BEGIN
 --createUser.insertJustPerson ('Mariana', 'Angeles','Navarro', 
 --          'Jimenez','Mariana','algo', 'Mariana@gmail.com',
 --          'Association', 2);
 --createUser.insertJustPerson ('Franco', 'Sergio','Ramirez', 
 --          'Barahona','FrancoS','algo', 'FrancoS@gmail.com',
 --          'Rescuer', 1);
---END;
+createUser.insertJustPerson ('Mariana', '','Favez', 
+          'Barahona','Mariana2','algo', 'AandreaF.com',
+          'Normal', 2);
+END;
+
+

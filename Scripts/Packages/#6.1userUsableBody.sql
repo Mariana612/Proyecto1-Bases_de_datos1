@@ -27,6 +27,20 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         RETURN amountP;
     
     END getPetAmount;
+    
+     --=================================================
+    FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER
+    AS
+        personId NUMBER;
+    BEGIN
+        select usp.id_person 
+        INTO personId
+        FROM user_person usp
+        JOIN user_password usps ON usp.id = usps.id_user
+        WHERE usp.username = pUsername AND usps.name_type = pPassword;
+        RETURN personId;
+        
+    END;
 
 END userUsablePackage;
 

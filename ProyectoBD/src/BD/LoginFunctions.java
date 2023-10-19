@@ -116,6 +116,39 @@ public class LoginFunctions {
             }
         }
     }
+        public static int getPersonId(String user ,String pass ){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call userUsablePackage.getUserId(?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+
+            callableStatement.setString(2, user);
+            callableStatement.setString(3, pass);
+            
+            
+            callableStatement.execute();
+            
+            int resultado = callableStatement.getInt(1);
+            callableStatement.close();
+            return resultado;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public static int getAmountContinents(){
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();
