@@ -1,0 +1,17 @@
+BEGIN
+    adminProcedures.insertStatus('En espera');
+    adminProcedures.insertStatus('Aprovado');
+    adminProcedures.insertStatus('Cancelado');
+END;
+
+ALTER TABLE Adoption_form
+DROP CONSTRAINT ADOPTIONF_MAXMA_NN;
+
+ALTER TABLE Adoption_form
+DROP CONSTRAINT ADOPTIONF_MINMA_NN;
+
+ALTER TABLE Adoption_form
+DROP CONSTRAINT ADOPTIONF_AA_NN;
+
+ALTER TABLE Adoption_form
+DROP CONSTRAINT ADOPTIONF_IIA_NN;

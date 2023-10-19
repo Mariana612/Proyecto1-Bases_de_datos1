@@ -31,4 +31,39 @@ BEGIN
     COMMIT;
 
 END;
+
+PROCEDURE createAdoptionForm(idPet NUMBER, formName VARCHAR2)
+  AS
+    v_idRescuer NUMBER := NULL; -- Initialize variables
+    v_idAssociation NUMBER := NULL;
+
+    BEGIN
+        BEGIN
+            SELECT id_rescuer
+            INTO v_idRescuer
+            FROM rescuerxpet
+            WHERE id_pet = idPet;
+        EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+                -- Handle the case where no data is found for v_idRescuer
+                -- You can assign a default value or take other appropriate action.
+                v_idRescuer := NULL; -- Assign a default value or take other action.
+        END;
+
+        BEGIN
+            SELECT id_association
+            INTO v_idAssociation
+            FROM associationxpet
+            WHERE id_pet = idPet;
+        EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+                -- Handle the case where no data is found for v_idAssociation
+                -- You can assign a default value or take other appropriate action.
+                v_idAssociation := NULL; -- Assign a default value or take other action.
+        END;
+
+        INSERT INTO adoption_form(id, id_pet, id_status, id_rescuer, id_association, form_name)
+        VALUES (sAdoptionForm.NEXTVAL, idPet, 2, v_idRescuer, v_idAssociation, formName);
+    END;
+
 END formProcedures;

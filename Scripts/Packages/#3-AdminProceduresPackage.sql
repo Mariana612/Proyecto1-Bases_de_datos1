@@ -19,6 +19,15 @@ CREATE OR REPLACE PACKAGE BODY adminProcedures AS
   END;
   
 ---------------------------------------------------------------------------
+-------------------------------INSERT STATUS------------------------------- 
+
+ PROCEDURE insertStatus( status_name VARCHAR2) AS
+ BEGIN
+    INSERT INTO status(id, status_name)
+    VALUES(sStatus.nextval,status_name);
+    COMMIT;
+END;
+---------------------------------------------------------------------------
 -------------------------------INSERT ADRESS-------------------------------
 PROCEDURE insertAddress(
     pcContinentN   VARCHAR2,

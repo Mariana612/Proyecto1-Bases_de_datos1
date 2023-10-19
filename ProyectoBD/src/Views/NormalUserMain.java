@@ -6,6 +6,8 @@ package Views;
 import BD.NormalUserFunctions;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.lang.String;
 /**
@@ -147,12 +149,20 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
 
 private void addComponents() {
     ArrayList<String> imageTexts = new ArrayList<>();
+    ArrayList<Integer> petIds = new ArrayList<>();
     
     String[] pets = NormalUserFunctions.getAllPets();
-    System.out.println(pets);
+    int[] petidv = NormalUserFunctions.getAllPetsID();
     
+
     for(int i = 0; i < pets.length; i++){
         imageTexts.add(pets[i]);
+        
+    
+    }
+    
+    for(int i = 0; i < petidv.length; i++){
+        petIds.add(petidv[i]);
         
     
     }
@@ -163,15 +173,7 @@ private void addComponents() {
     // Add your image paths and text here
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 2");
-    imagePaths.add("/Images/Untitled.jpg");
-    imageTexts.add("Image 3");
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 1");
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 2");
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 3");
+
 
     int imageWidth = 400; // Set the width you want for the images
     int imageHeight = 300; // Set the height you want for the images
@@ -179,8 +181,11 @@ private void addComponents() {
     for (int i = 0; i < imagePaths.size(); i++) {
         String imagePath = imagePaths.get(i);
         String imageText = imageTexts.get(i);
+        int petId = petIds.get(i);
+        
 
         ImageIcon resizedIcon = resizeImage(imagePath, imageWidth, imageHeight);
+        
         JLabel imageLabel = new JLabel(resizedIcon);
         JLabel textLabel = new JLabel(imageText);
         Font newFont = new Font("Roboto", Font.BOLD, 20);
@@ -197,11 +202,22 @@ private void addComponents() {
         imageButton.setFont(newFont);
         imageButton.setForeground(Color.WHITE);
         imageButton.setBackground(customColor);
+        
+            imageButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Add the code you want to execute when the button is clicked
+            // This code will run when the button is clicked
+            // You can, for example, open a new window or perform some other action.
+            System.out.println("Button clicked!" + petId); // Example action
+        }
+    });
+        
 
         JPanel imageTextPanel = new JPanel(new BorderLayout());
 
         // Add a 20px gap to the right of the image
-        imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 20));
+        imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 20));
         
         
 

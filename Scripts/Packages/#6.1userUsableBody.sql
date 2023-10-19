@@ -5,7 +5,7 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         petsCursor SYS_REFCURSOR;
     BEGIN 
         OPEN petsCursor FOR 
-        SELECT p.pet_name,ps.status_name,pt.type_name, c.color_name, b.breed_name  from pet p
+        SELECT p.pet_name,ps.status_name,pt.type_name, c.color_name, b.breed_name,p.id  from pet p
         join pet_status ps ON p.id_pet_status = ps.id
         join pet_type pt ON p.id_pet_type = pt.id
         join color c on p.id_color = c.id
