@@ -1,3 +1,88 @@
+delete from user_password;
+delete from user_Person;
+delete from email;
+delete rescuer;
+delete from association;
+delete from legal_person;
+delete from physical_person;
+delete from person;
+delete from pet;
+delete from pet_status;
+delete status;
+
+
+
+drop sequence sUserPassword;
+drop sequence sUser;
+drop sequence sEmail;
+drop sequence sPerson;
+drop sequence sPet;
+drop sequence sPetStatus;
+drop sequence sStatus;
+
+
+CREATE SEQUENCE sUserPassword
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+
+CREATE SEQUENCE sUser
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+
+CREATE SEQUENCE sEmail
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+
+CREATE SEQUENCE sPerson
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+
+CREATE SEQUENCE sPet
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE; 
+
+CREATE SEQUENCE sPetStatus
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE; 
+
+CREATE SEQUENCE sStatus
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE; 
+
+begin 
+petProcedures.insertPetStatus('Adopted');
+petProcedures.insertPetStatus('Found');
+petProcedures.insertPetStatus('Lost');
+
+end;
 BEGIN
     adminProcedures.insertStatus('En espera');
     adminProcedures.insertStatus('Aprovado');

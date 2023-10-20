@@ -22,21 +22,19 @@ PROCEDURE insertJustPerson (pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN 
 
 END createUser;
 
---delete from user_password;
---delete from user_Person;
---delete from email;
---delete from person;
 
-BEGIN
+
+
+--BEGIN
 --createUser.insertJustPerson ('Mariana', 'Angeles','Navarro', 
 --          'Jimenez','Mariana','algo', 'Mariana@gmail.com',
 --          'Association', 2);
 --createUser.insertJustPerson ('Franco', 'Sergio','Ramirez', 
 --          'Barahona','FrancoS','algo', 'FrancoS@gmail.com',
 --          'Rescuer', 1);
-createUser.insertJustPerson ('Mariana', '','Favez', 
-          'Barahona','Mariana2','algo', 'AandreaF.com',
-          'Normal', 2);
-END;
-
+--createUser.insertJustPerson ('Mariana', '','Favez', 
+--          'Barahona','Mariana2','algo', 'AandreaF.com',
+--          'Normal', 2);
+--END;
+--
 

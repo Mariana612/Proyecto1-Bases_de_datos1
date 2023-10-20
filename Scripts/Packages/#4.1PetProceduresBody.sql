@@ -147,7 +147,16 @@ FUNCTION getAllPetTypes
         RETURN petTypeCursor;
         CLOSE petTypeCursor;
     END getAllPetTypes;
+
+------------------------------------------------------------------------      
+PROCEDURE insertPetStatus(pcName VARCHAR)
+    IS
+    BEGIN
+    insert into petStatus(id,status_name)
+    values  (sStatus.nextval, pcName);
+    END;
 END petProcedures;
+
 /
 
 
