@@ -175,6 +175,14 @@ CREATE SEQUENCE sPhotoStay
   NOCACHE
   NOCYCLE;
   
+  CREATE SEQUENCE sPetPhoto
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE;
+  
 drop sequence sPerson;
 drop sequence sContinent ;
 drop sequence sCountry ;
@@ -186,4 +194,4 @@ drop sequence sPetStatus;
 drop sequence sBreed;
 drop sequence sPetType;
 drop sequence sColor;
-
+drop sequence sPetPhoto;

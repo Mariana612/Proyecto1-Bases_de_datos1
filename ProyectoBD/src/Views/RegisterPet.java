@@ -5,7 +5,11 @@
 package Views;
 
 import BD.RegisterPetFunctions;
+import java.io.File;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -13,6 +17,7 @@ import java.util.List;
  */
 public class RegisterPet extends javax.swing.JFrame {
     private RegisterPetFunctions registerPetFunctions; // Agrega esta variable
+    private DefaultListModel<String> listModel = new DefaultListModel<>();
     
     /**
      * Creates new form Pet
@@ -72,6 +77,8 @@ public class RegisterPet extends javax.swing.JFrame {
         requiredFieldLabel = new javax.swing.JLabel();
         subirFotojButton = new javax.swing.JButton();
         nextjButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        PetPhotosjList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(840, 635));
@@ -264,29 +271,37 @@ public class RegisterPet extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setViewportView(PetPhotosjList);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(subirFotojButton)
+                            .addGap(126, 126, 126))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(subirFotojButton)
-                        .addGap(126, 126, 126))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(27, 27, 27)
                 .addComponent(subirFotojButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(178, 178, 178)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82)
                 .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(244, Short.MAX_VALUE))
         );
@@ -321,7 +336,26 @@ public class RegisterPet extends javax.swing.JFrame {
     }//GEN-LAST:event_chipTextfieldActionPerformed
 
     private void subirFotojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subirFotojButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        // Configura el filtro de archivos para mostrar solo imágenes
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
 
+        int resultado = fileChooser.showOpenDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+
+            // Ahora puedes realizar acciones con el archivo seleccionado, como mostrarlo en un componente de imagen
+            // Por ejemplo, si tienes un JLabel llamado imagenLabel, puedes mostrar la imagen así:
+            String path = archivoSeleccionado.getPath();
+            // Agrega el path al modelo de lista
+            listModel.addElement(path);
+
+            // Asigna el modelo de lista actualizado al JList
+            PetPhotosjList.setModel(listModel);
+        }
+        
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 
     private void nextjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextjButtonActionPerformed
@@ -335,7 +369,12 @@ public class RegisterPet extends javax.swing.JFrame {
         if (chipText != null && !chipText.isEmpty()) {
             chip = Integer.valueOf(chipText);
         }
-        registerPetFunctions.insertPet(name, status, type, color, breed, chip);
+        Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip);
+        
+        for (int i = 0; i < listModel.size(); i++) {
+            String imagePath = listModel.getElementAt(i);
+            System.out.println(registerPetFunctions.callInsertPetPhoto(idPet,imagePath));
+        }
     }//GEN-LAST:event_nextjButtonActionPerformed
 
     private void typejComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typejComboBoxActionPerformed
@@ -413,6 +452,7 @@ public class RegisterPet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> PetPhotosjList;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JComboBox<String> breedjComboBox;
     private javax.swing.JTextField chipTextfield;
@@ -425,6 +465,7 @@ public class RegisterPet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField nameTextfield;

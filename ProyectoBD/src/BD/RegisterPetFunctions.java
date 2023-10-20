@@ -24,39 +24,41 @@ public class RegisterPetFunctions {
     public RegisterPetFunctions() {
         this.connectionDB = new ConnectionDB();
     }
-    public void insertPet(String pcName, String pcPetStatus, String pcPetType, String pcColor, String pcBreed, Integer pnChip) {
-    String procedureCall = "{ call petProcedures.insertPet(?, ?, ?, ?, ?, ?, ?) }";
+    public Integer insertPet(String pcName, String pcPetStatus, String pcPetType, String pcColor, String pcBreed, Integer pnChip) {
+        String procedureCall = "{ ? = call petProcedures.insertPet(?, ?, ?, ?, ?, ?) }";
+        Integer petId = null;
 
-    try (Connection connection = connectionDB.getConnection();
-         CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
-        // Asignar los valores de entrada
-        callableStatement.setString(1, pcName);
-        callableStatement.setString(2, pcPetStatus);
-        callableStatement.setString(3, pcPetType);
-        callableStatement.setString(4, pcColor);
-        callableStatement.setString(5, pcBreed);
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            // Asignar los valores de entrada
+            callableStatement.setString(2, pcName);
+            callableStatement.setString(3, pcPetStatus);
+            callableStatement.setString(4, pcPetType);
+            callableStatement.setString(5, pcColor);
+            callableStatement.setString(6, pcBreed);
 
-        // Verificar si pnChip es nulo y asignar NULL en lugar de 0 si es necesario
-        if (pnChip == null) {
-            callableStatement.setNull(6, Types.INTEGER);
-        } else {
-            callableStatement.setInt(6, pnChip);
+            // Verificar si pnChip es nulo y asignar NULL en lugar de 0 si es necesario
+            if (pnChip == null) {
+                callableStatement.setNull(7, Types.INTEGER);
+            } else {
+                callableStatement.setInt(7, pnChip);
+            }
+
+            // Registrar el parámetro de salida para el ID de la mascota
+            callableStatement.registerOutParameter(1, Types.INTEGER);
+
+            // Ejecutar la llamada al procedimiento almacenado
+            callableStatement.execute();
+
+            // Obtener el ID de la mascota recién insertada
+            petId = callableStatement.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        // Registrar el parámetro de salida
-        callableStatement.registerOutParameter(7, OracleTypes.VARCHAR);
-
-        // Ejecutar la llamada al procedimiento almacenado
-        callableStatement.execute();
-
-        // Obtener el mensaje de resultado
-        String resultMessage = callableStatement.getString(7);
-
-        System.out.println(resultMessage);
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return petId;
     }
-}
+
 
 
     public List<String> getAllPetStatus() {
@@ -64,7 +66,7 @@ public class RegisterPetFunctions {
     List<String> petStatusList = new ArrayList<>();
 
     try (Connection connection = connectionDB.getConnection();
-         CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+        CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
         callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
         callableStatement.execute();
 
@@ -148,6 +150,30 @@ public class RegisterPetFunctions {
 
     return petColorList;
 }
+    public String callInsertPetPhoto(Integer petId, String pcImagePath) {
+        String procedureCall = "{ ? = call petProcedures.insertPetPhoto(?, ?) }";
+        String resultMessage = null;
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            // Registrar el parámetro de salida para el mensaje de resultado
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setInt(2, petId);
+            callableStatement.setString(3, pcImagePath);
+
+            // Ejecutar la llamada al procedimiento almacenado
+            callableStatement.execute();
+
+            // Obtener el mensaje de resultado
+            resultMessage = callableStatement.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultMessage;
+    }
+
+
 }
 
 
