@@ -252,9 +252,9 @@ public class Login extends javax.swing.JFrame {
         if(res){
             String userType = LoginFunctions.loginType(user, pass);
             System.out.println(userType);
-            if(userType.equals("Normal")){
+            if(userType.equals("Normal") ||userType.equals("Owner")  || userType.equals("Candidate")  ){
                 int idPerson = LoginFunctions.getPersonId(user, pass);
-                NormalUserMain normalWindow = new NormalUserMain(idPerson);
+                NormalUserMain normalWindow = new NormalUserMain(idPerson,userType);
                 normalWindow.setVisible(true);
                 dispose();
             }

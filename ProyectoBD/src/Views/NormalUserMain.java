@@ -19,9 +19,9 @@ public class NormalUserMain extends javax.swing.JFrame {
     /**
      * Creates new form NormalUserMain
      */
-    public NormalUserMain(int idPerson) {
+    public NormalUserMain(int idPerson, String userType) {
         initComponents();
-        addComponents(idPerson);
+        addComponents(idPerson,userType);
 //        NormalUserFunctions.displayPets(this);
 //        
         
@@ -43,6 +43,8 @@ public class NormalUserMain extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         PetDisplay = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 635));
@@ -96,7 +98,10 @@ public class NormalUserMain extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Acontinuacion puedes ver algunas de las mascotas disponibles que puedes adoptar.");
+        jLabel1.setText("A continuacion puedes ver algunas de las mascotas disponibles que puedes adoptar.");
+
+        jButton4.setText("Make Test Preferences");
+        jPanel4.add(jButton4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,9 +111,13 @@ public class NormalUserMain extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(94, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,9 +125,11 @@ public class NormalUserMain extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -147,7 +158,7 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
     return new ImageIcon(resizedImage);
 }
 
-private void addComponents(int idPerson) {
+private void addComponents(int idPerson, String userType) {
     ArrayList<String> imageTexts = new ArrayList<>();
     ArrayList<Integer> petIds = new ArrayList<>();
     
@@ -203,7 +214,7 @@ private void addComponents(int idPerson) {
         imageButton.setForeground(Color.WHITE);
         imageButton.setBackground(customColor);
         
-            imageButton.addActionListener(new ActionListener() {
+        imageButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
                 int check = NormalUserFunctions.checkFormExistance(petId, idPerson);
@@ -232,6 +243,27 @@ private void addComponents(int idPerson) {
 
         PetDisplay.add(imageTextPanel);
     }
+    
+            JButton AdoptTest = new JButton("Check Adoption Test Results");
+            AdoptTest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               System.out.print("pressed");
+            }
+            });
+            if ("Candidate".equals(userType)) {
+            jPanel4.add(AdoptTest);
+        }
+            JButton checkLost = new JButton("Check on Reported Pet");
+            checkLost.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+               System.out.print("pressed");
+            }
+            });
+            if ("Owner".equals(userType)) {
+            jPanel4.add(checkLost);
+        }
     }
 }
     /**
@@ -274,10 +306,12 @@ private void addComponents(int idPerson) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PetDisplay;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
