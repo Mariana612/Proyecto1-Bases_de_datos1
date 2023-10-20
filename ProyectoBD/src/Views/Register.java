@@ -103,7 +103,7 @@ public class Register extends javax.swing.JFrame {
         jLabel2.setText("First Name*");
 
         nameTextfield.setBackground(new java.awt.Color(0, 102, 153));
-        nameTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        nameTextfield.setForeground(new java.awt.Color(255, 255, 255));
         nameTextfield.setBorder(null);
         nameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +116,7 @@ public class Register extends javax.swing.JFrame {
         jLabel1.setText("Middle Name");
 
         middlenameTextfield.setBackground(new java.awt.Color(0, 102, 153));
-        middlenameTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        middlenameTextfield.setForeground(new java.awt.Color(255, 255, 255));
         middlenameTextfield.setBorder(null);
         middlenameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +129,7 @@ public class Register extends javax.swing.JFrame {
         jLabel3.setText("First Last Name*");
 
         firstLastNameTextfield.setBackground(new java.awt.Color(0, 102, 153));
-        firstLastNameTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        firstLastNameTextfield.setForeground(new java.awt.Color(255, 255, 255));
         firstLastNameTextfield.setBorder(null);
         firstLastNameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +142,7 @@ public class Register extends javax.swing.JFrame {
         jLabel4.setText("Second Last Name");
 
         secondLastNameTextfield.setBackground(new java.awt.Color(0, 102, 153));
-        secondLastNameTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        secondLastNameTextfield.setForeground(new java.awt.Color(255, 255, 255));
         secondLastNameTextfield.setBorder(null);
         secondLastNameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +155,7 @@ public class Register extends javax.swing.JFrame {
         jLabel6.setText("Email*");
 
         emailTextfield.setBackground(new java.awt.Color(0, 102, 153));
-        emailTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        emailTextfield.setForeground(new java.awt.Color(255, 255, 255));
         emailTextfield.setBorder(null);
         emailTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,7 @@ public class Register extends javax.swing.JFrame {
         jLabel9.setText("Telephone");
 
         telephoneTextfield.setBackground(new java.awt.Color(0, 102, 153));
-        telephoneTextfield.setForeground(new java.awt.Color(153, 153, 153));
+        telephoneTextfield.setForeground(new java.awt.Color(255, 255, 255));
         telephoneTextfield.setBorder(null);
         telephoneTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +181,7 @@ public class Register extends javax.swing.JFrame {
         jLabel10.setText("Type of telephone");
 
         telTypeComboBox.setBackground(new java.awt.Color(0, 102, 153));
+        telTypeComboBox.setForeground(new java.awt.Color(255, 255, 255));
         telTypeComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
@@ -433,6 +434,7 @@ public class Register extends javax.swing.JFrame {
         signUpjButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         signUpjButton.setForeground(new java.awt.Color(255, 255, 255));
         signUpjButton.setText("Sign Up");
+        signUpjButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         signUpjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpjButtonActionPerformed(evt);
