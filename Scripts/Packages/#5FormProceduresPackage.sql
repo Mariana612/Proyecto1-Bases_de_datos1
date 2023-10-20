@@ -6,13 +6,9 @@ PROCEDURE incertAnswers(pcFormName VARCHAR2, pcOwnHouse VARCHAR2,
                         pcMinMAmount VARCHAR2,  pcMaxMAmount VARCHAR2,
                         pcAuthorization VARCHAR2,pnIdPerson NUMBER, 
                         pnIdPet NUMBER,pnIdInCharge NUMBEr);
-PROCEDURE createAdoptionForm(idPet NUMBER, formName VARCHAR2);
+PROCEDURE createAdoptionForm(idPet NUMBER,  idPerson NUMBER);
+FUNCTION checkIfAdoptionFExists(idPet NUMBER, idPerson NUMBER)RETURN NUMBER;
 
 
 END formProcedures;
-
---BEGIN
---    formProcedures.createAdoptionForm(8,'ALGO');
---
---END;
 

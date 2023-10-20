@@ -68,8 +68,7 @@ public class NormalUserFunctions {
 
             ResultSet res = (ResultSet) callableStatement.getObject(1);
             int listSize = getPetAmount();
-            System.out.println("Cantidad");
-            System.out.println(listSize);
+           
             String[] petListWithStatus = new String[listSize];
             int index = 0;
             while (res.next()) {
@@ -118,8 +117,6 @@ public class NormalUserFunctions {
 
             ResultSet res = (ResultSet) callableStatement.getObject(1);
             int listSize = getPetAmount();
-            System.out.println("Cantidad");
-            System.out.println(listSize);
             int[] petListId = new int[listSize];
             int index = 0;
             while (res.next()) {
@@ -134,6 +131,70 @@ public class NormalUserFunctions {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+        
+    public static int checkFormExistance(int idPet, int idPerson) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call formProcedures.checkIfAdoptionFExists(?, ?)}";
+                        
+
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setInt(2, idPet);
+            callableStatement.setInt(3, idPerson);
+
+            callableStatement.execute();
+
+            int result = callableStatement.getInt(1);
+
+            callableStatement.close();
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public static void createForm(int idPet, int idPerson) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call formProcedures.createAdoptionForm(?, ?)}";
+
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setInt(1, idPet);
+            callableStatement.setInt(2, idPerson);
+
+            callableStatement.execute();
+
+            callableStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             try {
                 if (callableStatement != null) {

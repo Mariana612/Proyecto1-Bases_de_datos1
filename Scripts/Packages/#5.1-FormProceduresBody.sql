@@ -32,12 +32,31 @@ BEGIN
 
 END;
 
-PROCEDURE createAdoptionForm(idPet NUMBER, formName VARCHAR2)
+PROCEDURE createAdoptionForm(idPet NUMBER,  idPerson NUMBER)
   AS
     v_idRescuer NUMBER := NULL; -- Initialize variables
     v_idAssociation NUMBER := NULL;
+    v_ammount NUMBER;
+   v_nameForm VARCHAR2(100); -- Adjust the length as needed
 
-    BEGIN
+BEGIN
+        SELECT pet_name || ' ' || idPerson
+        INTO v_nameForm
+        FROM pet
+        WHERE pet.id = idPet;
+    
+        SELECT COUNT(1)
+        INTO v_ammount
+        FROM candidate
+        WHERE candidate.id_physical = idPerson;
+        
+        IF v_ammount = 0 THEN
+            INSERT INTO candidate(id_physical)
+            VALUES (idPerson);
+        END IF;
+        
+        
+        
         BEGIN
             SELECT id_rescuer
             INTO v_idRescuer
@@ -45,8 +64,6 @@ PROCEDURE createAdoptionForm(idPet NUMBER, formName VARCHAR2)
             WHERE id_pet = idPet;
         EXCEPTION
             WHEN NO_DATA_FOUND THEN
-                -- Handle the case where no data is found for v_idRescuer
-                -- You can assign a default value or take other appropriate action.
                 v_idRescuer := NULL; -- Assign a default value or take other action.
         END;
 
@@ -62,8 +79,31 @@ PROCEDURE createAdoptionForm(idPet NUMBER, formName VARCHAR2)
                 v_idAssociation := NULL; -- Assign a default value or take other action.
         END;
 
-        INSERT INTO adoption_form(id, id_pet, id_status, id_rescuer, id_association, form_name)
-        VALUES (sAdoptionForm.NEXTVAL, idPet, 2, v_idRescuer, v_idAssociation, formName);
+        INSERT INTO adoption_form(id, id_candidate,id_pet, id_status, id_rescuer, id_association, form_name)
+        VALUES (sAdoptionForm.NEXTVAL, idPerson, idPet, 3, v_idRescuer, v_idAssociation, v_nameForm);
     END;
+
+
+    
+FUNCTION checkIfAdoptionFExists(idPet NUMBER, idPerson NUMBER)RETURN NUMBER 
+AS
+    v_ammount NUMBER;
+BEGIN
+    SELECT COUNT(1)
+    INTO v_ammount
+    FROM adoption_form 
+    WHERE id_candidate = idPerson
+    AND id_pet = idPet;
+
+    -- Set the result in the OUT parameter
+    IF v_ammount > 0 THEN
+        v_ammount:= 1;
+    ELSE
+        v_ammount:= 0;
+
+    END IF;
+    RETURN v_ammount;
+    END;
+    
 
 END formProcedures;
