@@ -35,19 +35,17 @@ CREATE OR REPLACE PACKAGE BODY petProcedures AS
     RETURN vColordId;
   END getColorId;
 ------------------------------------------------------------------------
-PROCEDURE insertPet(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER, pResultMessage OUT VARCHAR) IS
+FUNCTION insertPet(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER) RETURN NUMBER IS
   vStatusId NUMBER;
   vBreedId NUMBER;
   vTypeId NUMBER;
   vColorId NUMBER;
+  vPetId NUMBER; -- Variable para almacenar el ID de la mascota
 BEGIN
-  -- Inicializa el mensaje de resultado como exitoso por defecto
-  pResultMessage := 'The insertion was successful.';
-
-  -- Validación de campos obligatorios
+  -- Validaci n de campos obligatorios
   IF pcPetStatus IS NULL OR pcPetType IS NULL THEN
-    pResultMessage := 'Error: Pet Status and Pet Type are required fields.';
-    RETURN;
+    -- Devuelve un valor negativo para indicar error
+    RETURN -1;
   END IF;
 
   -- Inicializar IDs
@@ -58,20 +56,20 @@ BEGIN
 
   -- Manejo de excepciones para obtener IDs
   BEGIN
-    -- Obtener el ID de estado utilizando la función getStatusId
+    -- Obtener el ID de estado utilizando la funci n getStatusId
     vStatusId := getStatusId(pcPetStatus);
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
-      pResultMessage := 'Error: Pet status not found for value ' || pcPetStatus;
-      RETURN;
+      -- Devuelve un valor negativo para indicar error
+      RETURN -2;
   END;
 
   BEGIN
     vTypeId := getTypeId(pcPetType);
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
-      pResultMessage := 'Error: Pet type not found for value ' || pcPetType;
-      RETURN;
+      -- Devuelve un valor negativo para indicar error
+      RETURN -3;
   END;
 
   -- Comprobar si los valores de color y raza son nulos y asignar null en ese caso
@@ -87,19 +85,24 @@ BEGIN
     vBreedId := getBreedId(pcBreed);
   END IF;
 
-  -- Realizar la inserción si no se generaron excepciones
+  -- Realizar la inserci n si no se generaron excepciones
   BEGIN
     INSERT INTO pet(id, CHIP, PET_NAME, ID_PERSONAL_TEST, ID_PET_STATUS, ID_PET_TYPE, ID_COLOR, ID_BREED, ID_OWNER)
-    VALUES(sPet.NEXTVAL, pnChip, pcName, NULL, vStatusId, vTypeId, vColorId, vBreedId, NULL);
+    VALUES(sPet.NEXTVAL, pnChip, pcName, NULL, vStatusId, vTypeId, vColorId, vBreedId, NULL)
+    RETURNING id INTO vPetId; -- Capturar el ID de la mascota reci n insertada
   EXCEPTION
     WHEN OTHERS THEN
-      pResultMessage := 'Insertion failed.';
-      ROLLBACK;
+      -- Devuelve un valor negativo para indicar error
+      RETURN -4;
   END;
 
   -- COMMIT solo si no se generaron excepciones
   COMMIT;
+
+  -- Devuelve el ID de la mascota
+  RETURN vPetId;
 END insertPet;
+
 
 ------------------------------------------------------------------------
 FUNCTION getAllPetStatus 
@@ -148,6 +151,35 @@ FUNCTION getAllPetTypes
         CLOSE petTypeCursor;
     END getAllPetTypes;
 
+------------------------------------------------------------------------
+FUNCTION insertPetPhoto(pnIdPet NUMBER, pcImagePath VARCHAR2) RETURN VARCHAR2 IS
+    vErrorMessage VARCHAR2(200); -- Declarar una variable para almacenar el mensaje de error
+  BEGIN
+    -- Inicializa el mensaje de resultado como exitoso por defecto
+    vErrorMessage := 'The photo insertion was successful.';
+
+    -- Inserta la foto en la tabla PET_PHOTO
+    BEGIN
+      INSERT INTO PET_PHOTO(id, id_pet, picture_path)
+      VALUES(spetphoto.nextval, pnIdPet, pcImagePath);
+    EXCEPTION
+      WHEN OTHERS THEN
+        -- Almacena el mensaje de error
+        vErrorMessage := 'Error inserting the photo into the table PET_PHOTO: ' || SQLERRM;
+    END;
+
+    -- COMMIT solo si la inserci n fue exitosa
+    IF vErrorMessage = 'The photo insertion was successful.' THEN
+      COMMIT;
+    ELSE
+      -- ROLLBACK en caso de error
+      ROLLBACK;
+    END IF;
+
+    -- Retorna el mensaje de resultado
+    RETURN vErrorMessage;
+  END insertPetPhoto;
+
 ------------------------------------------------------------------------      
 PROCEDURE insertPetStatus(pcName VARCHAR)
     IS
@@ -155,9 +187,8 @@ PROCEDURE insertPetStatus(pcName VARCHAR)
     insert into pet_status(id,status_name)
     values  (sStatus.nextval, pcName);
     END;
-END petProcedures;
 
-/
+END petProcedures;
 
 
 
