@@ -55,12 +55,43 @@ EXCEPTION
         -- Handle other exceptions as needed
         RAISE_APPLICATION_ERROR(-20001, 'An error occurred: ' || SQLERRM);
 END;
+
+PROCEDURE insertAddress(personId NUMBER, pDistrict_name VARCHAR2, pCanton_name VARCHAR2)
+IS 
+    vDistrictId NUMBER; 
+    vCantonId NUMBER;
+BEGIN 
+    SELECT d.id 
+    INTO vDistrictId
+    FROM district d
+    INNER JOIN canton c 
+    ON d.id_canton = c.id
+    WHERE d.district_name = pDistrict_name 
+    AND c.canton_name = pCanton_name;
+    
+    INSERT INTO personXdistrict(id_person, id_district) 
+    VALUES (personId, vDistrictId);
+    
+END;
+
+PROCEDURE insertPhysicalPerson(pIdPerson NUMBER, pGender VARCHAR2)
+IS
+    vGenderId NUMBER;
+BEGIN 
+    SELECT g.id
+    INTO vGenderId
+    FROM gender g
+    WHERE g.name_gender = pGender;
+    INSERT INTO physical_person(id_physical, id_gender)
+    VALUES(pIdPerson, vGenderId);
+END;
+
 ---------------------------------------------------------------------------
 -------------------------------INSERT PERSON-------------------------------
-PROCEDURE insertPerson (pcDistrictN VARCHAR2,  pcFirstN VARCHAR2, 
+PROCEDURE insertPerson (pcDistrictN VARCHAR2,  pcCantonName VARCHAR2, pcFirstN VARCHAR2, 
           pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, pcSecondLastN VARCHAR2,
           pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
-          pcUserType VARCHAR2,idGender NUMBER)
+          pcUserType VARCHAR2,genderName VARCHAR2, phoneNumber NUMBER, phoneType VARCHAR2)
 IS
 BEGIN
 
@@ -72,11 +103,10 @@ BEGIN
         INSERT INTO legal_person(id_legal)
         VALUES (sPerson.CURRVAL);
     ELSE
-        INSERT INTO physical_person(id_physical,id_gender)
-        VALUES (sPerson.CURRVAL,idGender);
+        insertPhysicalPerson(sPerson.CURRVAL, genderName);
     END IF;
     insertEmail(sPerson.CURRVAL, pcEmail); 
-    
+    insertAddress(sPerson.CURRVAL, pcDistrictN, pcCantonName);
     INSERT INTO personxdistrict (id_person, id_district)
     VALUES (sPerson.currval, pcDistrictN);
     COMMIT;
@@ -119,16 +149,22 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
 END;
 ------------------------------INSERT TELEPHONE-----------------------------
---PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER)
---IS
---BEGIN
---    INSERT INTO telephone(id,phone_number)
---    VALUES (sTelephone.NEXTVAL, pnPhoneNumber);
---  --  
---    INSERT INTO telephoneXperson(id_person, id_telephone)
---    VALUES (pnIdPerson, sTelephone.CURRVAL);
---    COMMIT;
---END;
+PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER, phoneType VARCHAR2)
+IS
+    vTypeId NUMBER;
+BEGIN
+    SELECT t.id
+    INTO vTypeId
+    FROM telephone_type t
+    WHERE t.type_name = phoneType;
+    
+    INSERT INTO telephone(id,phone_number, id_telephone_type)
+    VALUES (sTelephone.NEXTVAL, pnPhoneNumber, vTypeId);
+  
+    INSERT INTO telephoneXperson(id_person, id_telephone)
+    VALUES (pnIdPerson, sTelephone.CURRVAL);
+    COMMIT;
+END;
 ---------------------------------------------------------------------------
 --------------------------------INSERT EMAIL-------------------------------
 PROCEDURE insertEmail(pnIdPerson NUMBER, pcEmailText VARCHAR2)

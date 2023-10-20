@@ -1,0 +1,10 @@
+  CREATE SEQUENCE sAdoptionForm
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  NOCYCLE; 
+  
+  
+select * from telephone

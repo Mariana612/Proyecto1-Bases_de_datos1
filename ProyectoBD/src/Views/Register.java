@@ -692,6 +692,9 @@ public class Register extends javax.swing.JFrame {
         String username = usernameTextfield.getText();
         String password = passwordTextfield.getText();
         String userType = userTypeLabel.getText();
+        String gender = genderComboBox.getSelectedItem().toString();
+        int phoneNumber = Integer.parseInt(telephoneTextfield.getText());
+        String phoneType = telTypeComboBox.getSelectedItem().toString();
         if (!firstName.isEmpty() || !firstLastname.isEmpty() || !email.isEmpty() || !username.isEmpty() || !password.isEmpty()){
             if(checkEmail(email)){
                 System.out.println(firstName);
@@ -708,7 +711,7 @@ public class Register extends javax.swing.JFrame {
                 System.out.println(canton);
                 System.out.println(district);
                 System.out.println(userType);
-                // LoginFunctions.createJustPerson(firstName, middleName, firstLastname, secondLastname, username, password, email);
+                LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
             }
             else {
                 requiredFieldLabel.setText("Email format is not valid");

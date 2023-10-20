@@ -612,4 +612,47 @@ public class LoginFunctions {
             }
         }
     }
+
+    public static void insertPerson(String district, String canton, String firstName, String middleName, String firstLastname, String secondLastname,
+                                    String username, String password, String email, String userType, String genderName, int phoneNumber, String phoneType){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call createUser.insertPerson(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setString(1, district);
+            callableStatement.setString(2, canton);
+            callableStatement.setString(3, firstName);
+            callableStatement.setString(4, middleName);
+            callableStatement.setString(5, firstLastname);
+            callableStatement.setString(6, secondLastname);
+            callableStatement.setString(7, username);
+            callableStatement.setString(8, password);
+            callableStatement.setString(9, email);
+            callableStatement.setString(10, userType);
+            callableStatement.setString(11, genderName);
+            callableStatement.setInt(12, phoneNumber);
+            callableStatement.setString(13, phoneType);
+
+            
+            // Ejecuta el procedimiento almacenado
+            callableStatement.execute();
+            System.out.println("persona insertada");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                // Cierra la conexión utilizando la clase ConnectionDB
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
 }
