@@ -11,9 +11,10 @@ FUNCTION getBreedsByPetType(pcPetType VARCHAR2) RETURN SYS_REFCURSOR;
 FUNCTION getAllPetColors RETURN SYS_REFCURSOR;
 FUNCTION getAllPetTypes RETURN SYS_REFCURSOR;
 -- PET PROCEDURES      
-FUNCTION insertPET(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER) RETURN NUMBER;
-FUNCTION insertPetPhoto(pnIdPet NUMBER, pcImagePath VARCHAR2) RETURN VARCHAR2;
-/*
+PROCEDURE insertPET(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER, pResultMessage OUT VARCHAR);
+PROCEDURE insertPetStatus(pcName VARCHAR);
+/*PROCEDURE insertPetPhoto(pnIdPet NUMBER, pcImagePath VARCHAR2);
+
 -- RESCUED PET PROCEDURES
 PROCEDURE insertRescued(pnIdPet NUMBER, pcNotes VARCHAR, pcSpace VARCHAR, 
           pcEnergy VARCHAR, pcTraining VARCHAR, pcIllness VARCHAR, 
@@ -33,4 +34,5 @@ PROCEDURE foundPet(pnIdPet NUMBER, pnDateFound NUMBER, pcDistrictN VARCHAR2,
           pcCantonN VARCHAR2, pcProvinceN VARCHAR2, pcCountryN VARCHAR2, 
           pcContinentN VARCHAR2);*/
 END petProcedures;
+
 
