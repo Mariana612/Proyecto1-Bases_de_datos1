@@ -5,6 +5,10 @@
 package Views;
 
 import BD.LoginFunctions;
+import BD.NormalUserFunctions;
+import static Views.Register.checkEmail;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +19,8 @@ public class AdoptionForm extends javax.swing.JFrame {
     /**
      * Creates new form AdoptionForm
      */
-    public AdoptionForm( int idPerson) {
-        initComponents();
+    public AdoptionForm( int idPerson, int petId) {
+        initComponents(idPerson, petId);
     }
 
     /**
@@ -26,7 +30,7 @@ public class AdoptionForm extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int idPerson, int petId) {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -40,17 +44,17 @@ public class AdoptionForm extends javax.swing.JFrame {
         PurposePet = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        estimatedTime = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        interestInPet = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        maximumTime = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        minimumTime = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         petAuthorization = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        Finalizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,11 +88,6 @@ public class AdoptionForm extends javax.swing.JFrame {
                 OwnHousePopupMenuWillBecomeVisible(evt);
             }
         });
-        OwnHouse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OwnHouseActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("What is the purpose of adopting this pet?");
 
@@ -106,29 +105,29 @@ public class AdoptionForm extends javax.swing.JFrame {
 
         jLabel5.setText("What is the maximum amount of money that you are going to spend taking care of this new pet?");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        estimatedTime.setColumns(20);
+        estimatedTime.setRows(5);
+        jScrollPane3.setViewportView(estimatedTime);
 
         jLabel6.setText("What is the estimated amount of time you plan to dedicate to your pet on average");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
+        interestInPet.setColumns(20);
+        interestInPet.setRows(5);
+        jScrollPane4.setViewportView(interestInPet);
 
         jLabel7.setText("Why are you interested in adopting this pet?");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        maximumTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                maximumTimeActionPerformed(evt);
             }
         });
 
         jLabel8.setText("What is the minimum amount of money that you are going to spend taking care of this new pet?");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        minimumTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                minimumTimeActionPerformed(evt);
             }
         });
 
@@ -146,7 +145,12 @@ public class AdoptionForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("FINALIZAR");
+        Finalizar.setText("FINALIZAR");
+        Finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FinalizarActionPerformed(evt,idPerson,petId);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,18 +172,18 @@ public class AdoptionForm extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel1)
-                                .addComponent(jTextField1)
+                                .addComponent(maximumTime)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane4)
                                 .addComponent(jScrollPane3)
                                 .addComponent(PurposePet, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(OwnHouse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField2)
+                                .addComponent(minimumTime)
                                 .addComponent(petAuthorization, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(328, 328, 328)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -213,14 +217,14 @@ public class AdoptionForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(minimumTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(maximumTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addComponent(Finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -231,33 +235,31 @@ public class AdoptionForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 896, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void maximumTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maximumTimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_maximumTimeActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void minimumTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimumTimeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_minimumTimeActionPerformed
 
     private void OwnHousePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_OwnHousePopupMenuWillBecomeVisible
         OwnHouse.removeAllItems();
         OwnHouse.addItem("Yes");
         OwnHouse.addItem("No");
     }//GEN-LAST:event_OwnHousePopupMenuWillBecomeVisible
-
-    private void OwnHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OwnHouseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OwnHouseActionPerformed
 
     private void PurposePetPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_PurposePetPopupMenuWillBecomeVisible
         PurposePet.removeAllItems();
@@ -271,6 +273,35 @@ public class AdoptionForm extends javax.swing.JFrame {
         petAuthorization.addItem("No");
     }//GEN-LAST:event_petAuthorizationPopupMenuWillBecomeVisible
 
+    private void FinalizarActionPerformed(java.awt.event.ActionEvent evt, int idPerson, int petId) {//GEN-FIRST:event_FinalizarActionPerformed
+
+        String OwnHouseAnswer = String.valueOf(OwnHouse.getSelectedItem());
+        String PurposePetAnswer = String.valueOf(PurposePet.getSelectedItem());
+        String petAuthorizationAnswer = String.valueOf(petAuthorization.getSelectedItem());
+        String estimatedTimeAnswer = estimatedTime.getText();
+        String interestInPetAnswer = interestInPet.getText();
+        String minimumTimeAnswer = minimumTime.getText();
+        String maximumTimeAnswer = maximumTime.getText();
+
+        if (!OwnHouseAnswer.isEmpty() && !PurposePetAnswer.isEmpty() && !petAuthorizationAnswer.isEmpty() && !estimatedTimeAnswer.isEmpty() && !interestInPetAnswer.isEmpty() && !minimumTimeAnswer.isEmpty() && !maximumTimeAnswer.isEmpty()){
+            System.out.println(OwnHouseAnswer);
+            System.out.println(PurposePetAnswer);
+            System.out.println(petAuthorizationAnswer);
+            System.out.println(estimatedTimeAnswer);
+            System.out.println(interestInPetAnswer);
+            System.out.println(minimumTimeAnswer);
+            System.out.println(maximumTimeAnswer);
+
+            NormalUserFunctions.insertAnswers(idPerson,petId,OwnHouseAnswer, PurposePetAnswer, petAuthorizationAnswer, estimatedTimeAnswer, interestInPetAnswer, minimumTimeAnswer, maximumTimeAnswer);
+        }
+        else {
+            showMessageDialog("Por favor rellene toda la informacíon","Error");
+        }
+    }//GEN-LAST:event_FinalizarActionPerformed
+    public static void showMessageDialog(String message, String title) {
+
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
     /**
      * @param args the command line arguments
      */
@@ -307,9 +338,11 @@ public class AdoptionForm extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Finalizar;
     private javax.swing.JComboBox<String> OwnHouse;
     private javax.swing.JComboBox<String> PurposePet;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextArea estimatedTime;
+    private javax.swing.JTextArea interestInPet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -325,10 +358,8 @@ public class AdoptionForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField maximumTime;
+    private javax.swing.JTextField minimumTime;
     private javax.swing.JComboBox<String> petAuthorization;
     // End of variables declaration//GEN-END:variables
 }

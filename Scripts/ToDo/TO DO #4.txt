@@ -48,3 +48,12 @@ BEGIN
     petProcedures.insertPET(pcName, pcPetStatus, pcPetType, pcColor, pcBreed, pnChip,vResultMessage);
     DBMS_OUTPUT.PUT_LINE(vResultMessage);
 END;
+
+
+ALTER TABLE adoption_form
+DROP CONSTRAINT purpose_boolean;
+
+ALTER TABLE adoption_form
+MODIFY purpose VARCHAR2(100);
+
+

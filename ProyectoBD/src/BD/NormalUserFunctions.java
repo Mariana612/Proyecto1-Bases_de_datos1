@@ -206,4 +206,48 @@ public class NormalUserFunctions {
             }
         }
     }
+    public static void insertAnswers(int idPerson, int petId, String OwnHouseAnswer, 
+            String PurposePetAnswer,String petAuthorizationAnswer,
+            String estimatedTimeAnswer, String interestInPetAnswer,String  
+            minimumTimeAnswer, String maximumTimeAnswer){
+        
+                CallableStatement callableStatement = null;
+                
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call formProcedures.insertAnswers(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setInt(1, petId);
+            callableStatement.setInt(2, idPerson);
+            callableStatement.setString(3, OwnHouseAnswer);
+            callableStatement.setString(4, interestInPetAnswer);
+            callableStatement.setString(5, estimatedTimeAnswer);
+            callableStatement.setString(6, PurposePetAnswer);
+            callableStatement.setString(7, minimumTimeAnswer);
+            callableStatement.setString(8, maximumTimeAnswer);
+            callableStatement.setString(9, petAuthorizationAnswer);
+
+            callableStatement.execute();
+
+            callableStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+    
+    
+    
+    }
 }

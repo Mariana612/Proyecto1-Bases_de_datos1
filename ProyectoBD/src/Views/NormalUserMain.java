@@ -211,7 +211,7 @@ private void addComponents(int idPerson) {
                     NormalUserFunctions.createForm(petId, idPerson);
                 
                 }
-                AdoptionForm adoptionWindow = new AdoptionForm(idPerson);
+                AdoptionForm adoptionWindow = new AdoptionForm(idPerson, petId);
                 adoptionWindow.setVisible(true);
                 dispose();
             System.out.println("Button clicked!" + petId); // Example action
