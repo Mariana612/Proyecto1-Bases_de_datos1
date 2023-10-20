@@ -73,6 +73,7 @@ public class NormalUserFunctions {
             String[] petListWithStatus = new String[listSize];
             int index = 0;
             while (res.next()) {
+                String petId = res.getString("id");
                 String petName = res.getString("pet_name");
                 String status = res.getString("status_name");
                 String petType = res.getString("type_name");
@@ -88,6 +89,48 @@ public class NormalUserFunctions {
             callableStatement.close();
 
             return petListWithStatus;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+        public static int[] getAllPetsID() {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call userUsablePackage.getAllPets()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            callableStatement.execute();
+
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getPetAmount();
+            System.out.println("Cantidad");
+            System.out.println(listSize);
+            int[] petListId = new int[listSize];
+            int index = 0;
+            while (res.next()) {
+                int petId =  Integer.parseInt(res.getString("id"));
+                petListId[index] = petId;
+                index++;
+            }
+            res.close();
+            callableStatement.close();
+
+            return petListId;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
