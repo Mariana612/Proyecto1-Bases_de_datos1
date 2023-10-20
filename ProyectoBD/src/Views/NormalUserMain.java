@@ -6,6 +6,8 @@ package Views;
 import BD.NormalUserFunctions;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.lang.String;
 /**
@@ -17,9 +19,9 @@ public class NormalUserMain extends javax.swing.JFrame {
     /**
      * Creates new form NormalUserMain
      */
-    public NormalUserMain() {
+    public NormalUserMain(int idPerson) {
         initComponents();
-        addComponents();
+        addComponents(idPerson);
 //        NormalUserFunctions.displayPets(this);
 //        
         
@@ -145,14 +147,22 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
     return new ImageIcon(resizedImage);
 }
 
-private void addComponents() {
+private void addComponents(int idPerson) {
     ArrayList<String> imageTexts = new ArrayList<>();
+    ArrayList<Integer> petIds = new ArrayList<>();
     
     String[] pets = NormalUserFunctions.getAllPets();
-    System.out.println(pets);
+    int[] petidv = NormalUserFunctions.getAllPetsID();
     
+
     for(int i = 0; i < pets.length; i++){
         imageTexts.add(pets[i]);
+        
+    
+    }
+    
+    for(int i = 0; i < petidv.length; i++){
+        petIds.add(petidv[i]);
         
     
     }
@@ -163,15 +173,7 @@ private void addComponents() {
     // Add your image paths and text here
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
     imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 2");
-    imagePaths.add("/Images/Untitled.jpg");
-    imageTexts.add("Image 3");
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 1");
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 2");
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    imageTexts.add("Image 3");
+
 
     int imageWidth = 400; // Set the width you want for the images
     int imageHeight = 300; // Set the height you want for the images
@@ -179,8 +181,11 @@ private void addComponents() {
     for (int i = 0; i < imagePaths.size(); i++) {
         String imagePath = imagePaths.get(i);
         String imageText = imageTexts.get(i);
+        int petId = petIds.get(i);
+        
 
         ImageIcon resizedIcon = resizeImage(imagePath, imageWidth, imageHeight);
+        
         JLabel imageLabel = new JLabel(resizedIcon);
         JLabel textLabel = new JLabel(imageText);
         Font newFont = new Font("Roboto", Font.BOLD, 20);
@@ -197,11 +202,22 @@ private void addComponents() {
         imageButton.setFont(newFont);
         imageButton.setForeground(Color.WHITE);
         imageButton.setBackground(customColor);
+        
+            imageButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                AdoptionForm adoptionWindow = new AdoptionForm(idPerson);
+                adoptionWindow.setVisible(true);
+                dispose();
+            System.out.println("Button clicked!" + petId); // Example action
+        }
+    });
+        
 
         JPanel imageTextPanel = new JPanel(new BorderLayout());
 
         // Add a 20px gap to the right of the image
-        imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 20));
+        imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 20));
         
         
 
@@ -214,40 +230,40 @@ private void addComponents() {
 }
     /**
      * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NormalUserMain().setVisible(true);
-            }
-        });
-    }
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        
+//        
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new NormalUserMain(int idPerson).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PetDisplay;
