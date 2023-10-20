@@ -5,3 +5,5 @@ CREATE SEQUENCE sPetPhoto
   MAXVALUE 999999
   NOCACHE
   NOCYCLE;
+
+correr package petProcedures
