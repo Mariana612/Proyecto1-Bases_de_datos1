@@ -206,7 +206,12 @@ private void addComponents(int idPerson) {
             imageButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-                AdoptionForm adoptionWindow = new AdoptionForm(idPerson);
+                int check = NormalUserFunctions.checkFormExistance(petId, idPerson);
+                if (check == 0){
+                    NormalUserFunctions.createForm(petId, idPerson);
+                
+                }
+                AdoptionForm adoptionWindow = new AdoptionForm(idPerson, petId);
                 adoptionWindow.setVisible(true);
                 dispose();
             System.out.println("Button clicked!" + petId); // Example action

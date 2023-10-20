@@ -41,8 +41,3 @@ PROCEDURE insertRescuer( idPhysical NUMBER)
 
 END associationXRescuerPackage;
 
---BEGIN
---     associationXRescuerPackage.insertRescuer(10);
---     associationXRescuerPackage.insertRescuerxpet(9, 10, 1000, SYSDATE);
---
---END;
