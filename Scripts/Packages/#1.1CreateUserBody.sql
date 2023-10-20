@@ -20,6 +20,7 @@ BEGIN
   --
     INSERT INTO user_password(id, id_user,name_type)
     VALUES (sUserPassword.NEXTVAL, sUser.CURRVAL, pcPassword);
+  --
     
     COMMIT;
 END;
@@ -56,11 +57,10 @@ EXCEPTION
 END;
 ---------------------------------------------------------------------------
 -------------------------------INSERT PERSON-------------------------------
-PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
-          pcProvinceN VARCHAR2, pcCountryN VARCHAR2, pcContinentN VARCHAR2, 
-          pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
-          pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
-          pcUserType VARCHAR2)
+PROCEDURE insertPerson (pcDistrictN VARCHAR2,  pcFirstN VARCHAR2, 
+          pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, pcSecondLastN VARCHAR2,
+          pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
+          pcUserType VARCHAR2,idGender NUMBER)
 IS
 BEGIN
 
@@ -68,11 +68,17 @@ BEGIN
     VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
   --  
     createUserPerson(pcUsername, pcPassword, pcUserType);
+        IF pcUserType = 'Association' THEN
+        INSERT INTO legal_person(id_legal)
+        VALUES (sPerson.CURRVAL);
+    ELSE
+        INSERT INTO physical_person(id_physical,id_gender)
+        VALUES (sPerson.CURRVAL,idGender);
+    END IF;
     insertEmail(sPerson.CURRVAL, pcEmail); 
-    district_idNum:= getDistrictId(pcDistrictN, pcCantonN, pcProvinceN, pcCountryN, pcContinentN);
     
     INSERT INTO personxdistrict (id_person, id_district)
-    VALUES (sPerson.currval, district_idNum);
+    VALUES (sPerson.currval, pcDistrictN);
     COMMIT;
 EXCEPTION
     WHEN null_data_exception THEN
@@ -86,7 +92,7 @@ END;
 -------------------------------INSERT PERSON-------------------------------
 PROCEDURE insertJustPerson (pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
           pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
-          pcUserType VARCHAR2)
+          pcUserType VARCHAR2, idGender NUMBER)
 IS
 BEGIN
 
@@ -94,6 +100,13 @@ BEGIN
     VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
   --  
     createUserPerson(pcUsername, pcPassword, pcUserType);
+    IF pcUserType = 'Association' THEN
+        INSERT INTO legal_person(id_legal)
+        VALUES (sPerson.CURRVAL);
+    ELSE
+        INSERT INTO physical_person(id_physical,id_gender)
+        VALUES (sPerson.CURRVAL,idGender);
+    END IF;
     insertEmail(sPerson.CURRVAL, pcEmail); 
 
     COMMIT;
@@ -106,16 +119,16 @@ EXCEPTION
         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
 END;
 ------------------------------INSERT TELEPHONE-----------------------------
-PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER)
-IS
-BEGIN
-    INSERT INTO telephone(id,phone_number)
-    VALUES (sTelephone.NEXTVAL, pnPhoneNumber);
-  --  
-    INSERT INTO telephoneXperson(id_person, id_telephone)
-    VALUES (pnIdPerson, sTelephone.CURRVAL);
-    COMMIT;
-END;
+--PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER)
+--IS
+--BEGIN
+--    INSERT INTO telephone(id,phone_number)
+--    VALUES (sTelephone.NEXTVAL, pnPhoneNumber);
+--  --  
+--    INSERT INTO telephoneXperson(id_person, id_telephone)
+--    VALUES (pnIdPerson, sTelephone.CURRVAL);
+--    COMMIT;
+--END;
 ---------------------------------------------------------------------------
 --------------------------------INSERT EMAIL-------------------------------
 PROCEDURE insertEmail(pnIdPerson NUMBER, pcEmailText VARCHAR2)

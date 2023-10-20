@@ -5,25 +5,36 @@ CREATE OR REPLACE PACKAGE createUser IS
 
 -- CREATE USER PROCEDURES
 
-PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
-          pcProvinceN VARCHAR2, pcCountryN VARCHAR2, pcContinentN VARCHAR2, 
-          pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
-          pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
-          pcUserType VARCHAR2);
+PROCEDURE insertPerson (pcDistrictN VARCHAR2,  pcFirstN VARCHAR2, 
+          pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, pcSecondLastN VARCHAR2,
+          pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
+          pcUserType VARCHAR2,idGender NUMBER);
 FUNCTION getDistrictId( pcDistrictN VARCHAR2, pcCantonN VARCHAR2, 
                         pcProvinceN VARCHAR2, pcCountryN VARCHAR2,
                         pcContinentN VARCHAR2)return NUMBER;
 
-PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER);
+--PROCEDURE insertTelephone(pnIdPerson NUMBER, pnPhoneNumber NUMBER);
 PROCEDURE insertEmail(pnIdPerson NUMBER, pcEmailText VARCHAR2);
 PROCEDURE createUserPerson(pcUsername VARCHAR2,pcPassword VARCHAR2,pcUserType VARCHAR2) ;  
 PROCEDURE insertJustPerson (pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
           pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
-          pcUserType VARCHAR2);
+          pcUserType VARCHAR2, idGender NUMBER);
 
 END createUser;
 
-BEGIN
-createUser.insertJustPerson('Mariana','','Navarro','Jiménez','Mariana',
-                            'algo','m@gmail.com','Normal') ;  
-END;
+
+
+
+--BEGIN
+--createUser.insertJustPerson ('Mariana', 'Angeles','Navarro', 
+--          'Jimenez','Mariana','algo', 'Mariana@gmail.com',
+--          'Association', 2);
+--createUser.insertJustPerson ('Franco', 'Sergio','Ramirez', 
+--          'Barahona','FrancoS','algo', 'FrancoS@gmail.com',
+--          'Rescuer', 1);
+--createUser.insertJustPerson ('Mariana', '','Favez', 
+--          'Barahona','Mariana2','algo', 'AandreaF.com',
+--          'Normal', 2);
+--END;
+--
+
