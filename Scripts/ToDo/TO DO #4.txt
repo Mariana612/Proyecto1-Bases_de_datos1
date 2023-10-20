@@ -1,0 +1,50 @@
+BEGIN
+createUser.insertJustPerson ('Mariana', 'Angeles','Navarro', 
+          'Jimenez','Mariana','algo', 'Mariana@gmail.com',
+          'Association', 2);
+createUser.insertJustPerson ('Franco', 'Sergio','Ramirez', 
+          'Barahona','FrancoS','algo', 'FrancoS@gmail.com',
+          'Rescuer', 1);
+createUser.insertJustPerson ('Mariana', '','Favez', 
+          'Barahona','Mariana2','algo', 'AandreaF.com',
+          'Normal', 2);
+END;
+
+/
+
+SET SERVEROUTPUT ON
+DECLARE
+    -- Variables para los parámetros de entrada
+    pcName VARCHAR2(100) := 'Maxito';  
+    pcPetStatus VARCHAR2(100) := 'Found';  
+    pcPetType VARCHAR2(100) := 'Dog';  
+    pcColor VARCHAR2(100) := 'Brown';  
+    pcBreed VARCHAR2(100) := 'Labrador Retriever';  
+    pnChip NUMBER := null;
+    vResultMessage VARCHAR2(200);
+BEGIN
+    -- Llama al procedimiento insertPET
+    petProcedures.insertPET(pcName, pcPetStatus, pcPetType, pcColor, pcBreed, pnChip,vResultMessage);
+    DBMS_OUTPUT.PUT_LINE(vResultMessage);
+END;
+/
+
+
+
+
+
+SET SERVEROUTPUT ON
+DECLARE
+    -- Variables para los parámetros de entrada
+    pcName VARCHAR2(100) := 'Paquito';  
+    pcPetStatus VARCHAR2(100) := 'Found';  
+    pcPetType VARCHAR2(100) := 'Dog';  
+    pcColor VARCHAR2(100) := 'Brown';  
+    pcBreed VARCHAR2(100) := 'Labrador Retriever';  
+    pnChip NUMBER := null;
+    vResultMessage VARCHAR2(200);
+BEGIN
+    -- Llama al procedimiento insertPET
+    petProcedures.insertPET(pcName, pcPetStatus, pcPetType, pcColor, pcBreed, pnChip,vResultMessage);
+    DBMS_OUTPUT.PUT_LINE(vResultMessage);
+END;

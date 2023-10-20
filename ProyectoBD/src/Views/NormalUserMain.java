@@ -154,7 +154,7 @@ private void addComponents(int idPerson) {
     String[] pets = NormalUserFunctions.getAllPets();
     int[] petidv = NormalUserFunctions.getAllPetsID();
     
-
+    if(pets.length != 0){
     for(int i = 0; i < pets.length; i++){
         imageTexts.add(pets[i]);
         
@@ -226,6 +226,7 @@ private void addComponents(int idPerson) {
         imageTextPanel.add(imageButton, BorderLayout.SOUTH);
 
         PetDisplay.add(imageTextPanel);
+    }
     }
 }
     /**

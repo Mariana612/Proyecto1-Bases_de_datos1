@@ -25,16 +25,3 @@ END createUser;
 
 
 
---BEGIN
---createUser.insertJustPerson ('Mariana', 'Angeles','Navarro', 
---          'Jimenez','Mariana','algo', 'Mariana@gmail.com',
---          'Association', 2);
---createUser.insertJustPerson ('Franco', 'Sergio','Ramirez', 
---          'Barahona','FrancoS','algo', 'FrancoS@gmail.com',
---          'Rescuer', 1);
---createUser.insertJustPerson ('Mariana', '','Favez', 
---          'Barahona','Mariana2','algo', 'AandreaF.com',
---          'Normal', 2);
---END;
---
-

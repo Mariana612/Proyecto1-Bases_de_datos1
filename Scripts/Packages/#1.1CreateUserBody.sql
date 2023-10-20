@@ -106,6 +106,14 @@ BEGIN
     ELSE
         INSERT INTO physical_person(id_physical,id_gender)
         VALUES (sPerson.CURRVAL,idGender);
+    
+        IF pcUserType = 'Rescuer' THEN
+        INSERT INTO rescuer(ID_PHYSICAL)
+        VALUES (sPerson.CURRVAL);
+
+        END IF;
+
+        
     END IF;
     insertEmail(sPerson.CURRVAL, pcEmail); 
 
