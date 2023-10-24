@@ -24,40 +24,47 @@ public class RegisterPetFunctions {
     public RegisterPetFunctions() {
         this.connectionDB = new ConnectionDB();
     }
-    public Integer insertPet(String pcName, String pcPetStatus, String pcPetType, String pcColor, String pcBreed, Integer pnChip) {
-        String procedureCall = "{ ? = call petProcedures.insertPet(?, ?, ?, ?, ?, ?) }";
-        Integer petId = null;
+    public Integer insertPet(String pcName, String pcPetStatus, String pcPetType, String pcColor, String pcBreed, Integer pnChip, int pnPersonId, Double pnAmountSpent, String pDateIn) {
+    String procedureCall = "{ ? = call petProcedures.insertPet(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+    Integer petId = null;
 
-        try (Connection connection = connectionDB.getConnection();
-             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
-            // Asignar los valores de entrada
-            callableStatement.setString(2, pcName);
-            callableStatement.setString(3, pcPetStatus);
-            callableStatement.setString(4, pcPetType);
-            callableStatement.setString(5, pcColor);
-            callableStatement.setString(6, pcBreed);
+    try (Connection connection = connectionDB.getConnection();
+         CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+        callableStatement.registerOutParameter(1, Types.INTEGER);
+        callableStatement.setString(2, pcName);
+        callableStatement.setString(3, pcPetStatus);
+        callableStatement.setString(4, pcPetType);
+        callableStatement.setString(5, pcColor);
+        callableStatement.setString(6, pcBreed);
 
-            // Verificar si pnChip es nulo y asignar NULL en lugar de 0 si es necesario
-            if (pnChip == null) {
-                callableStatement.setNull(7, Types.INTEGER);
-            } else {
-                callableStatement.setInt(7, pnChip);
-            }
-
-            // Registrar el parámetro de salida para el ID de la mascota
-            callableStatement.registerOutParameter(1, Types.INTEGER);
-
-            // Ejecutar la llamada al procedimiento almacenado
-            callableStatement.execute();
-
-            // Obtener el ID de la mascota recién insertada
-            petId = callableStatement.getInt(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (pnChip == null) {
+            callableStatement.setNull(7, Types.INTEGER);
+        } else {
+            callableStatement.setInt(7, pnChip);
         }
 
-        return petId;
+        callableStatement.setInt(8, pnPersonId);
+
+        // Pasar el nuevo parámetro pnAmountSpent como Double
+        if (pnAmountSpent == null) {
+            callableStatement.setNull(9, Types.DOUBLE);
+        } else {
+            callableStatement.setDouble(9, pnAmountSpent);
+        }
+
+        // Pasar el parámetro de fecha pDateIn
+        callableStatement.setString(10, pDateIn);
+
+        callableStatement.execute();
+        petId = callableStatement.getInt(1);
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return petId;
+}
+
+
 
 
 

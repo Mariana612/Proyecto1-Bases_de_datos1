@@ -2,16 +2,17 @@
 --------------------PET--------------------
 CREATE TABLE pet
 (
-       id NUMBER(6),                --PK
-       chip NUMBER(6),
-       pet_name VARCHAR2(20),
-       id_personal_test NUMBER (6), --FK
-       id_pet_status NUMBER (6) CONSTRAINT pet_id_status_nn NOT NULL,    --FK
-       id_pet_type NUMBER (6) CONSTRAINT pet_id_type_nn NOT NULL,      --FK
-       id_color NUMBER (6),         --FK
-       id_breed NUMBER (6),         --FK
-       id_owner NUMBER (6)          --FK
+    id NUMBER(6),                -- PK
+    chip NUMBER(6),
+    pet_name VARCHAR2(20) CONSTRAINT pet_name_check CHECK (REGEXP_LIKE(pet_name, '^[A-Za-z ]{3,20}$')),
+    id_personal_test NUMBER (6), -- FK
+    id_pet_status NUMBER (6) CONSTRAINT pet_id_status_nn NOT NULL,    -- FK
+    id_pet_type NUMBER (6) CONSTRAINT pet_id_type_nn NOT NULL,      -- FK
+    id_color NUMBER (6),         -- FK
+    id_breed NUMBER (6),         -- FK
+    id_owner NUMBER (6)          -- FK
 );
+
 
 --alters--
 --PK
