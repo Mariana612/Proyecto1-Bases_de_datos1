@@ -35,15 +35,26 @@ CREATE OR REPLACE PACKAGE BODY petProcedures AS
     RETURN vColordId;
   END getColorId;
 ------------------------------------------------------------------------
-FUNCTION insertPet(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcColor VARCHAR, pcBreed VARCHAR, pnChip NUMBER) RETURN NUMBER IS
+FUNCTION insertPet(
+  pcName VARCHAR,
+  pcPetStatus VARCHAR,
+  pcPetType VARCHAR,
+  pcColor VARCHAR,
+  pcBreed VARCHAR,
+  pnChip NUMBER,
+  pnPersonId NUMBER,
+  pnAmountSpent NUMBER,
+  pDateIn VARCHAR
+) RETURN NUMBER IS
   vStatusId NUMBER;
   vBreedId NUMBER;
   vTypeId NUMBER;
   vColorId NUMBER;
   vPetId NUMBER; -- Variable para almacenar el ID de la mascota
+  vUserType VARCHAR2(20); -- Variable para almacenar el tipo de usuario
 BEGIN
-  -- Validaci n de campos obligatorios
-  IF pcPetStatus IS NULL OR pcPetType IS NULL THEN
+  -- Validación de campos obligatorios
+  IF pcPetStatus IS NULL OR pcPetType IS NULL OR pDateIn IS NULL THEN
     -- Devuelve un valor negativo para indicar error
     RETURN -1;
   END IF;
@@ -54,9 +65,14 @@ BEGIN
   vStatusId := NULL;
   vTypeId := NULL;
 
+  -- Obtener el tipo de usuario
+  SELECT us.name_type INTO vUserType
+  FROM user_type us
+  WHERE us.id = (SELECT id_user_type FROM user_person up WHERE up.id_person = pnPersonId);
+
   -- Manejo de excepciones para obtener IDs
   BEGIN
-    -- Obtener el ID de estado utilizando la funci n getStatusId
+    -- Obtener el ID de estado utilizando la función getStatusId
     vStatusId := getStatusId(pcPetStatus);
   EXCEPTION
     WHEN NO_DATA_FOUND THEN
@@ -85,16 +101,26 @@ BEGIN
     vBreedId := getBreedId(pcBreed);
   END IF;
 
-  -- Realizar la inserci n si no se generaron excepciones
+  -- Realizar la inserción en la tabla pet
   BEGIN
     INSERT INTO pet(id, CHIP, PET_NAME, ID_PERSONAL_TEST, ID_PET_STATUS, ID_PET_TYPE, ID_COLOR, ID_BREED, ID_OWNER)
-    VALUES(sPet.NEXTVAL, pnChip, pcName, NULL, vStatusId, vTypeId, vColorId, vBreedId, NULL)
-    RETURNING id INTO vPetId; -- Capturar el ID de la mascota reci n insertada
+    VALUES (sPet.NEXTVAL, pnChip, pcName, NULL, vStatusId, vTypeId, vColorId, vBreedId, CASE WHEN vUserType = 'Owner' THEN pnPersonId ELSE NULL END)
+    RETURNING id INTO vPetId; -- Capturar el ID de la mascota recién insertada
   EXCEPTION
     WHEN OTHERS THEN
       -- Devuelve un valor negativo para indicar error
       RETURN -4;
   END;
+
+  -- Realizar la inserción en la tabla associationxpet si el tipo de usuario es "Association"
+  IF vUserType = 'Association' THEN
+    associationxrescuerpackage.insertassociationxpet(vPetId,pnPersonId,pnAmountSpent,TO_DATE(pDateIn, 'YYYY-MM-DD'));
+  END IF;
+
+  -- Realizar la inserción en la tabla rescuerxpet si el tipo de usuario es "Rescuer"
+  IF vUserType = 'Rescuer' THEN
+    associationxrescuerpackage.insertrescuerxpet(vPetId,pnPersonId,pnAmountSpent,TO_DATE(pDateIn, 'YYYY-MM-DD'));
+  END IF;
 
   -- COMMIT solo si no se generaron excepciones
   COMMIT;
@@ -102,8 +128,6 @@ BEGIN
   -- Devuelve el ID de la mascota
   RETURN vPetId;
 END insertPet;
-
-
 ------------------------------------------------------------------------
 FUNCTION getAllPetStatus 
     RETURN SYS_REFCURSOR
