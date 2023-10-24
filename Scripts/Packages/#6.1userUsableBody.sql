@@ -13,6 +13,30 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         RETURN petsCursor;
         Close petsCursor;
     END getAllPets;
+    --=================================================    
+    FUNCTION getAllSelectedPets(idPerson NUMBER) RETURN SYS_REFCURSOR 
+    AS
+        petsCursor SYS_REFCURSOR;
+    BEGIN 
+        OPEN petsCursor FOR 
+        SELECT p.pet_name, ps.status_name, pt.type_name, c.color_name, b.breed_name, p.id
+        FROM pet p
+        JOIN pet_status ps ON p.id_pet_status = ps.id
+        JOIN pet_type pt ON p.id_pet_type = pt.id
+        JOIN color c ON p.id_color = c.id
+        JOIN breed b ON p.id_breed = b.id
+        WHERE p.id IN (
+            SELECT rp.id_pet
+            FROM RescuerXpet rp
+            WHERE rp.id_rescuer = idPerson
+            UNION ALL
+            SELECT ap.id_pet
+            FROM AssociationXpet ap
+            WHERE ap.id_association = idPerson
+        );
+    
+        RETURN petsCursor;
+    END getAllSelectedPets;
     
     --=================================================
     
@@ -27,6 +51,27 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         RETURN amountP;
     
     END getPetAmount;
+    --=================================================    
+    FUNCTION getSelectedPetAmount(idPerson NUMBER)
+    RETURN NUMBER
+    IS
+    amountP NUMBER(10);
+    BEGIN
+        SELECT COUNT(*)
+        INTO amountP
+        FROM pet p
+        WHERE p.id IN (
+            SELECT rp.id_pet
+            FROM RescuerXpet rp
+            WHERE rp.id_rescuer = idPerson
+            UNION ALL
+            SELECT ap.id_pet
+            FROM AssociationXpet ap
+            WHERE ap.id_association = idPerson
+        );
+        RETURN amountP;
+    
+    END getSelectedPetAmount;
     
      --=================================================
     FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER
