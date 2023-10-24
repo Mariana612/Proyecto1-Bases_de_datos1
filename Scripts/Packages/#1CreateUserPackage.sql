@@ -23,5 +23,10 @@ PROCEDURE insertJustPerson (pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN 
 END createUser;
 
 
+begin 
+createUser.insertJustPerson ('papa', 'francisco', 'xd', 
+          'kakaka','perrito','algo', 'perrito@ajdsalkdj',
+          'Normal', 1);
+end;
 
 
