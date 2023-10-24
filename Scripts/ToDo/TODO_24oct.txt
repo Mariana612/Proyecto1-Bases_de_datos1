@@ -1,0 +1,8 @@
+delete from rescuerxpet;
+delete from pet_photo;
+delete from pet;
+ALTER TABLE pet
+ADD CONSTRAINT pet_name_check CHECK (REGEXP_LIKE(pet_name, '^[A-Za-z ]{3,20}$'));
+begin 
+petProcedures.insertPetStatus('Rescued');
+end;
