@@ -84,9 +84,9 @@ petProcedures.insertPetStatus('Lost');
 
 end;
 BEGIN
-    adminProcedures.insertStatus('En espera');
-    adminProcedures.insertStatus('Aprovado');
-    adminProcedures.insertStatus('Cancelado');
+    adminProcedures.insertStatus('Look forward');
+    adminProcedures.insertStatus('Approved');
+    adminProcedures.insertStatus('Canceled');
 END;
 
 ALTER TABLE Adoption_form
