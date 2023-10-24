@@ -11,8 +11,10 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 /**
@@ -26,7 +28,7 @@ public class CheckSubmission extends javax.swing.JFrame {
      */
     public CheckSubmission() {
         initComponents();
-        setContentPane(jPanel1);
+
         createSubmissionPanels(2);
     }
 
@@ -40,6 +42,7 @@ public class CheckSubmission extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        scrollPane1 = new java.awt.ScrollPane();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -49,28 +52,30 @@ public class CheckSubmission extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
+            .addGap(0, 599, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGap(0, 501, Short.MAX_VALUE)
         );
+
+        scrollPane1.add(jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addGap(113, 113, 113)
+                .addComponent(scrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addGap(122, 122, 122)
+                .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,49 +94,60 @@ public class CheckSubmission extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 private void createSubmissionPanels(int idPet) {
-    
-
     List<List<String>> data = getAnswers(idPet);
 
- for (List<String> dataList : data) {
+    // Create a parent panel to hold all the submission panels
+    JPanel parentPanel = new JPanel();
+    parentPanel.setLayout(new GridLayout(0, 1)); // Single column layout
+
+    String[] titles = {
+        "Has Own House",
+        "Has Authorization",
+        "Purpose",
+        "Interest in Adoption",
+        "Accompaniment Average",
+        "Minimum Monthly Amount",
+        "Maximum Monthly Amount"
+    };
+
+    for (List<String> dataList : data) {
+        // Create a new submission panel for each data entry
         JPanel submissionPanel = new JPanel();
-        submissionPanel.setLayout(new GridLayout(7, 2));
-
-
-        String[] titles = {
-            "Has Own House",
-            "Has Authorization",
-            "Purpose",
-            "Interest in Adoption",
-            "Accompaniment Average",
-            "Minimum Monthly Amount",
-            "Maximum Monthly Amount"
-        };
+        submissionPanel.setLayout(new GridLayout(8, 2)); // Eight rows with two columns
 
         for (int i = 0; i < 7; i++) {
             JLabel titleLabel = new JLabel(titles[i]);
-            System.out.println(titles[i]);
             JLabel valueLabel = new JLabel(dataList.get(i));
-            System.out.println(dataList.get(i));
-            titleLabel.setPreferredSize(new Dimension(150, 30)); // Set preferred size for labels
+
+            titleLabel.setPreferredSize(new Dimension(150, 30));
             valueLabel.setPreferredSize(new Dimension(150, 30));
-            
+
+            titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            titleLabel.setVerticalAlignment(SwingConstants.CENTER);
+            valueLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            valueLabel.setVerticalAlignment(SwingConstants.CENTER);
+
             LineBorder lineBorder = new LineBorder(Color.BLACK, 1);
-            titleLabel.setBorder(lineBorder); // Set the border for the label
-            valueLabel.setBorder(lineBorder); // Set the border for the label
-            
+            titleLabel.setBorder(lineBorder);
+            valueLabel.setBorder(lineBorder);
+
             submissionPanel.add(titleLabel);
             submissionPanel.add(valueLabel);
         }
-        jPanel1.setLayout(new BorderLayout()); // Set BorderLayout for jPanel1
-        jPanel1.add(submissionPanel, BorderLayout.CENTER); // Add submissionPanel to CENTER
-        jPanel1.setVisible(true);
-
-        jPanel1.add(submissionPanel); // Change jPanel1 to jPanel2 if that's the name of the new JPanel
+        
+        // Create and add a button
+        JButton button = new JButton("Click Me");
+        button.setPreferredSize(new Dimension(150, 30));
+        submissionPanel.add(button);
+        
+        // Add the submission panel to the parent panel
+        parentPanel.add(submissionPanel);
     }
 
+    // Add the parent panel with all submission panels to jPanel1
+    jPanel1.setLayout(new BorderLayout());
+    jPanel1.add(parentPanel, BorderLayout.CENTER);
 }
 
     /**
@@ -172,5 +188,6 @@ private void createSubmissionPanels(int idPet) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private java.awt.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
 }
