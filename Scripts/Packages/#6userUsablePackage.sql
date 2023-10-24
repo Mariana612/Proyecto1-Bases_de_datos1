@@ -1,6 +1,8 @@
 CREATE OR REPLACE PACKAGE userUsablePackage IS
     FUNCTION getAllPets RETURN SYS_REFCURSOR;
+    FUNCTION getAllSelectedPets(idPerson NUMBER) RETURN SYS_REFCURSOR;
     FUNCTION getPetAmount RETURN NUMBER;
+    FUNCTION getSelectedPetAmount(idPerson NUMBER) RETURN NUMBER;
     FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER;
     
 
@@ -18,15 +20,24 @@ END userUsablePackage;
 --   petId NUMBER;           -- Assuming pet.id is a NUMBER type.
 --
 --BEGIN
---   petsCursor := userUsablePackage.getAllPets;
+--   petsCursor := userUsablePackage.getAllSelectedPets(0);
 --   LOOP
 --      FETCH petsCursor INTO petName, petStatus, petType, petColor, petBreed, petId;
 --      EXIT WHEN petsCursor%NOTFOUND;
 --      DBMS_OUTPUT.PUT_LINE('Pet Name: ' || petName || ', Status: ' || petStatus || ', Type: ' || petType || ', Color: ' || petColor || ', Breed: ' || petBreed || ', Pet ID: ' || petId);
 --   END LOOP;
 --   CLOSE petsCursor;
+--   
+--   
+--END;
+--
+--DECLARE
+--  result NUMBER;
+--BEGIN
+--  result := userUsablePackage.getSelectedPetAmount(0);
+--  -- Do something with the result if needed.
+--  DBMS_OUTPUT.PUT_LINE('Result: ' || result);
 --END;
 
---
 --ALTER PACKAGE userUsablePackage COMPILE;
 --ALTER PACKAGE userUsablePackage COMPILE BODY;
