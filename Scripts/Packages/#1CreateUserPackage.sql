@@ -5,6 +5,10 @@ CREATE OR REPLACE PACKAGE createUser IS
 
 -- CREATE USER PROCEDURES
 
+PROCEDURE insertRescuer(pcDistrictN VARCHAR2, pcCantonName VARCHAR2,  pcFirstN VARCHAR2, 
+          pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, pcSecondLastN VARCHAR2,
+          pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
+          pcUserType VARCHAR2,genderName VARCHAR2, phoneNumber NUMBER, phoneType VARCHAR2);
 PROCEDURE insertPerson (pcDistrictN VARCHAR2, pcCantonName VARCHAR2,  pcFirstN VARCHAR2, 
           pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, pcSecondLastN VARCHAR2,
           pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
@@ -20,6 +24,7 @@ PROCEDURE createUserPerson(pcUsername VARCHAR2,pcPassword VARCHAR2,pcUserType VA
 PROCEDURE insertJustPerson (pcFirstN VARCHAR2, pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, 
           pcSecondLastN VARCHAR2,pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
           pcUserType VARCHAR2, idGender NUMBER);
+
 
 END createUser;
 

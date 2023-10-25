@@ -86,6 +86,16 @@ BEGIN
     VALUES(pIdPerson, vGenderId);
 END;
 
+PROCEDURE insertRescuer(pcDistrictN VARCHAR2, pcCantonName VARCHAR2,  pcFirstN VARCHAR2, 
+          pcMiddleN VARCHAR2, pcFirstLastN VARCHAR2, pcSecondLastN VARCHAR2,
+          pcUsername VARCHAR2,pcPassword VARCHAR2, pcEmail VARCHAR2,
+          pcUserType VARCHAR2,genderName VARCHAR2, phoneNumber NUMBER, phoneType VARCHAR2)
+IS 
+BEGIN
+          INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
+          VALUES (sPerson.NEXTVAL, pcFirstN, pcMiddleN, pcFirstLastN, pcSecondLastN);
+END; 
+
 ---------------------------------------------------------------------------
 -------------------------------INSERT PERSON-------------------------------
 PROCEDURE insertPerson (pcDistrictN VARCHAR2,  pcCantonName VARCHAR2, pcFirstN VARCHAR2, 
@@ -96,13 +106,13 @@ IS
 BEGIN
 
     INSERT INTO person(id, first_name, middle_name, first_last_name, second_last_name)
-    VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcFirstLastN);
-  --  
+    VALUES (sPerson.NEXTVAL,pcFirstN, pcMiddleN, pcFirstLastN, pcSecondLastN);
+ 
     createUserPerson(pcUsername, pcPassword, pcUserType);
         IF pcUserType = 'Association' THEN
         INSERT INTO legal_person(id_legal)
         VALUES (sPerson.CURRVAL);
-    ELSE
+        ELSE
         insertPhysicalPerson(sPerson.CURRVAL, genderName);
     END IF;
     insertEmail(sPerson.CURRVAL, pcEmail); 
