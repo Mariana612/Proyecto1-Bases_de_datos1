@@ -4,6 +4,7 @@ CREATE OR REPLACE PACKAGE userUsablePackage IS
     FUNCTION getPetAmount RETURN NUMBER;
     FUNCTION getSelectedPetAmount(idPerson NUMBER) RETURN NUMBER;
     FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER;
+    PROCEDURE editUserType(idCandidate NUMBER, idPet NUMBER, statusName VARCHAR2);
     
 
 END userUsablePackage;

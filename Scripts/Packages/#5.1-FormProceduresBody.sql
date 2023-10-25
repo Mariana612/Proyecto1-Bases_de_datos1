@@ -101,5 +101,32 @@ BEGIN
     RETURN v_ammount;
     END;
     
+    
+FUNCTION  getAnswers(idPet NUMBER) RETURN SYS_REFCURSOR
+    AS
+        answersCursor SYS_REFCURSOR;
+    BEGIN 
+        OPEN answersCursor FOR 
+        SELECT af.own_house,af.has_authorization, af.purpose, af.interest_in_adoption, af.accompaniment_average, af.minimum_monthly_amount, af.maximum_monthly_amount
+        FROM adoption_form af
+        WHERE af.id_pet = idPet;
+    
+        RETURN answersCursor;
+    END getAnswers;
+    
+
+FUNCTION getAmountAnswers(idPet NUMBER)
+    RETURN NUMBER
+    IS
+    amountP NUMBER(10);
+    BEGIN
+        SELECT COUNT(*)
+        INTO amountP
+        FROM Adoption_form
+        WHERE id_pet = idpet;
+        RETURN amountP;
+    
+    END getAmountAnswers;
+    
 
 END formProcedures;
