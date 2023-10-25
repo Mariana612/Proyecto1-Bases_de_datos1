@@ -4,17 +4,40 @@
  */
 package Views;
 
+import BD.LoginFunctions;
+import BD.RegisterPetFunctions;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import javax.swing.JRadioButton;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author marie
  */
 public class RegisterRescued extends javax.swing.JFrame {
-
+    private RegisterPetFunctions registerPetFunctions; //llama a la clase donde se encuentran las funciones para registrar mascotas
+    private DefaultListModel<String> listPhotoBefore = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
+    private DefaultListModel<String> listPhotoAfter = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
+    ButtonGroup buttonGroup = new ButtonGroup();
+    int idPet;
     /**
      * Creates new form RegisterResu
+     * @param idPetRegistered
      */
-    public RegisterRescued() {
+    public RegisterRescued(int idPetRegistered) {
         initComponents();
+        idPet = idPetRegistered;
+        registerPetFunctions = new RegisterPetFunctions();
+        buttonGroup.add(yesBigSpacejRadioButton);
+        buttonGroup.add(noBigSpacejRadioButton1);
+
     }
 
     /**
@@ -55,12 +78,16 @@ public class RegisterRescued extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         countryComboBox = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        countryComboBox1 = new javax.swing.JComboBox<>();
+        cantonComboBox = new javax.swing.JComboBox<>();
         requiredFieldLabel = new javax.swing.JLabel();
         registerjButton2 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         yesBigSpacejRadioButton = new javax.swing.JRadioButton();
         noBigSpacejRadioButton1 = new javax.swing.JRadioButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        photosBeforejList = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        photosAfterjList = new javax.swing.JList<>();
 
         registerjButton.setBackground(new java.awt.Color(255, 153, 255));
         registerjButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -91,17 +118,58 @@ public class RegisterRescued extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 102, 153));
         jLabel4.setText("Energy");
 
+        energyjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                energyjComboBoxPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                energyjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel5.setText("Training");
+        jLabel5.setText("Ease of training");
+
+        trainingjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                trainingjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 102, 153));
         jLabel6.setText("Ilness");
 
+        illnessjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                illnessjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel7.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 102, 153));
         jLabel7.setText("Treatment");
+
+        treatmentjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                treatmentjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         uploadPhotoBeforejButton.setBackground(new java.awt.Color(51, 102, 255));
         uploadPhotoBeforejButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -127,6 +195,16 @@ public class RegisterRescued extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 102, 153));
         jLabel8.setText("Severity");
 
+        severitytjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                severitytjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 102, 153));
         jLabel9.setText("Notes");
@@ -139,21 +217,97 @@ public class RegisterRescued extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(0, 102, 153));
         jLabel11.setText("Continent*");
 
+        continentComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                continentComboBoxItemStateChanged(evt);
+            }
+        });
+        continentComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                continentComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 102, 153));
         jLabel13.setText("Province*");
+
+        provinceComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                provinceComboBoxItemStateChanged(evt);
+            }
+        });
+        provinceComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                provinceComboBoxPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                provinceComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 102, 153));
         jLabel14.setText("District*");
 
+        districtComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                districtComboBoxItemStateChanged(evt);
+            }
+        });
+        districtComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                districtComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 102, 153));
         jLabel12.setText("Canton*");
 
+        countryComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                countryComboBoxItemStateChanged(evt);
+            }
+        });
+        countryComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                countryComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 102, 153));
         jLabel15.setText("Country*");
+
+        cantonComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cantonComboBoxItemStateChanged(evt);
+            }
+        });
+        cantonComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cantonComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         requiredFieldLabel.setBackground(new java.awt.Color(255, 255, 255));
         requiredFieldLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -164,6 +318,11 @@ public class RegisterRescued extends javax.swing.JFrame {
         registerjButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         registerjButton2.setForeground(new java.awt.Color(255, 255, 255));
         registerjButton2.setText("Register");
+        registerjButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerjButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 102, 153));
@@ -183,6 +342,10 @@ public class RegisterRescued extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setViewportView(photosBeforejList);
+
+        jScrollPane3.setViewportView(photosAfterjList);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -192,55 +355,65 @@ public class RegisterRescued extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(39, 39, 39)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(37, 37, 37)
-                                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(energyjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGap(37, 37, 37)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(trainingjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(illnessjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(treatmentjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(39, 39, 39)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                                        .addGap(37, 37, 37)
+                                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(energyjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(trainingjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(illnessjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(treatmentjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(62, 62, 62)
+                                        .addComponent(jLabel5)))
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(86, 86, 86)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(continentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(66, 66, 66)
-                                                    .addComponent(countryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                                    .addComponent(provinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(66, 66, 66)
-                                                    .addComponent(countryComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                                    .addGap(32, 32, 32)
-                                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(13, 13, 13)))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(districtComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(continentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(66, 66, 66)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                                        .addGap(12, 12, 12)
-                                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(countryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(provinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(66, 66, 66)
+                                                .addComponent(cantonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                                .addGap(32, 32, 32)
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(13, 13, 13))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(127, 127, 127)
                                         .addComponent(jLabel13)
                                         .addGap(145, 145, 145)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(86, 86, 86)
+                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(districtComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(uploadPhotoBeforejButton))
+                                                .addGap(37, 37, 37))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(39, 39, 39)))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(12, 12, 12)
+                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(84, 84, 84)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,23 +425,25 @@ public class RegisterRescued extends javax.swing.JFrame {
                                 .addGap(86, 86, 86)
                                 .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(severitytjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(yesBigSpacejRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(noBigSpacejRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(yesBigSpacejRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(noBigSpacejRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(uploadPhotoAfterjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(uploadPhotoBeforejButton)
-                            .addComponent(uploadPhotoAfterjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(114, 114, 114)
                         .addComponent(registerjButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)))
                 .addContainerGap(48, Short.MAX_VALUE))
@@ -299,7 +474,7 @@ public class RegisterRescued extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(trainingjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(provinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(countryComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cantonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -311,33 +486,42 @@ public class RegisterRescued extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(treatmentjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(severitytjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(registerjButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(69, 69, 69))
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(treatmentjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(uploadPhotoBeforejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(severitytjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(yesBigSpacejRadioButton)
                                     .addComponent(noBigSpacejRadioButton1))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 87, Short.MAX_VALUE)
+                                .addComponent(registerjButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(69, 69, 69))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13)
+                                .addComponent(uploadPhotoAfterjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(uploadPhotoBeforejButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(uploadPhotoAfterjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -355,7 +539,7 @@ public class RegisterRescued extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -373,11 +557,41 @@ public class RegisterRescued extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uploadPhotoBeforejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoBeforejButtonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        // Configura el filtro de archivos para mostrar solo imágenes
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
 
+        int resultado = fileChooser.showOpenDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+            String path = archivoSeleccionado.getPath();
+            // Agrega el path al modelo de lista
+            listPhotoBefore.addElement(path);
+
+            // Asigna el modelo de lista actualizado al JList
+            photosBeforejList.setModel(listPhotoBefore);
+        }
     }//GEN-LAST:event_uploadPhotoBeforejButtonActionPerformed
 
     private void uploadPhotoAfterjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoAfterjButtonActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        // Configura el filtro de archivos para mostrar solo imágenes
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
+        fileChooser.setFileFilter(filter);
+
+        int resultado = fileChooser.showOpenDialog(this);
+
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File archivoSeleccionado = fileChooser.getSelectedFile();
+            String path = archivoSeleccionado.getPath();
+            // Agrega el path al modelo de lista
+            listPhotoAfter.addElement(path);
+
+            // Asigna el modelo de lista actualizado al JList
+            photosAfterjList.setModel(listPhotoAfter);
+        }
     }//GEN-LAST:event_uploadPhotoAfterjButtonActionPerformed
 
     private void registerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButtonActionPerformed
@@ -392,6 +606,209 @@ public class RegisterRescued extends javax.swing.JFrame {
     private void noBigSpacejRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noBigSpacejRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_noBigSpacejRadioButton1ActionPerformed
+
+    private void energyjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_energyjComboBoxPopupMenuWillBecomeVisible
+        // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
+        List<String> energyList = registerPetFunctions.getAllEnergy();
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        energyjComboBox.removeAllItems();
+        // Agrega los estados de mascotas a JComboBox
+        for (String energy : energyList) {
+        energyjComboBox.addItem(energy);
+        }
+    }//GEN-LAST:event_energyjComboBoxPopupMenuWillBecomeVisible
+
+    private void energyjComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_energyjComboBoxPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+    }//GEN-LAST:event_energyjComboBoxPopupMenuWillBecomeInvisible
+
+    private void trainingjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_trainingjComboBoxPopupMenuWillBecomeVisible
+        // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
+        List<String> trainingList = registerPetFunctions.getAllTraining();
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        trainingjComboBox.removeAllItems();
+        // Agrega los estados de mascotas a JComboBox
+        for (String training : trainingList) {
+            trainingjComboBox.addItem(training);
+        }
+    }//GEN-LAST:event_trainingjComboBoxPopupMenuWillBecomeVisible
+
+    private void illnessjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_illnessjComboBoxPopupMenuWillBecomeVisible
+        // Llama a la función getAllIllness para obtener la lista de enfermedades
+        List<String> illnessList = registerPetFunctions.getAllIllness();
+
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        illnessjComboBox.removeAllItems();
+
+        // Agrega las enfermedades al JComboBox
+        for (String illness : illnessList) {
+            illnessjComboBox.addItem(illness);
+        }
+
+        // Agrega un ActionListener al JComboBox de enfermedad
+        illnessjComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateTreatmentComboBox();
+            }
+        });
+    }//GEN-LAST:event_illnessjComboBoxPopupMenuWillBecomeVisible
+    private void updateTreatmentComboBox() {
+        // Llama a la función getTreatmentsByIllness para obtener la lista de tratamientos
+        String pcIllness = (String) illnessjComboBox.getSelectedItem();
+        List<String> treatmentList = registerPetFunctions.getTreatmentsByIllness(pcIllness);
+
+        // Limpia el JComboBox de tratamiento para eliminar elementos previos si es necesario
+        treatmentjComboBox.removeAllItems();
+
+        // Agrega los tratamientos al JComboBox de tratamiento
+        for (String treatment : treatmentList) {
+            treatmentjComboBox.addItem(treatment);
+        }
+    }
+    private void treatmentjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_treatmentjComboBoxPopupMenuWillBecomeVisible
+        
+    }//GEN-LAST:event_treatmentjComboBoxPopupMenuWillBecomeVisible
+
+    private void severitytjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_severitytjComboBoxPopupMenuWillBecomeVisible
+        // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
+        List<String> severityList = registerPetFunctions.getAllSeverity();
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        severitytjComboBox.removeAllItems();
+        // Agrega los estados de mascotas a JComboBox
+        for (String severity : severityList) {
+            severitytjComboBox.addItem(severity);
+        }
+    }//GEN-LAST:event_severitytjComboBoxPopupMenuWillBecomeVisible
+
+    private void continentComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_continentComboBoxPopupMenuWillBecomeVisible
+        continentComboBox.removeAllItems();
+        String[] continents = LoginFunctions.getAllContinents();
+        for(int i = 0; i < continents.length; i++){
+            continentComboBox.addItem(continents[i]);
+        }
+        
+    }//GEN-LAST:event_continentComboBoxPopupMenuWillBecomeVisible
+
+    private void provinceComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeVisible
+
+    }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeVisible
+
+    private void countryComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_countryComboBoxPopupMenuWillBecomeVisible
+        countryComboBox.removeAllItems();
+        try {
+            String selectedContinent = continentComboBox.getSelectedItem().toString();
+            System.out.println(selectedContinent);
+            String[] countryList = LoginFunctions.getCountriesByContinent(selectedContinent);
+            for(int i = 0; i < countryList.length; i++){
+                countryComboBox.addItem(countryList[i]);
+            }
+        }catch (Exception e){
+            System.out.println("No countrys avaible");
+        }
+        
+    }//GEN-LAST:event_countryComboBoxPopupMenuWillBecomeVisible
+
+    private void continentComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_continentComboBoxItemStateChanged
+        countryComboBox.enable(true);
+        countryComboBox.removeAllItems();
+    }//GEN-LAST:event_continentComboBoxItemStateChanged
+
+    private void countryComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_countryComboBoxItemStateChanged
+        provinceComboBox.enable(true);
+        provinceComboBox.removeAllItems();
+    }//GEN-LAST:event_countryComboBoxItemStateChanged
+
+    private void provinceComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeInvisible
+        provinceComboBox.removeAllItems();
+        try {
+            String selectedCountry = countryComboBox.getSelectedItem().toString();
+            System.out.println(selectedCountry);
+            if(selectedCountry.equals("Costa Rica")){
+                String[] provinces = LoginFunctions.CostaRicanProvinces(selectedCountry);
+                for(int i = 0; i < provinces.length; i++){
+                    provinceComboBox.addItem(provinces[i]);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("No provinces avaible");
+        }
+        
+    }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeInvisible
+
+    private void provinceComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_provinceComboBoxItemStateChanged
+        cantonComboBox.enable(true);
+        cantonComboBox.removeAllItems();
+    }//GEN-LAST:event_provinceComboBoxItemStateChanged
+
+    private void cantonComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cantonComboBoxPopupMenuWillBecomeVisible
+        cantonComboBox.removeAllItems();
+        try {
+            String selectedProvince = provinceComboBox.getSelectedItem().toString();
+            String[] cantons = LoginFunctions.cantonPerProvinces(selectedProvince);
+            for(int i = 0; i < cantons.length; i++){
+                cantonComboBox.addItem(cantons[i]);
+            }
+        }catch (Exception e){
+            System.out.println("No cantons avaible");
+        }
+        
+    }//GEN-LAST:event_cantonComboBoxPopupMenuWillBecomeVisible
+
+    private void cantonComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cantonComboBoxItemStateChanged
+        districtComboBox.enable(true);
+        districtComboBox.removeAllItems();
+    }//GEN-LAST:event_cantonComboBoxItemStateChanged
+
+    private void districtComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_districtComboBoxPopupMenuWillBecomeVisible
+        districtComboBox.removeAllItems();
+        try {
+            String selectedCanton = cantonComboBox.getSelectedItem().toString();
+            String[] districts = LoginFunctions.districtsPerCanton(selectedCanton);
+            for(int i = 0; i < districts.length; i++){
+            districtComboBox.addItem(districts[i]);
+            }
+        }catch (Exception e){
+            System.out.println("No districs avaible");
+        }
+        
+    }//GEN-LAST:event_districtComboBoxPopupMenuWillBecomeVisible
+
+    private void districtComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_districtComboBoxItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_districtComboBoxItemStateChanged
+
+    private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
+        //String resultMessage = registerPetFunctions.insertRescued(11, "hola", "Yes", "Runner", "Very challenging", "Kennel Cough", "Serious", "Carmen");
+        //System.out.println("Mensaje de Resultado: " + resultMessage);
+        
+        String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String energy = (energyjComboBox.getSelectedItem() != null) ? energyjComboBox.getSelectedItem().toString() : null;
+        String training = (trainingjComboBox.getSelectedItem() != null) ? trainingjComboBox.getSelectedItem().toString() : null;
+        String illness = (illnessjComboBox.getSelectedItem() != null) ? illnessjComboBox.getSelectedItem().toString() : null;
+        String treatment = (treatmentjComboBox.getSelectedItem() != null) ? treatmentjComboBox.getSelectedItem().toString() : null;
+        String severity = (severitytjComboBox.getSelectedItem() != null) ? severitytjComboBox.getSelectedItem().toString() : null;
+
+        String notes = notesjTextArea.getText();
+        String space = null;
+        if(yesBigSpacejRadioButton.isSelected()){
+            space = "Yes";
+        }else if(noBigSpacejRadioButton1.isSelected()){
+            space = "No";
+        }
+        System.out.println("Space:" + space);
+        
+        String resultMessage = registerPetFunctions.insertRescued(idPet, notes, space, energy, training, illness, severity, district);
+        for (int i = 0; i < listPhotoBefore.size(); i++) {
+            String imagePath = listPhotoBefore.getElementAt(i);
+            System.out.println(registerPetFunctions.insertPhotoBefore(idPet,imagePath));
+        }
+        for (int i = 0; i < listPhotoAfter.size(); i++) {
+            String imagePath = listPhotoAfter.getElementAt(i);
+            System.out.println(registerPetFunctions.insertPhotoAfter(idPet,imagePath));
+        }
+        System.out.println("Mensaje de Resultado: " + resultMessage);
+    }//GEN-LAST:event_registerjButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,17 +840,22 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run(int idPetregistered) {
+                new RegisterRescued(idPetregistered).setVisible(true);
+            }
+
+            @Override
             public void run() {
-                new RegisterRescued().setVisible(true);
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel;
+    private javax.swing.JComboBox<String> cantonComboBox;
     private javax.swing.JComboBox<String> continentComboBox;
     private javax.swing.JComboBox<String> countryComboBox;
-    private javax.swing.JComboBox<String> countryComboBox1;
     private javax.swing.JComboBox<String> districtComboBox;
     private javax.swing.JComboBox<String> energyjComboBox;
     private javax.swing.JComboBox<String> illnessjComboBox;
@@ -452,8 +874,12 @@ public class RegisterRescued extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JRadioButton noBigSpacejRadioButton1;
     private javax.swing.JTextArea notesjTextArea;
+    private javax.swing.JList<String> photosAfterjList;
+    private javax.swing.JList<String> photosBeforejList;
     private javax.swing.JComboBox<String> provinceComboBox;
     private javax.swing.JButton registerjButton;
     private javax.swing.JButton registerjButton1;
