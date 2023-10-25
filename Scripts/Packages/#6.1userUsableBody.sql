@@ -86,6 +86,28 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         RETURN personId;
         
     END;
+  
+     --=================================================  
+    PROCEDURE editUserType(idCandidate NUMBER, idPet NUMBER, statusName VARCHAR2) IS
+    idStatus NUMBER(6);
+    BEGIN
+    
+      select id
+      into idStatus
+      from status
+      where status_name = statusName;
+    
+      UPDATE adoption_form
+      SET id_status = idStatus
+      WHERE id_candidate = idCandidate
+        AND id_pet = idPet;
+    
+      COMMIT;
+    EXCEPTION
+      WHEN OTHERS THEN
+        ROLLBACK;
+
+END;
 
 END userUsablePackage;
 
