@@ -1,8 +1,28 @@
-delete from rescuerxpet;
-delete from pet_photo;
-delete from pet;
 ALTER TABLE pet
+--Para verificar que el nombre de una mascota no sea un numero
 ADD CONSTRAINT pet_name_check CHECK (REGEXP_LIKE(pet_name, '^[A-Za-z ]{3,20}$'));
+--Faltaba añadir este status
 begin 
 petProcedures.insertPetStatus('Rescued');
 end;
+--Cambiar que en la tabla rescued la columna notes pueda ser null
+ALTER TABLE rescued
+DROP CONSTRAINT RS_notes_nn;
+
+--crear secuencias para procedimientos en petProcedures
+CREATE SEQUENCE sPhotoBefore
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+CREATE SEQUENCE sPhotoAfter
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+correr el archivo petProcedures
+correr el archivo InsertPetRescued

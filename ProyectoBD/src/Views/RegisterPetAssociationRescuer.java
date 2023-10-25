@@ -413,9 +413,6 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-
-            // Ahora puedes realizar acciones con el archivo seleccionado, como mostrarlo en un componente de imagen
-            // Por ejemplo, si tienes un JLabel llamado imagenLabel, puedes mostrar la imagen así:
             String path = archivoSeleccionado.getPath();
             // Agrega el path al modelo de lista
             listModel.addElement(path);
@@ -443,13 +440,8 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         if (date != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             formattedDate = sdf.format(date);
-            // Continuar con el procesamiento del valor de fecha formateado
-        } else {
-            // Manejo de la excepción: dateIn es nulo
-            JOptionPane.showMessageDialog(null, "Error: Date is missing or invalid.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        // Formatear la fecha en el formato "YYYY-MM-DD"
-
+        } 
+  
         Integer chip = null;
         if (chipText != null && !chipText.isEmpty()) {
             try {
@@ -460,6 +452,12 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         String imagePath = listModel.getElementAt(i);
                         System.out.println(registerPetFunctions.callInsertPetPhoto(idPet,imagePath));
                     }
+                    if(status.equals("Rescued")){
+                        RegisterRescued windowRescued = new RegisterRescued(idPet);
+                        windowRescued.setVisible(true);
+                        dispose();
+                    }
+                    
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "There was an error in the insertion", "Error", JOptionPane.ERROR_MESSAGE);
@@ -475,6 +473,11 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                     String imagePath = listModel.getElementAt(i);
                     System.out.println(registerPetFunctions.callInsertPetPhoto(idPet,imagePath));
                 }
+                if(status.equals("Rescued")){
+                        RegisterRescued windowRescued = new RegisterRescued(idPet);
+                        windowRescued.setVisible(true);
+                        dispose();
+                    }
             }
             else{
                 JOptionPane.showMessageDialog(null, "There was an error in the insertion", "Error", JOptionPane.ERROR_MESSAGE);

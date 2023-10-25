@@ -8,7 +8,7 @@ CREATE TABLE rescued
        id_severity NUMBER(6),               --FK
        id_district NUMBER(6),               --FK
        
-       notes VARCHAR(50) CONSTRAINT RS_notes_nn NOT NULL, -- description
+       notes VARCHAR(50) , -- description
        rescued_pet_space VARCHAR(3) CONSTRAINT rescued_space_bool CHECK (rescued_pet_space IN ('No', 'Yes'))
        
 );

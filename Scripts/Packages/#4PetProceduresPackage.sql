@@ -15,24 +15,34 @@ FUNCTION insertPet(pcName VARCHAR, pcPetStatus VARCHAR, pcPetType VARCHAR, pcCol
 FUNCTION insertPetPhoto(pnIdPet NUMBER, pcImagePath VARCHAR2) RETURN VARCHAR2;
 PROCEDURE insertPetStatus(pcName VARCHAR);
 
-/*-- RESCUED PET PROCEDURES
-PROCEDURE insertRescued(pnIdPet NUMBER, pcNotes VARCHAR, pcSpace VARCHAR, 
-          pcEnergy VARCHAR, pcTraining VARCHAR, pcIllness VARCHAR, 
-          pcTreatment VARCHAR, pcSeevrity VARCHAR, pcDistrictN VARCHAR2,
-          pcCantonN VARCHAR2, pcProvinceN VARCHAR2, pcCountryN VARCHAR2, 
-          pcContinentN VARCHAR2);
-PROCEDURE insertPhotoBefore(pnIdPet NUMBER, pcImagePath VARCHAR2);
-PROCEDURE insertPhotoAfter(pnIdPet NUMBER, pcImagePath VARCHAR2);
+--PET FUNCTIONS TO INSERT RESCUED
+FUNCTION getEnergyId(pcEnergy VARCHAR2) RETURN NUMBER;
+FUNCTION getTrainingId(pcTraining VARCHAR2) RETURN NUMBER;
+FUNCTION getIllnessId(pcIllness VARCHAR2) RETURN NUMBER;
+FUNCTION getTreatmentIdByIllness(pcTreatment VARCHAR2, idIllness NUMBER) RETURN NUMBER;
+FUNCTION getSeverityId(pcSeverity VARCHAR2) RETURN NUMBER;
+FUNCTION getDistrictId(pcDistrictN VARCHAR2) RETURN NUMBER;
+
+--RESCUED FUNCTIONS TO FRONT END
+FUNCTION getAllEnergy RETURN SYS_REFCURSOR;
+FUNCTION getAllTraining RETURN SYS_REFCURSOR;
+FUNCTION getAllIllness RETURN SYS_REFCURSOR;
+FUNCTION getTreatmentsByIllness (pcIllness VARCHAR2) RETURN SYS_REFCURSOR;
+FUNCTION getAllSeverity RETURN SYS_REFCURSOR;
+-- RESCUED PET PROCEDURES
+FUNCTION insertRescued(pnIdPet NUMBER,pcNotes VARCHAR,pcSpace VARCHAR,pcEnergy VARCHAR,pcTraining VARCHAR,pcIllness VARCHAR,pcSeverity VARCHAR,pcDistrictN VARCHAR2)
+RETURN VARCHAR2;
+FUNCTION insertPhotoBefore(pnIdPet NUMBER, pcImagePath VARCHAR2)RETURN VARCHAR2;
+FUNCTION insertPhotoAfter(pnIdPet NUMBER, pcImagePath VARCHAR2)RETURN VARCHAR2;
 
 -- LOST-PET PROCEDURES
-PROCEDURE insertLost(pnIdPet NUMBER, pnDateLost NUMBER, pnBounty NUMBER, 
-          pcCurrency VARCHAR, pcDistrictN VARCHAR2, pcCantonN VARCHAR2,
-          pcProvinceN VARCHAR2, pcCountryN VARCHAR2, pcContinentN VARCHAR2);
+FUNCTION getCurrencyId(pcCurrency VARCHAR2) RETURN NUMBER;
+FUNCTION insertLost(pnIdPet NUMBER, pnDateLost VARCHAR2, pnBounty NUMBER, 
+          pcCurrency VARCHAR2,pcDistrictN VARCHAR2) RETURN VARCHAR2;
+FUNCTION getAllCurrency RETURN SYS_REFCURSOR;
 
 -- FOUND-PET PROCEDURES
-PROCEDURE foundPet(pnIdPet NUMBER, pnDateFound NUMBER, pcDistrictN VARCHAR2, 
-          pcCantonN VARCHAR2, pcProvinceN VARCHAR2, pcCountryN VARCHAR2, 
-          pcContinentN VARCHAR2);*/
+FUNCTION insertfound(pnIdPet NUMBER, pnDateFound VARCHAR2, pcDistrictN VARCHAR2) RETURN VARCHAR2;
 END petProcedures;
 
 
