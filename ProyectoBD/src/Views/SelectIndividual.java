@@ -330,7 +330,7 @@ public class SelectIndividual extends javax.swing.JFrame {
             uType = "Owner";
         }
         else if(fosterRadioBtn.isSelected()){
-            uType = "Foster";
+            uType = "Foster_Home";
         }
         else{
             uType = "";
