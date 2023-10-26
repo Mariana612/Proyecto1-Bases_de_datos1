@@ -124,6 +124,24 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
 }
 
 private void addComponents(int idPerson) {
+    jPanel2.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+    JButton overlayButton = new JButton("BACK");
+    overlayButton.setFont(new Font("Segoe UI", Font.BOLD, 18));
+    overlayButton.setBackground(Color.gray);
+    overlayButton.setForeground(Color.WHITE);
+
+    jPanel2.add(overlayButton);
+    
+    overlayButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+                AssoRescMain assoRescWindow = new AssoRescMain(idPerson);
+                assoRescWindow.setVisible(true);
+                dispose();
+        }
+    });
+    
     ArrayList<String> imageTexts = new ArrayList<>();
     ArrayList<Integer> petIds = new ArrayList<>();
     
@@ -143,6 +161,7 @@ private void addComponents(int idPerson) {
     
     }
     PetDisplay.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
+    
 
     ArrayList<String> imagePaths = new ArrayList<>();
 
@@ -182,7 +201,7 @@ private void addComponents(int idPerson) {
         imageButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-                CheckSubmission checkSubmissionMain = new CheckSubmission(petId);
+                CheckSubmission checkSubmissionMain = new CheckSubmission(petId, idPerson);
                 checkSubmissionMain.setVisible(true);
                 dispose();
  
@@ -240,7 +259,7 @@ private void addComponents(int idPerson) {
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new CheckFormSubmissionMain(0,"Association").setVisible(true);
+//                new CheckFormSubmissionMain(0).setVisible(true);
 //            }
 //        });
 //    }

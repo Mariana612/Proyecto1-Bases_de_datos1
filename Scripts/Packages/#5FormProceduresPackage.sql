@@ -9,6 +9,8 @@ PROCEDURE createAdoptionForm(idPet NUMBER,  idPerson NUMBER);
 FUNCTION checkIfAdoptionFExists(idPet NUMBER, idPerson NUMBER)RETURN NUMBER;
 FUNCTION getAnswers(idPet NUMBER) RETURN SYS_REFCURSOR;
 FUNCTION getAmountAnswers(idPet NUMBER) RETURN NUMBER;
+PROCEDURE updateAFStatus(idPet NUMBER, statusName VARCHAR2, idCandidate NUMBER);
+PROCEDURE updateOPStatus(idPet NUMBER, statusName VARCHAR2);
 
 
 END formProcedures;
@@ -44,3 +46,9 @@ END formProcedures;
 --END;
 --
 --select * from adoption_form;
+--
+BEGIN
+    formProcedures.updateAFStatus(2,'En espera',7);
+    formProcedures.updateAFStatus(2,'En espera',6);
+    formProcedures.updateAFStatus(2,'En espera',2);
+END;

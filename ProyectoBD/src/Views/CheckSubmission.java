@@ -4,11 +4,14 @@
  */
 package Views;
 
+import BD.AdoptionFormsFunctions;
 import static BD.AdoptionFormsFunctions.getAnswers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -26,10 +29,10 @@ public class CheckSubmission extends javax.swing.JFrame {
     /**
      * Creates new form CheckSubmission
      */
-    public CheckSubmission(int idPet) {
-        initComponents();
+    public CheckSubmission(int idPet, int idPerson) {
+        initComponents(idPerson);
 
-        createSubmissionPanels(idPet);
+        createSubmissionPanels(idPet,idPerson); 
     }
 
     /**
@@ -39,13 +42,14 @@ public class CheckSubmission extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int idPerson) {
 
         jPanel2 = new javax.swing.JPanel();
         scrollPane1 = new java.awt.ScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         TitleLabel1 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(207, 232, 255));
@@ -76,6 +80,16 @@ public class CheckSubmission extends javax.swing.JFrame {
         TitleLabel1.setText("Form Results");
         TitleLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        backButton.setBackground(new java.awt.Color(207, 232, 255));
+        backButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        backButton.setForeground(new java.awt.Color(255, 255, 255));
+        backButton.setText("BACK");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt, idPerson);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -83,13 +97,17 @@ public class CheckSubmission extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(246, 246, 246)
                 .addComponent(TitleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backButton)
+                .addGap(18, 18, 18))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(TitleLabel1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TitleLabel1)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -131,7 +149,13 @@ public class CheckSubmission extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void createSubmissionPanels(int idPet) {
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt, int idPerson) {//GEN-FIRST:event_backButtonActionPerformed
+                CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(idPerson);
+                checkFormMain.setVisible(true);
+                dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
+private void createSubmissionPanels(int idPet, int idPerson) {
     List<List<String>> data = getAnswers(idPet);
 
     // Create a parent panel to hold all the submission panels
@@ -145,25 +169,30 @@ private void createSubmissionPanels(int idPet) {
         "Interest in Adoption",
         "Accompaniment Average",
         "Minimum Monthly Amount",
-        "Maximum Monthly Amount"
+        "Maximum Monthly Amount",
+       
     };
-    
+
     int id = 0;
 
     for (List<String> dataList : data) {
         // Create a new submission panel for each data entry
         id++;
+        if (Integer.parseInt(dataList.get(8)) == 3) {
         JPanel submissionPanel = new JPanel();
-        submissionPanel.setLayout(new GridLayout(10, 2)); // Eight rows with two columns
+        submissionPanel.setLayout(new GridLayout(10, 2)); // Ten rows with two columns
         submissionPanel.setBackground(Color.WHITE);
+
         JLabel algo = new JLabel("Candidato " + id);
         algo.setPreferredSize(new Dimension(150, 30));
         submissionPanel.add(algo);
-        JLabel xd = new JLabel();
-        xd.setPreferredSize(new Dimension(150, 30));
-        submissionPanel.add(xd);
+        
+         JLabel algomas = new JLabel("");
+        algomas.setPreferredSize(new Dimension(150, 30));
+        submissionPanel.add(algomas);
 
         for (int i = 0; i < 7; i++) {
+            
             JLabel titleLabel = new JLabel(titles[i]);
             JLabel valueLabel = new JLabel(dataList.get(i));
 
@@ -181,64 +210,94 @@ private void createSubmissionPanels(int idPet) {
 
             submissionPanel.add(titleLabel);
             submissionPanel.add(valueLabel);
+        
         }
 
-        // Create and add the first button
-        JButton button1 = new JButton("Aprove");
+        // Create and add the first button (Approve)
+        JButton button1 = new JButton("Approve");
         button1.setPreferredSize(new Dimension(150, 30));
         submissionPanel.add(button1);
-        
-        // Create and add the second button
+
+        // Create and add the second button (Deny)
         JButton button2 = new JButton("Deny");
         button2.setPreferredSize(new Dimension(150, 30));
         submissionPanel.add(button2);
 
+        // Get the candidate ID from the data
+        int candidateId = Integer.parseInt(dataList.get(7)); // Assuming candidate ID is at index 7
+
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdoptionFormsFunctions.updateAFStatus(idPet, "Cancelado", candidateId);
+                updateSubmissionPanels(idPet, idPerson);
+                //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
+            }
+        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdoptionFormsFunctions.updateAFStatus(idPet, "Aprovado", candidateId);
+                AdoptionFormsFunctions.updateOPStatus(idPet, "Cancelado");
+                updateSubmissionPanels(idPet, idPerson);
+                //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
+            }
+        });
+
         // Add the submission panel to the parent panel
         parentPanel.add(submissionPanel);
+    }
     }
 
     // Add the parent panel with all submission panels to jPanel1
     jPanel1.setLayout(new BorderLayout());
     jPanel1.add(parentPanel, BorderLayout.CENTER);
 }
+private void updateSubmissionPanels(int idPet, int idPerson) {
+    jPanel1.removeAll(); // Remove existing components from jPanel1
 
+    createSubmissionPanels(idPet, idPerson); // Recreate the submission panels
+    jPanel1.revalidate(); // Refresh the layout
+    jPanel1.repaint(); // Repaint the panel
+}
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new CheckSubmission().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CheckSubmission(2,1).setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel1;
+    private javax.swing.JButton backButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
