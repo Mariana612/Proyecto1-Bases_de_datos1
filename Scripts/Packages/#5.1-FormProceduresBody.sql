@@ -107,7 +107,10 @@ FUNCTION  getAnswers(idPet NUMBER) RETURN SYS_REFCURSOR
         answersCursor SYS_REFCURSOR;
     BEGIN 
         OPEN answersCursor FOR 
-        SELECT af.own_house,af.has_authorization, af.purpose, af.interest_in_adoption, af.accompaniment_average, af.minimum_monthly_amount, af.maximum_monthly_amount
+        SELECT af.own_house,af.has_authorization, af.purpose, 
+        af.interest_in_adoption, af.accompaniment_average, 
+        af.minimum_monthly_amount, af.maximum_monthly_amount, af.id_candidate,
+        af.id_status
         FROM adoption_form af
         WHERE af.id_pet = idPet;
     
@@ -127,6 +130,28 @@ FUNCTION getAmountAnswers(idPet NUMBER)
         RETURN amountP;
     
     END getAmountAnswers;
+    
+PROCEDURE updateAFStatus(idPet NUMBER, statusName VARCHAR2, idCandidate NUMBER)
+AS
+    vnIdStatus NUMBER;
+
+BEGIN
+    -- Retrieve the ID associated with the provided statusName
+    SELECT id
+    INTO vnIdStatus
+    FROM status
+    WHERE status_name = statusName;
+
+
+    -- Update the status for the given pet and person
+    UPDATE adoption_form
+    SET id_status = vnIdStatus
+    WHERE id_pet = idPet
+    AND id_candidate = idCandidate;
+
+    COMMIT; -- Optionally commit the changes if necessary
+END;
+
     
 
 END formProcedures;

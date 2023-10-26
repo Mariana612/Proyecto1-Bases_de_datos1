@@ -45,6 +45,10 @@ public class AdoptionFormsFunctions {
                 rowData.add(resultSet.getString("ACCOMPANIMENT_AVERAGE"));
                 rowData.add(resultSet.getString("MINIMUM_MONTHLY_AMOUNT"));
                 rowData.add(resultSet.getString("MAXIMUM_MONTHLY_AMOUNT"));
+                rowData.add(String.valueOf(resultSet.getInt("ID_CANDIDATE")));
+                rowData.add(String.valueOf(resultSet.getInt("ID_STATUS")));
+                
+                
                 resultList.add(rowData);
             }
             resultSet.close();
@@ -97,6 +101,39 @@ public class AdoptionFormsFunctions {
                 e.printStackTrace();
             }
         }
+    }
+        
+    public static void updateAFStatus(int idPet, String statusName, int idCandidate){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call formProcedures.updateAFStatus(?,?,?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            
+            callableStatement.setInt(1, idPet);
+            callableStatement.setString(2, statusName);
+            callableStatement.setInt(3, idCandidate);
+
+            callableStatement.execute();
+
+
+            callableStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
     }
         
         
