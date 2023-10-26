@@ -655,4 +655,45 @@ public class LoginFunctions {
             }
         }
     } 
+    
+    public static void insertFixed(String district, String canton, String firstName, String middleName, String firstLastname, String secondLastname,
+                                   String email, String username, String password, String userType, int phoneNumber, String phoneType){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call fixRegister.fixedInsert(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setString(1, district);
+            callableStatement.setString(2, canton);
+            callableStatement.setString(3, firstName);
+            callableStatement.setString(4, middleName);
+            callableStatement.setString(5, firstLastname);
+            callableStatement.setString(6, secondLastname);
+            callableStatement.setString(7, email); 
+            callableStatement.setString(8, username); 
+            callableStatement.setString(9, password); 
+            callableStatement.setString(10, userType); 
+            callableStatement.setInt(11, phoneNumber); 
+            callableStatement.setString(12, phoneType); 
+
+            // Ejecuta el procedimiento almacenado
+            callableStatement.execute();
+//            System.out.println("persona insertada");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                // Cierra la conexión utilizando la clase ConnectionDB
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

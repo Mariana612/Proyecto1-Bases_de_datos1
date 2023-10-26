@@ -711,7 +711,8 @@ public class Register extends javax.swing.JFrame {
                 System.out.println(canton);
                 System.out.println(district);
                 System.out.println(userType);
-                LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
+                // LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
+                LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType);
             }
             else {
                 requiredFieldLabel.setText("Email format is not valid");
