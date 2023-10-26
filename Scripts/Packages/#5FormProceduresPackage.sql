@@ -47,8 +47,8 @@ END formProcedures;
 --
 --select * from adoption_form;
 --
-BEGIN
-    formProcedures.updateAFStatus(2,'En espera',7);
-    formProcedures.updateAFStatus(2,'En espera',6);
-    formProcedures.updateAFStatus(2,'En espera',2);
-END;
+--BEGIN
+--    formProcedures.updateAFStatus(2,'En espera',7);
+--    formProcedures.updateAFStatus(2,'En espera',6);
+--    formProcedures.updateAFStatus(2,'En espera',2);
+--END;

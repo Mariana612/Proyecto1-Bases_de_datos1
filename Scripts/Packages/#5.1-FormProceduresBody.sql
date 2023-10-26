@@ -47,6 +47,10 @@ BEGIN
         IF v_ammount = 0 THEN
             INSERT INTO candidate(id_physical)
             VALUES (idPerson);
+            
+            UPDATE user_person
+            SET id_user_type = 5
+            WHERE id_person = idPerson;
         END IF;
         
         
