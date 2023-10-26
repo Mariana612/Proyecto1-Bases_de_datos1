@@ -20,7 +20,7 @@ public class CheckFormSubmissionMain extends javax.swing.JFrame {
      * Creates new form NormalUserMain
      */
     public CheckFormSubmissionMain(int idPerson ) {
-        initComponents();
+        initComponents(idPerson);
         addComponents(idPerson);
 //        NormalUserFunctions.displayPets(this);
 //        
@@ -34,11 +34,12 @@ public class CheckFormSubmissionMain extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(int idPerson) {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        backButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         PetDisplay = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -49,15 +50,31 @@ public class CheckFormSubmissionMain extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
+        backButton.setBackground(new java.awt.Color(207, 232, 255));
+        backButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        backButton.setForeground(new java.awt.Color(255, 255, 255));
+        backButton.setText("BACK");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt, idPerson);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 855, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backButton)
+                .addGap(34, 34, 34))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         PetDisplay.setLayout(new java.awt.GridLayout(1, 2));
@@ -116,6 +133,12 @@ public class CheckFormSubmissionMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt, int idPerson ) {//GEN-FIRST:event_backButtonActionPerformed
+                AssoRescMain assoRescWindow = new AssoRescMain(idPerson);
+                assoRescWindow.setVisible(true);
+                dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 private ImageIcon resizeImage(String imagePath, int width, int height) {
     ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
     Image image = originalIcon.getImage();
@@ -182,7 +205,7 @@ private void addComponents(int idPerson) {
         imageButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-                CheckSubmission checkSubmissionMain = new CheckSubmission(petId);
+                CheckSubmission checkSubmissionMain = new CheckSubmission(petId, idPerson);
                 checkSubmissionMain.setVisible(true);
                 dispose();
  
@@ -247,6 +270,7 @@ private void addComponents(int idPerson) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PetDisplay;
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
