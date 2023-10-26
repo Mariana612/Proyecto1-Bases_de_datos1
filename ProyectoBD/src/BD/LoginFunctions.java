@@ -7,6 +7,7 @@ package BD;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.Date;
 
 /**
  *
@@ -606,6 +607,133 @@ public class LoginFunctions {
                 if (callableStatement != null) {
                     callableStatement.close();
                 }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void insertPerson(String district, String canton, String firstName, String middleName, String firstLastname, String secondLastname,
+                                    String username, String password, String email, String userType, String genderName, int phoneNumber, String phoneType){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call createUser.insertPerson(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setString(1, district);
+            callableStatement.setString(2, canton);
+            callableStatement.setString(3, firstName);
+            callableStatement.setString(4, middleName);
+            callableStatement.setString(5, firstLastname);
+            callableStatement.setString(6, secondLastname);
+            callableStatement.setString(7, username);
+            callableStatement.setString(8, password);
+            callableStatement.setString(9, email);
+            callableStatement.setString(10, userType);
+            callableStatement.setString(11, genderName);
+            callableStatement.setInt(12, phoneNumber);
+            callableStatement.setString(13, phoneType);
+
+            
+            // Ejecuta el procedimiento almacenado
+            callableStatement.execute();
+            System.out.println("persona insertada");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                // Cierra la conexión utilizando la clase ConnectionDB
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
+    
+    public static void insertFixed(String district, String canton, String firstName, String middleName, String firstLastname, String secondLastname,
+                                   String email, String username, String password, String userType, int phoneNumber, String phoneType, String gender, Date birthDate){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call fixRegister.registerPhysical(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            // procedure to register a Physical person
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setString(1, district);
+            callableStatement.setString(2, canton);
+            callableStatement.setString(3, firstName);
+            callableStatement.setString(4, middleName);
+            callableStatement.setString(5, firstLastname);
+            callableStatement.setString(6, secondLastname);
+            callableStatement.setString(7, email); 
+            callableStatement.setString(8, username); 
+            callableStatement.setString(9, password); 
+            callableStatement.setString(10, userType); 
+            callableStatement.setInt(11, phoneNumber); 
+            callableStatement.setString(12, phoneType); 
+            callableStatement.setString(13, gender); 
+            callableStatement.setDate(14, birthDate);
+
+            // Ejecuta el procedimiento almacenado
+            callableStatement.execute();
+//            System.out.println("persona insertada");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                // Cierra la conexión utilizando la clase ConnectionDB
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    
+    public static void insertLegal(String district, String canton, String associationName,
+                                   String email, String username, String password, String userType, int phoneNumber, String phoneType){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call fixRegister.registerLegal(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setString(1, district);
+            callableStatement.setString(2, canton);
+            callableStatement.setString(3, associationName);
+            callableStatement.setString(4, email);
+            callableStatement.setString(5, username);
+            callableStatement.setString(6, password);
+            callableStatement.setString(7, userType); 
+            callableStatement.setInt(8, phoneNumber); 
+            callableStatement.setString(9, phoneType); 
+
+
+            // Ejecuta el procedimiento almacenado
+            callableStatement.execute();
+//            System.out.println("persona insertada");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                // Cierra la conexión utilizando la clase ConnectionDB
                 connectionDB.desconectar();
             } catch (SQLException e) {
                 e.printStackTrace();

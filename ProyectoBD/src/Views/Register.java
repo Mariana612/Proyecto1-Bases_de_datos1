@@ -679,11 +679,12 @@ public class Register extends javax.swing.JFrame {
 
     private void signUpjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpjButtonActionPerformed
         Date bDate = birthDateChooser.getDate();
+        java.sql.Date procDate = new java.sql.Date(bDate.getTime());
         String continent = continentComboBox.getSelectedItem().toString();
         String country = countryComboBox.getSelectedItem().toString();
         String province = provinceComboBox.getSelectedItem().toString();
-        String canton = cantonComboBox.getSelectedItem().toString();
-        String district = districtComboBox.getSelectedItem().toString();
+        String canton = cantonComboBox.getSelectedItem().toString().strip();
+        String district = districtComboBox.getSelectedItem().toString().strip();
         String firstName = nameTextfield.getText();
         String middleName = middlenameTextfield.getText();
         String firstLastname = firstLastNameTextfield.getText();
@@ -692,6 +693,9 @@ public class Register extends javax.swing.JFrame {
         String username = usernameTextfield.getText();
         String password = passwordTextfield.getText();
         String userType = userTypeLabel.getText();
+        String gender = genderComboBox.getSelectedItem().toString();
+        int phoneNumber = Integer.parseInt(telephoneTextfield.getText());
+        String phoneType = telTypeComboBox.getSelectedItem().toString();
         if (!firstName.isEmpty() || !firstLastname.isEmpty() || !email.isEmpty() || !username.isEmpty() || !password.isEmpty()){
             if(checkEmail(email)){
                 System.out.println(firstName);
@@ -708,7 +712,8 @@ public class Register extends javax.swing.JFrame {
                 System.out.println(canton);
                 System.out.println(district);
                 System.out.println(userType);
-                // LoginFunctions.createJustPerson(firstName, middleName, firstLastname, secondLastname, username, password, email);
+                // LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
+                LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType, gender, procDate);
             }
             else {
                 requiredFieldLabel.setText("Email format is not valid");

@@ -473,7 +473,18 @@ public class RegisterAssociation extends javax.swing.JFrame {
     }//GEN-LAST:event_ReturnjButton1ActionPerformed
 
     private void signUpjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpjButtonActionPerformed
-
+        String district = districtComboBox.getSelectedItem().toString();
+        String canton = cantonComboBox.getSelectedItem().toString();
+        String firstName = nameTextfield.getText().strip();
+        String email = emailTextfield.getText().strip();
+        String pNum = telephoneTextfield.getText().strip();
+        String userType = "Association";
+        int phoneNumber = Integer.parseInt(pNum);
+        String phoneType = telTypeComboBox.getSelectedItem().toString().strip();
+        String username = usernameTextfield.getText().strip();
+        String password = passwordTextfield.getText().strip();
+        LoginFunctions.insertLegal(district, canton, firstName, email, username, password, userType, phoneNumber, phoneType);
+        
         // Preguntar si esto se vale o si tiene que ser directamente en SQL
     }//GEN-LAST:event_signUpjButtonActionPerformed
 

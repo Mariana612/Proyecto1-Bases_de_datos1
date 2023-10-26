@@ -16,7 +16,7 @@ drop table breed
 
 --4)correr la nueva tabla breed
 
-5)agregar de nuevo el id_breed 
+--5)agregar de nuevo el id_breed 
 ALTER TABLE pet
 ADD id_breed NUMBER (6);
 

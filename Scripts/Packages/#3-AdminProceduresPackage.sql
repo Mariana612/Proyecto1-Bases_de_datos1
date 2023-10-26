@@ -36,7 +36,7 @@ PROCEDURE insertAddress(
     pcCantonN      VARCHAR2,
     pcDistrictN    VARCHAR2
 ) AS
--- Variables que necesito
+-- Variables necesarias
 continent_id NUMBER;
 country_id NUMBER;
 province_id NUMBER;

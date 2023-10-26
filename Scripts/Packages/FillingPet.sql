@@ -1,8 +1,8 @@
 --INSERTS PET STATUS
-INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'LOST');
-INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'FOUND');
-INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'ADOPTED');
-INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'RESCUED');
+INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'Lost');
+INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'Found');
+INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'Adopted');
+INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'Rescued');
 
 --INSERTS PET TYPE
 INSERT INTO pet_type(id, type_name) VALUES(sPetType.NEXTVAL, 'Dog');
