@@ -135,6 +135,37 @@ public class AdoptionFormsFunctions {
         }
     
     }
+
+    public static void updateOPStatus(int idPet, String statusName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call formProcedures.updateOPStatus(?,?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            
+            callableStatement.setInt(1, idPet);
+            callableStatement.setString(2, statusName);
+           
+
+            callableStatement.execute();
+            callableStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+    }
         
         
         

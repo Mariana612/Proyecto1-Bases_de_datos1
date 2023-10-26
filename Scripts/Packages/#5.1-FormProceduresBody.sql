@@ -152,6 +152,26 @@ BEGIN
     COMMIT; -- Optionally commit the changes if necessary
 END;
 
+PROCEDURE updateOPStatus(idPet NUMBER, statusName VARCHAR2)
+AS
+    vnIdStatus NUMBER;
+
+BEGIN
+    -- Retrieve the ID associated with the provided statusName
+    SELECT id
+    INTO vnIdStatus
+    FROM status
+    WHERE status_name = statusName;
+
+
+    -- Update the status for the given pet and person
+    UPDATE adoption_form
+    SET id_status = vnIdStatus
+    WHERE id_pet = idPet and id_status = 3;
+
+    COMMIT; -- Optionally commit the changes if necessary
+END;
+
     
 
 END formProcedures;

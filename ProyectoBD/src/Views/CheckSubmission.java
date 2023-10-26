@@ -238,6 +238,7 @@ private void createSubmissionPanels(int idPet, int idPerson) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AdoptionFormsFunctions.updateAFStatus(idPet, "Aprovado", candidateId);
+                AdoptionFormsFunctions.updateOPStatus(idPet, "Cancelado");
                 updateSubmissionPanels(idPet, idPerson);
                 //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
             }
