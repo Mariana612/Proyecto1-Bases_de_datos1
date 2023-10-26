@@ -19,9 +19,9 @@ public class CheckFormSubmissionMain extends javax.swing.JFrame {
     /**
      * Creates new form NormalUserMain
      */
-    public CheckFormSubmissionMain(int idPerson, String userType) {
+    public CheckFormSubmissionMain(int idPerson ) {
         initComponents();
-        addComponents(idPerson,userType);
+        addComponents(idPerson);
 //        NormalUserFunctions.displayPets(this);
 //        
         
@@ -123,7 +123,7 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
     return new ImageIcon(resizedImage);
 }
 
-private void addComponents(int idPerson, String userType) {
+private void addComponents(int idPerson) {
     ArrayList<String> imageTexts = new ArrayList<>();
     ArrayList<Integer> petIds = new ArrayList<>();
     
@@ -182,7 +182,9 @@ private void addComponents(int idPerson, String userType) {
         imageButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
+                CheckSubmission checkSubmissionMain = new CheckSubmission(petId);
+                checkSubmissionMain.setVisible(true);
+                dispose();
  
                 
             System.out.println("Button clicked!" + petId ); // Example action
@@ -209,39 +211,39 @@ private void addComponents(int idPerson, String userType) {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CheckFormSubmissionMain(0,"Association").setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(NormalUserMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        
+//        
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CheckFormSubmissionMain(0,"Association").setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PetDisplay;
