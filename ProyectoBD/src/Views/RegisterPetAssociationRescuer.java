@@ -456,6 +456,14 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         RegisterRescued windowRescued = new RegisterRescued(idPet);
                         windowRescued.setVisible(true);
                         dispose();
+                    }else if(status.equals("Lost")){
+                        RegisterLost windowLost = new RegisterLost(idPet);
+                        windowLost.setVisible(true);
+                        dispose();
+                    }else if(status.equals("Found")){
+                        RegisterFound windowFound = new RegisterFound(idPet);
+                        windowFound.setVisible(true);
+                        dispose();
                     }
                     
                 }
@@ -476,6 +484,14 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                 if(status.equals("Rescued")){
                         RegisterRescued windowRescued = new RegisterRescued(idPet);
                         windowRescued.setVisible(true);
+                        dispose();
+                }else if(status.equals("Lost")){
+                        RegisterLost windowLost = new RegisterLost(idPet);
+                        windowLost.setVisible(true);
+                        dispose();
+                }else if(status.equals("Found")){
+                        RegisterFound windowFound = new RegisterFound(idPet);
+                        windowFound.setVisible(true);
                         dispose();
                     }
             }

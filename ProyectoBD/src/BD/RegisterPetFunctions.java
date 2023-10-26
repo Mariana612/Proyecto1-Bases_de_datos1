@@ -360,8 +360,76 @@ public class RegisterPetFunctions {
 
         return errorMessage;
     }
+    public List<String> getAllCurrency() {
+        String procedureCall = "{ ? = call petProcedures.getAllCurrency }";
+        List<String> currencyList = new ArrayList<>();
 
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.execute();
 
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
+            while (resultSet.next()) {
+                String currencyName = resultSet.getString("currency_name");
+                currencyList.add(currencyName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return currencyList;
+    }
+    public String insertLost(int pnIdPet, String pnDateLost, Integer pnBounty, String pcCurrency, String pcDistrictN) {
+        String procedureCall = "{ ? = call petProcedures.insertLost(?, ?, ?, ?, ?) }";
+        String errorMessage = "The lost pet insertion was successful";
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setInt(2, pnIdPet);
+            callableStatement.setString(3, pnDateLost);
+
+            if (pnBounty == null) {
+                callableStatement.setNull(4, Types.INTEGER);
+            } else {
+                callableStatement.setInt(4, pnBounty);
+            }
+
+            callableStatement.setString(5, pcCurrency);
+            callableStatement.setString(6, pcDistrictN);
+
+            callableStatement.execute();
+
+            errorMessage = callableStatement.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return errorMessage;
+    }
+    public String insertfound(int pnIdPet, String pnDateFound, String pcDistrictN) {
+        String procedureCall = "{ ? = call petProcedures.insertfound(?, ?, ?) }";
+        String errorMessage = "The found pet insertion was successful";
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setInt(2, pnIdPet);
+            callableStatement.setString(3, pnDateFound);
+            callableStatement.setString(4, pcDistrictN);
+
+            callableStatement.execute();
+
+            errorMessage = callableStatement.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            errorMessage = "Error: An unexpected error occurred during the insertion.";
+        }
+
+        return errorMessage;
+    }
 
 
 }
