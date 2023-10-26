@@ -471,38 +471,45 @@ FUNCTION getCurrencyId(pcCurrency VARCHAR2) RETURN NUMBER IS
     RETURN vCurrencyId;
   END getCurrencyId;
 ------------------------------------------------------------------------
-FUNCTION insertLost(pnIdPet NUMBER, pnDateLost VARCHAR2, pnBounty NUMBER, pcCurrency VARCHAR2, pcDistrictN VARCHAR2) RETURN VARCHAR2 IS
-  vCurrencyId NUMBER; -- Declare the variables with appropriate data types
-  vDistrictId NUMBER;
-  vErrorMessage VARCHAR2(200); -- Declare a variable to store error messages
+FUNCTION insertLost(
+    pnIdPet NUMBER,
+    pnDateLost VARCHAR2,
+    pnBounty NUMBER,
+    pcCurrency VARCHAR2,
+    pcDistrictN VARCHAR2
+) RETURN VARCHAR2 IS
+    vCurrencyId NUMBER := NULL;
+    vDistrictId NUMBER := NULL;
+    vErrorMessage VARCHAR2(200) := 'The lost pet insertion was successful.';
 BEGIN
-  -- Check if pcCurrency is NULL and get the currency ID
-  IF pcCurrency IS NULL THEN
-    vCurrencyId := NULL;
-  ELSE
-    vCurrencyId := getCurrencyId(pcCurrency);
-  END IF;
-  
-  -- Check if pcDistrictN is not NULL and get the district ID
-  IF pcDistrictN IS NOT NULL THEN
-    BEGIN
-      vDistrictId := getDistrictId(pcDistrictN);
-    EXCEPTION
-      WHEN NO_DATA_FOUND THEN
-        vErrorMessage := 'Error: District ID not found for ' || pcDistrictN;
-        RETURN vErrorMessage;
-    END;
-  END IF;
+    -- Check if pnDateLost or pnBounty is NULL
+    IF pnDateLost IS NULL OR pnBounty IS NULL THEN
+        vErrorMessage := 'Error: pnDateLost and pnBounty cannot be NULL.';
+    ELSE
+        -- Check if pcCurrency is NULL and get the currency ID
+        IF pcCurrency IS NOT NULL THEN
+            vCurrencyId := getCurrencyId(pcCurrency);
+        END IF;
 
-  -- Initialize the result message as successful by default
-  vErrorMessage := 'The lost pet insertion was successful.';
+        -- Check if pcDistrictN is not NULL and get the district ID
+        IF pcDistrictN IS NOT NULL THEN
+            BEGIN
+                vDistrictId := getDistrictId(pcDistrictN);
+            EXCEPTION
+                WHEN NO_DATA_FOUND THEN
+                    vErrorMessage := 'Error: District ID not found for ' || pcDistrictN;
+                WHEN OTHERS THEN
+                    vErrorMessage := 'Error: An unexpected error occurred.';
+            END;
+        END IF;
 
-  -- Insert data into the lost_pet table
-  INSERT INTO lost_pet(id_pet, id_currency, id_district, bounty, date_lost)
-  VALUES(pnIdPet, vCurrencyId, vDistrictId, pnBounty, TO_DATE(pnDateLost, 'YYYY-MM-DD'));
+        -- Insert data into the lost_pet table
+        INSERT INTO lost_pet(id_pet, id_currency, id_district, bounty, date_lost)
+        VALUES(pnIdPet, vCurrencyId, vDistrictId, pnBounty, TO_DATE(pnDateLost, 'YYYY-MM-DD'));
+    END IF;
 
-  -- Return the result message
-  RETURN vErrorMessage;
+    -- Return the result message
+    RETURN vErrorMessage;
 END insertLost;
 ------------------------------------------------------------------------
 FUNCTION getAllCurrency RETURN SYS_REFCURSOR 
@@ -516,8 +523,18 @@ END getAllCurrency;
 ------------------------------------------------------------------------
 FUNCTION insertfound(pnIdPet NUMBER, pnDateFound VARCHAR2, pcDistrictN VARCHAR2) RETURN VARCHAR2 IS
   vDistrictId NUMBER;
-  vErrorMessage VARCHAR2(200); -- Declare a variable to store error messages
+  vErrorMessage VARCHAR2(200); -- Variable to store error messages
+  
 BEGIN
+  -- Initialize the result message as successful by default
+  vErrorMessage := 'The found pet insertion was successful.';
+  
+  -- Check if the input parameters are valid
+  IF pnIdPet IS NULL OR pnDateFound IS NULL THEN
+    vErrorMessage := 'Error: Invalid input parameters.';
+    RETURN vErrorMessage;
+  END IF;
+  
   -- Check if pcDistrictN is not NULL and get the district ID
   IF pcDistrictN IS NOT NULL THEN
     BEGIN
@@ -526,16 +543,22 @@ BEGIN
       WHEN NO_DATA_FOUND THEN
         vErrorMessage := 'Error: District ID not found for ' || pcDistrictN;
         RETURN vErrorMessage;
+      WHEN OTHERS THEN
+        vErrorMessage := 'Error: An unexpected error occurred while processing the district.';
+        RETURN vErrorMessage;
     END;
   END IF;
 
-  -- Initialize the result message as successful by default
-  vErrorMessage := 'The lost pet insertion was successful.';
-
-  -- Insert data into the lost_pet table
-  INSERT INTO found_pet(id_pet, date_found, id_district)
-  VALUES(pnIdPet, TO_DATE(pnDateFound, 'YYYY-MM-DD'), vDistrictId);
-
+  -- Insert data into the found_pet table
+  BEGIN
+    INSERT INTO found_pet(id_pet, date_found, id_district)
+    VALUES(pnIdPet, TO_DATE(pnDateFound, 'YYYY-MM-DD'), vDistrictId);
+  EXCEPTION
+    WHEN OTHERS THEN
+      vErrorMessage := 'Error: An unexpected error occurred during the insertion.';
+      RETURN vErrorMessage;
+  END;
+  
   -- Return the result message
   RETURN vErrorMessage;
 END insertfound;

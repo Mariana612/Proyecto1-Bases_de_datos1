@@ -231,6 +231,11 @@ public class RegisterRescued extends javax.swing.JFrame {
                 continentComboBoxPopupMenuWillBecomeVisible(evt);
             }
         });
+        continentComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                continentComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 102, 153));
@@ -809,6 +814,10 @@ public class RegisterRescued extends javax.swing.JFrame {
         }
         System.out.println("Mensaje de Resultado: " + resultMessage);
     }//GEN-LAST:event_registerjButton2ActionPerformed
+
+    private void continentComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continentComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_continentComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

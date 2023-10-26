@@ -4,6 +4,12 @@
  */
 package Views;
 
+import BD.LoginFunctions;
+import BD.RegisterPetFunctions;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 /**
  *
  * @author marie
@@ -13,8 +19,12 @@ public class RegisterLost extends javax.swing.JFrame {
     /**
      * Creates new form RegisterFound
      */
-    public RegisterLost() {
+    int idPet;
+    private RegisterPetFunctions registerPetFunctions; //llama a la clase donde se encuentran las funciones para registrar mascotas
+    public RegisterLost(int idPetRegistered) {
         initComponents();
+        idPet = idPetRegistered;
+        registerPetFunctions = new RegisterPetFunctions();
     }
 
     /**
@@ -39,13 +49,13 @@ public class RegisterLost extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         countryComboBox = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        countryComboBox1 = new javax.swing.JComboBox<>();
+        cantonComboBox = new javax.swing.JComboBox<>();
         requiredFieldLabel = new javax.swing.JLabel();
         registerjButton2 = new javax.swing.JButton();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        dateLostjDateChooser = new com.toedter.calendar.JDateChooser();
         requiredFieldLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        bountyjTextField = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         currencyComboBox = new javax.swing.JComboBox<>();
 
@@ -68,21 +78,91 @@ public class RegisterLost extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(0, 102, 153));
         jLabel11.setText("Continent*");
 
+        continentComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                continentComboBoxItemStateChanged(evt);
+            }
+        });
+        continentComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                continentComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel13.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 102, 153));
         jLabel13.setText("Province*");
+
+        provinceComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                provinceComboBoxItemStateChanged(evt);
+            }
+        });
+        provinceComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                provinceComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 102, 153));
         jLabel14.setText("District*");
 
+        districtComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                districtComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 102, 153));
         jLabel12.setText("Canton*");
 
+        countryComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                countryComboBoxItemStateChanged(evt);
+            }
+        });
+        countryComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                countryComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+
         jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 102, 153));
         jLabel15.setText("Country*");
+
+        cantonComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cantonComboBoxItemStateChanged(evt);
+            }
+        });
+        cantonComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cantonComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         requiredFieldLabel.setBackground(new java.awt.Color(255, 255, 255));
         requiredFieldLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -93,6 +173,11 @@ public class RegisterLost extends javax.swing.JFrame {
         registerjButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         registerjButton2.setForeground(new java.awt.Color(255, 255, 255));
         registerjButton2.setText("Register");
+        registerjButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerjButton2ActionPerformed(evt);
+            }
+        });
 
         requiredFieldLabel1.setBackground(new java.awt.Color(255, 255, 255));
         requiredFieldLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -101,11 +186,26 @@ public class RegisterLost extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 102, 153));
-        jLabel10.setText("Bounty");
+        jLabel10.setText("Bounty*");
 
         jLabel16.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 102, 153));
         jLabel16.setText("Currency");
+
+        currencyComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                currencyComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        currencyComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currencyComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -116,7 +216,7 @@ public class RegisterLost extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateLostjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,7 +226,7 @@ public class RegisterLost extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jTextField1)
+                                        .addComponent(bountyjTextField)
                                         .addGap(65, 65, 65))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +247,7 @@ public class RegisterLost extends javax.swing.JFrame {
                                                 .addComponent(jLabel13)
                                                 .addGap(106, 106, 106)))
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(countryComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cantonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addGap(36, 36, 36)
                                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,16 +295,16 @@ public class RegisterLost extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(provinceComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(countryComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cantonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dateLostjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bountyjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -259,6 +359,123 @@ public class RegisterLost extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void currencyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currencyComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_currencyComboBoxActionPerformed
+
+    private void currencyComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_currencyComboBoxPopupMenuWillBecomeVisible
+        // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
+        List<String> currencyList = registerPetFunctions.getAllCurrency();
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        currencyComboBox.removeAllItems();
+        // Agrega los estados de mascotas a JComboBox
+        for (String currency : currencyList) {
+            currencyComboBox.addItem(currency);
+        }
+    }//GEN-LAST:event_currencyComboBoxPopupMenuWillBecomeVisible
+
+    private void continentComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_continentComboBoxPopupMenuWillBecomeVisible
+        continentComboBox.removeAllItems();
+        String[] continents = LoginFunctions.getAllContinents();
+        for(int i = 0; i < continents.length; i++){
+            continentComboBox.addItem(continents[i]);
+        }
+    }//GEN-LAST:event_continentComboBoxPopupMenuWillBecomeVisible
+
+    private void countryComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_countryComboBoxPopupMenuWillBecomeVisible
+        countryComboBox.removeAllItems();
+        try {
+            String selectedContinent = continentComboBox.getSelectedItem().toString();
+            System.out.println(selectedContinent);
+            String[] countryList = LoginFunctions.getCountriesByContinent(selectedContinent);
+            for(int i = 0; i < countryList.length; i++){
+                countryComboBox.addItem(countryList[i]);
+            }
+        }catch (Exception e){
+            System.out.println("No countrys avaible");
+        }
+    }//GEN-LAST:event_countryComboBoxPopupMenuWillBecomeVisible
+
+    private void provinceComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeVisible
+        provinceComboBox.removeAllItems();
+        try {
+            String selectedCountry = countryComboBox.getSelectedItem().toString();
+            System.out.println(selectedCountry);
+            if(selectedCountry.equals("Costa Rica")){
+                String[] provinces = LoginFunctions.CostaRicanProvinces(selectedCountry);
+                for(int i = 0; i < provinces.length; i++){
+                    provinceComboBox.addItem(provinces[i]);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("No provinces avaible");
+        }
+    }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeVisible
+
+    private void cantonComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cantonComboBoxPopupMenuWillBecomeVisible
+        cantonComboBox.removeAllItems();
+        try {
+            String selectedProvince = provinceComboBox.getSelectedItem().toString();
+            String[] cantons = LoginFunctions.cantonPerProvinces(selectedProvince);
+            for(int i = 0; i < cantons.length; i++){
+                cantonComboBox.addItem(cantons[i]);
+            }
+        }catch (Exception e){
+            System.out.println("No cantons avaible");
+        }
+    }//GEN-LAST:event_cantonComboBoxPopupMenuWillBecomeVisible
+
+    private void districtComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_districtComboBoxPopupMenuWillBecomeVisible
+        districtComboBox.removeAllItems();
+        try {
+            String selectedCanton = cantonComboBox.getSelectedItem().toString();
+            String[] districts = LoginFunctions.districtsPerCanton(selectedCanton);
+            for(int i = 0; i < districts.length; i++){
+            districtComboBox.addItem(districts[i]);
+            }
+        }catch (Exception e){
+            System.out.println("No districs avaible");
+        }
+    }//GEN-LAST:event_districtComboBoxPopupMenuWillBecomeVisible
+
+    private void continentComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_continentComboBoxItemStateChanged
+        countryComboBox.enable(true);
+        countryComboBox.removeAllItems();
+    }//GEN-LAST:event_continentComboBoxItemStateChanged
+
+    private void countryComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_countryComboBoxItemStateChanged
+        provinceComboBox.enable(true);
+        provinceComboBox.removeAllItems();
+    }//GEN-LAST:event_countryComboBoxItemStateChanged
+
+    private void provinceComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_provinceComboBoxItemStateChanged
+        cantonComboBox.enable(true);
+        cantonComboBox.removeAllItems();
+    }//GEN-LAST:event_provinceComboBoxItemStateChanged
+
+    private void cantonComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cantonComboBoxItemStateChanged
+        districtComboBox.enable(true);
+        districtComboBox.removeAllItems();
+    }//GEN-LAST:event_cantonComboBoxItemStateChanged
+
+    private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
+        String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String currency = (currencyComboBox.getSelectedItem() != null) ? currencyComboBox.getSelectedItem().toString() : null;
+        Date date = dateLostjDateChooser.getDate();
+        String formattedDate = null;
+        if (date != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            formattedDate = sdf.format(date);
+        } 
+        String text = bountyjTextField.getText();
+        int bounty = 0;  // Valor predeterminado en caso de que la conversión falle
+        if (text != null && !text.isEmpty()) {
+            bounty = Integer.parseInt(text);
+        }
+        String resultMessage = registerPetFunctions.insertLost(idPet, "1990-03-15", 12345, "Dollars", "Carmen");
+        System.out.println(resultMessage);
+    }//GEN-LAST:event_registerjButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,20 +506,26 @@ public class RegisterLost extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run(int idPetregistered) {
+                new RegisterLost(idPetregistered).setVisible(true);
+            }
+
+            @Override
             public void run() {
-                new RegisterLost().setVisible(true);
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel;
+    private javax.swing.JTextField bountyjTextField;
+    private javax.swing.JComboBox<String> cantonComboBox;
     private javax.swing.JComboBox<String> continentComboBox;
     private javax.swing.JComboBox<String> countryComboBox;
-    private javax.swing.JComboBox<String> countryComboBox1;
     private javax.swing.JComboBox<String> currencyComboBox;
+    private com.toedter.calendar.JDateChooser dateLostjDateChooser;
     private javax.swing.JComboBox<String> districtComboBox;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -313,7 +536,6 @@ public class RegisterLost extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> provinceComboBox;
     private javax.swing.JButton registerjButton2;
     private javax.swing.JLabel requiredFieldLabel;
