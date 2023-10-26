@@ -664,6 +664,7 @@ public class LoginFunctions {
         try {
             ConnectionDB connection = new ConnectionDB();
             String procedureCall = "{call fixRegister.registerPhysical(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            // procedure to register a Physical person
             callableStatement = connection.conn.prepareCall(procedureCall);
 
             callableStatement.setString(1, district);
