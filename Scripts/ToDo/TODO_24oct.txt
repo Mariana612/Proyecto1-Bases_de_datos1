@@ -2,9 +2,6 @@ ALTER TABLE pet
 --Para verificar que el nombre de una mascota no sea un numero
 ADD CONSTRAINT pet_name_check CHECK (REGEXP_LIKE(pet_name, '^[A-Za-z ]{3,20}$'));
 --Faltaba añadir este status
-begin 
-petProcedures.insertPetStatus('Rescued');
-end;
 --Cambiar que en la tabla rescued la columna notes pueda ser null
 ALTER TABLE rescued
 DROP CONSTRAINT RS_notes_nn;

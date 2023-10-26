@@ -64,9 +64,9 @@ CREATE SEQUENCE sTelephone
   CYCLE;
   
 CREATE SEQUENCE sUser
-  START WITH 000001
+  START WITH 000000
   INCREMENT BY 1
-  MINVALUE 000001
+  MINVALUE 000000
   MAXVALUE 999999
   NOCACHE
   CYCLE;
@@ -74,15 +74,15 @@ CREATE SEQUENCE sUser
 CREATE SEQUENCE sUserPassword
   START WITH 000000
   INCREMENT BY 1
-  MINVALUE 000001
+  MINVALUE 000000
   MAXVALUE 999999
   NOCACHE
   CYCLE;
   
 CREATE SEQUENCE sPhotoStay
-  START WITH 000001
+  START WITH 000000
   INCREMENT BY 1
-  MINVALUE 000001
+  MINVALUE 000000
   MAXVALUE 999999
   NOCACHE
   CYCLE;
@@ -112,9 +112,9 @@ CREATE SEQUENCE sPhotoStay
   CYCLE;
   
   CREATE SEQUENCE sUserType
-  START WITH 000001
+  START WITH 000000
   INCREMENT BY 1
-  MINVALUE 000001
+  MINVALUE 000000
   MAXVALUE 999999
   NOCACHE
   NOCYCLE; 
@@ -246,23 +246,25 @@ CREATE SEQUENCE sPhotoAfter
   NOCACHE
   CYCLE;
   
-drop sequence sPerson;
-drop sequence sContinent ;
-drop sequence sCountry ;
-drop sequence sProvince ;
-drop sequence sCanton ;
-drop sequence sDistrict ;
-drop sequence sPet;
-drop sequence sPetStatus;
-drop sequence sBreed;
-drop sequence sPetType;
-drop sequence sColor;
-drop sequence sPetPhoto;
-drop sequence sPhotoBefore;
-drop sequence sPhotoAfter;
-drop sequence sEnergy;
-drop sequence sTraining;
-drop sequence sIllness;
-drop sequence sTreatment;
-drop sequence sSeverity;
-drop sequence sCurrency;
+--drop sequence sPerson;
+--drop sequence sContinent ;
+--drop sequence sCountry ;
+--drop sequence sProvince ;
+--drop sequence sCanton ;
+--drop sequence sDistrict ;
+--drop sequence sPet;
+--
+--
+--drop sequence sPetStatus;
+--drop sequence sBreed;
+--drop sequence sPetType;
+--drop sequence sColor;
+--drop sequence sPetPhoto;
+--drop sequence sPhotoBefore;
+--drop sequence sPhotoAfter;
+--drop sequence sEnergy;
+--drop sequence sTraining;
+--drop sequence sIllness;
+--drop sequence sTreatment;
+--drop sequence sSeverity;
+--drop sequence sCurrency;
