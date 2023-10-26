@@ -9,20 +9,5 @@ end;
 ALTER TABLE rescued
 DROP CONSTRAINT RS_notes_nn;
 
---crear secuencias para procedimientos en petProcedures
-CREATE SEQUENCE sPhotoBefore
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
-CREATE SEQUENCE sPhotoAfter
-  START WITH 000001
-  INCREMENT BY 1
-  MINVALUE 000001
-  MAXVALUE 999999
-  NOCACHE
-  CYCLE;
 correr el archivo petProcedures
 correr el archivo InsertPetRescued

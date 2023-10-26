@@ -183,6 +183,69 @@ CREATE SEQUENCE sPhotoStay
   NOCACHE
   NOCYCLE;
   
+  CREATE SEQUENCE sEnergy
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+  CREATE SEQUENCE sTraining
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+  CREATE SEQUENCE sIllness
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+  CREATE SEQUENCE sTreatment
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+  CREATE SEQUENCE sSeverity
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+  CREATE SEQUENCE sCurrency
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+  CREATE SEQUENCE sPhotoBefore
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+CREATE SEQUENCE sPhotoAfter
+  START WITH 000001
+  INCREMENT BY 1
+  MINVALUE 000001
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
 drop sequence sPerson;
 drop sequence sContinent ;
 drop sequence sCountry ;
@@ -195,3 +258,11 @@ drop sequence sBreed;
 drop sequence sPetType;
 drop sequence sColor;
 drop sequence sPetPhoto;
+drop sequence sPhotoBefore;
+drop sequence sPhotoAfter;
+drop sequence sEnergy;
+drop sequence sTraining;
+drop sequence sIllness;
+drop sequence sTreatment;
+drop sequence sSeverity;
+drop sequence sCurrency;
