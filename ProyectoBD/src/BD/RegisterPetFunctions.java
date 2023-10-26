@@ -179,6 +179,189 @@ public class RegisterPetFunctions {
 
         return resultMessage;
     }
+    public List<String> getAllEnergy() {
+        String procedureCall = "{ ? = call petProcedures.getAllEnergy }";
+        List<String> energyList = new ArrayList<>();
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.execute();
+
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
+            while (resultSet.next()) {
+                String energyDescription = resultSet.getString("energy_description");
+                energyList.add(energyDescription);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return energyList;
+    }
+
+    public List<String> getAllTraining() {
+        String procedureCall = "{ ? = call petProcedures.getAllTraining }";
+        List<String> trainingList = new ArrayList<>();
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.execute();
+
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
+            while (resultSet.next()) {
+                String trainingDescription = resultSet.getString("training_description");
+                trainingList.add(trainingDescription);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return trainingList;
+    }
+
+    public List<String> getAllIllness() {
+        String procedureCall = "{ ? = call petProcedures.getAllIllness }";
+        List<String> illnessList = new ArrayList<>();
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.execute();
+
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
+            while (resultSet.next()) {
+                String illnessDescription = resultSet.getString("illness_description");
+                illnessList.add(illnessDescription);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return illnessList;
+    }
+
+    public List<String> getTreatmentsByIllness(String pcIllness) {
+        String procedureCall = "{ ? = call petProcedures.getTreatmentsByIllness(?) }";
+        List<String> treatmentList = new ArrayList<>();
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.setString(2, pcIllness);
+            callableStatement.execute();
+
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
+            while (resultSet.next()) {
+                String treatmentDescription = resultSet.getString("treatment_description");
+                treatmentList.add(treatmentDescription);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return treatmentList;
+    }
+
+    public List<String> getAllSeverity() {
+        String procedureCall = "{ ? = call petProcedures.getAllSeverity }";
+        List<String> severityList = new ArrayList<>();
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
+            callableStatement.execute();
+
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
+            while (resultSet.next()) {
+                String severityDescription = resultSet.getString("severity_description");
+                severityList.add(severityDescription);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return severityList;
+    }
+    public String insertRescued(
+        int pnIdPet,
+        String pcNotes,
+        String pcSpace,
+        String pcEnergy,
+        String pcTraining,
+        String pcIllness,
+        String pcSeverity,
+        String pcDistrictN
+    ) {
+        String procedureCall = "{ ? = call petProcedures.insertRescued(?, ?, ?, ?, ?, ?, ?, ?) }";
+        String resultMessage = null;
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setInt(2, pnIdPet);
+            callableStatement.setString(3, pcNotes);
+            callableStatement.setString(4, pcSpace);
+            callableStatement.setString(5, pcEnergy);
+            callableStatement.setString(6, pcTraining);
+            callableStatement.setString(7, pcIllness);
+            callableStatement.setString(8, pcSeverity);
+            callableStatement.setString(9, pcDistrictN);
+
+            callableStatement.execute();
+
+            resultMessage = callableStatement.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultMessage;
+    }
+    public String insertPhotoBefore(int idPet, String imagePath) {
+        String procedureCall = "{ ? = call petProcedures.insertPhotoBefore(?, ?) }";
+        String errorMessage = "The photo insertion was successful";
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setInt(2, idPet);
+            callableStatement.setString(3, imagePath);
+            callableStatement.execute();
+
+            errorMessage = callableStatement.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return errorMessage;
+    }
+
+    public String insertPhotoAfter(int idPet, String imagePath) {
+        String procedureCall = "{ ? = call petProcedures.insertPhotoAfter(?, ?) }";
+        String errorMessage = "The photo insertion was successful";
+
+        try (Connection connection = connectionDB.getConnection();
+             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+            callableStatement.registerOutParameter(1, Types.VARCHAR);
+            callableStatement.setInt(2, idPet);
+            callableStatement.setString(3, imagePath);
+            callableStatement.execute();
+
+            errorMessage = callableStatement.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return errorMessage;
+    }
+
+
 
 
 }
