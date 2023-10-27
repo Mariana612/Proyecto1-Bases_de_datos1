@@ -21,13 +21,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
     private RegisterPetFunctions registerPetFunctions; //llama a la clase donde se encuentran las funciones para registrar mascotas
     private DefaultListModel<String> listModel = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
-    
+    int idPerson;
     /**
      * Creates new form Pet
      */
-    public RegisterPetAssociationRescuer() {
+    public RegisterPetAssociationRescuer(int idPersonParameter) {
         initComponents();
         registerPetFunctions = new RegisterPetFunctions();
+        idPerson = idPersonParameter;
         // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
         List<String> petStatusList = registerPetFunctions.getAllPetStatus();
 
@@ -475,7 +476,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error: The value in chipText is not a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, 1, amountSpent,formattedDate);
+            Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent,formattedDate);
             if (idPet > 0){
                 for (int i = 0; i < listModel.size(); i++) {
                     String imagePath = listModel.getElementAt(i);
@@ -576,8 +577,13 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run(int idPersonParameter) {
+                new RegisterPetAssociationRescuer(idPersonParameter).setVisible(true);
+            }
+
+            @Override
             public void run() {
-                new RegisterPetAssociationRescuer().setVisible(true);
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
     }
