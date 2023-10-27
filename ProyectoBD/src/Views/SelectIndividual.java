@@ -35,16 +35,13 @@ public class SelectIndividual extends javax.swing.JFrame {
         rescuerPanel = new javax.swing.JPanel();
         rescuerRadioBtn = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
-        candidatePanel = new javax.swing.JPanel();
-        candidateRadioBtn = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        ownerPanel = new javax.swing.JPanel();
-        ownerRadioBtn = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
         fosterPanel = new javax.swing.JPanel();
         fosterRadioBtn = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        fosterPanel1 = new javax.swing.JPanel();
+        normalRadioBtn = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
         selectButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout warningDialogLayout = new javax.swing.GroupLayout(warningDialog.getContentPane());
@@ -106,80 +103,6 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        candidatePanel.setBackground(new java.awt.Color(245, 243, 228));
-
-        candidateRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
-        buttonGroup1.add(candidateRadioBtn);
-        candidateRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        candidateRadioBtn.setText("Candidate");
-        candidateRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                candidateRadioBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI Light", 3, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Apply to adopt a pet!");
-
-        javax.swing.GroupLayout candidatePanelLayout = new javax.swing.GroupLayout(candidatePanel);
-        candidatePanel.setLayout(candidatePanelLayout);
-        candidatePanelLayout.setHorizontalGroup(
-            candidatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(candidatePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(candidateRadioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        candidatePanelLayout.setVerticalGroup(
-            candidatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(candidatePanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(candidatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(candidateRadioBtn)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-
-        ownerPanel.setBackground(new java.awt.Color(245, 243, 228));
-
-        ownerRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
-        buttonGroup1.add(ownerRadioBtn);
-        ownerRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ownerRadioBtn.setText("Owner");
-        ownerRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ownerRadioBtnActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 3, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel4.setText("Register your own pets if lost, found");
-
-        javax.swing.GroupLayout ownerPanelLayout = new javax.swing.GroupLayout(ownerPanel);
-        ownerPanel.setLayout(ownerPanelLayout);
-        ownerPanelLayout.setHorizontalGroup(
-            ownerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ownerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ownerRadioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        ownerPanelLayout.setVerticalGroup(
-            ownerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ownerPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(ownerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ownerRadioBtn)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
         fosterPanel.setBackground(new java.awt.Color(245, 243, 228));
 
         fosterRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
@@ -221,6 +144,43 @@ public class SelectIndividual extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(213, 241, 241));
         jLabel1.setText("Select the type of user you want to create: ");
 
+        fosterPanel1.setBackground(new java.awt.Color(245, 243, 228));
+
+        normalRadioBtn.setBackground(new java.awt.Color(245, 243, 228));
+        buttonGroup1.add(normalRadioBtn);
+        normalRadioBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        normalRadioBtn.setText("Normal");
+        normalRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                normalRadioBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Light", 3, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel6.setText("Register lost pets, apply for adoption, etc.");
+
+        javax.swing.GroupLayout fosterPanel1Layout = new javax.swing.GroupLayout(fosterPanel1);
+        fosterPanel1.setLayout(fosterPanel1Layout);
+        fosterPanel1Layout.setHorizontalGroup(
+            fosterPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fosterPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(normalRadioBtn)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        fosterPanel1Layout.setVerticalGroup(
+            fosterPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fosterPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(fosterPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(normalRadioBtn)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -233,9 +193,8 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(rescuerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ownerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(fosterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(candidatePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(fosterPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -245,13 +204,11 @@ public class SelectIndividual extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(rescuerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(candidatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ownerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(fosterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(fosterPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         selectButton.setBackground(new java.awt.Color(51, 102, 255));
@@ -306,14 +263,6 @@ public class SelectIndividual extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rescuerRadioBtnActionPerformed
 
-    private void candidateRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_candidateRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_candidateRadioBtnActionPerformed
-
-    private void ownerRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ownerRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ownerRadioBtnActionPerformed
-
     private void fosterRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fosterRadioBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fosterRadioBtnActionPerformed
@@ -323,14 +272,12 @@ public class SelectIndividual extends javax.swing.JFrame {
         if(rescuerRadioBtn.isSelected()){
             uType = "Rescuer";
         }
-        else if(candidateRadioBtn.isSelected()){
-            uType = "Candidate";
-        }
-        else if(ownerRadioBtn.isSelected()){
-            uType = "Owner";
+        
+        else if(normalRadioBtn.isSelected()){
+            uType = "Normal";
         }
         else if(fosterRadioBtn.isSelected()){
-            uType = "Foster_Home";
+            uType = "Foster Home";
         }
         else{
             uType = "";
@@ -343,6 +290,10 @@ public class SelectIndividual extends javax.swing.JFrame {
         dispose();
         
     }//GEN-LAST:event_selectButtonActionPerformed
+
+    private void normalRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_normalRadioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_normalRadioBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,19 +332,16 @@ public class SelectIndividual extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JPanel candidatePanel;
-    private javax.swing.JRadioButton candidateRadioBtn;
     private javax.swing.JPanel fosterPanel;
+    private javax.swing.JPanel fosterPanel1;
     private javax.swing.JRadioButton fosterRadioBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel ownerPanel;
-    private javax.swing.JRadioButton ownerRadioBtn;
+    private javax.swing.JRadioButton normalRadioBtn;
     private javax.swing.JPanel rescuerPanel;
     private javax.swing.JRadioButton rescuerRadioBtn;
     private javax.swing.JButton selectButton;
