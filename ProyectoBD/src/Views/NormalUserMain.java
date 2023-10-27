@@ -230,39 +230,35 @@ private void addComponents(int idPerson, String userType) {
             imageTextPanel.add(imageButton, BorderLayout.SOUTH);
 
             PetDisplay.add(imageTextPanel);
-                    
-            if (userType.equals("Candidate")){
-            // Create the "Check Adoption Test Results" button with petId
-            JButton adoptTest = new JButton("Check Adoption Test Results");
-            adoptTest.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    CheckResult checkResultWindow = new CheckResult(petId, idPerson, userType);
-                    checkResultWindow.setVisible(true);
-                    dispose();
-                }
-            });
-            
-
-            // Add the "Check Adoption Test Results" button
-            jPanel4.add(adoptTest);
+        
+        } 
+            if ("Candidate".equals(userType)) {
+        JButton adoptTest = new JButton("Check Adoption Test Results");
+        adoptTest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckResult checkResultWindow = new CheckResult(idPerson, userType);
+                checkResultWindow.setVisible(true);
+                dispose();
             }
-            if (userType.equals("Owner")){
-            // Create the "Check Adoption Test Results" button with petId
-            JButton adoptTest = new JButton("Check pet Registration");
-            adoptTest.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    System.out.println("pressed");
-                }
-            });
-            
+        });
 
-            // Add the "Check Adoption Test Results" button
-            jPanel4.add(adoptTest);
+        // Add the "Check Adoption Test Results" button
+        jPanel4.add(adoptTest);
+    }
+
+    if ("Owner".equals(userType)) {
+        JButton checkReg = new JButton("Check pet Registration");
+        checkReg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.out.println("pressed");
             }
-            // ... (other buttons and panels)
-        }
+        });
+
+        // Add the "Check pet Registration" button
+        jPanel4.add(checkReg);
+    }
     }
 }
     /**

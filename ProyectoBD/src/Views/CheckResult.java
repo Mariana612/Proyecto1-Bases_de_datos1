@@ -31,11 +31,11 @@ public class CheckResult extends javax.swing.JFrame {
     /**
      * Creates new form CheckSubmission
      */
-    public CheckResult(int idPet, int idPerson, String userType) {
+    public CheckResult( int idPerson, String userType) {
         initComponents(idPerson);
         vUserTupe = userType;
 
-        createSubmissionPanels(idPet,idPerson); 
+        createSubmissionPanels(idPerson); 
     }
 
     /**
@@ -158,7 +158,7 @@ public class CheckResult extends javax.swing.JFrame {
                 normalWindow.setVisible(true);
                 dispose();
     }//GEN-LAST:event_backButtonActionPerformed
-private void createSubmissionPanels(int idPet, int idPerson) {
+private void createSubmissionPanels(int idPerson) {
     List<List<String>> data = getPersonAnswers(idPerson);
     System.out.println(data);
     
@@ -181,7 +181,7 @@ private void createSubmissionPanels(int idPet, int idPerson) {
         id++;
         
         JPanel submissionPanel = new JPanel();
-        submissionPanel.setLayout(new GridLayout(4, 2)); // Ten rows with two columns
+        submissionPanel.setLayout(new GridLayout(5, 2)); // Ten rows with two columns
         submissionPanel.setBackground(Color.WHITE);
 
         JLabel algo = new JLabel("RESULTADO" + id);
@@ -213,6 +213,15 @@ private void createSubmissionPanels(int idPet, int idPerson) {
             submissionPanel.add(valueLabel);
         
         }
+        if(dataList.get(2).equals("Accepted")){
+        JButton button1 = new JButton("Folow Up");
+        button1.setPreferredSize(new Dimension(150, 30));
+        submissionPanel.add(button1);
+        
+        JLabel xd = new JLabel("");
+        xd.setPreferredSize(new Dimension(150, 30));
+        submissionPanel.add(xd);
+        }
 
 
         parentPanel.add(submissionPanel);
@@ -223,13 +232,7 @@ private void createSubmissionPanels(int idPet, int idPerson) {
     jPanel1.setLayout(new BorderLayout());
     jPanel1.add(parentPanel, BorderLayout.CENTER);
 }
-private void updateSubmissionPanels(int idPet, int idPerson) {
-    jPanel1.removeAll(); // Remove existing components from jPanel1
 
-    createSubmissionPanels(idPet, idPerson); // Recreate the submission panels
-    jPanel1.revalidate(); // Refresh the layout
-    jPanel1.repaint(); // Repaint the panel
-}
     /**
      * @param args the command line arguments
      */
