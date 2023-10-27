@@ -120,6 +120,34 @@ END;
     COMMIT;
     
     END;
+    
+    --=================================================  
+    PROCEDURE insertFollowUp(idAdoptionForm number,vNote VARCHAR2)
+    AS
+    BEGIN
+    INSERT INTO follow_up(ID, ID_ADOPTION_FORM, NOTE)
+    VALUES(sFollowUP.NEXTVAL,idAdoptionForm,vNote);
+    
+    COMMIT;
+    
+    END;
+    
+    --=================================================  
+    PROCEDURE insertFollowUpPhoto(idFollowUo number,PICTURE_PATH VARCHAR2)
+    IS
+    vidFollowUP NUMBER;
+    BEGIN
+    select id
+    INTO vidFollowUP
+    from follow_up
+    where ID_ADOPTION_FORM = idFollowUo;
+    
+    INSERT INTO follow_up_photo(ID, ID_FOLLOW_UP, PICTURE_PATH)
+    VALUES(sFollowUPPhoto.NEXTVAL,vidFollowUP,PICTURE_PATH);
+    
+    COMMIT;
+    
+    END;
 
 END userUsablePackage;
 

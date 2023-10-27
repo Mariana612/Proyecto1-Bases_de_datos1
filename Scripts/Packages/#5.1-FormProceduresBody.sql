@@ -170,7 +170,7 @@ FUNCTION  getAnswersPerson(idPerson NUMBER) RETURN SYS_REFCURSOR
     BEGIN 
         OPEN answersCursor FOR 
         SELECT p.pet_name,b.breed_name,
-        s.status_name
+        s.status_name, af.id
         FROM adoption_form af
         JOIN pet p ON p.id = af.id_pet
         JOIN breed b ON b.id = p.id_breed

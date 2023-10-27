@@ -6,6 +6,8 @@ CREATE OR REPLACE PACKAGE userUsablePackage IS
     FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER;
     PROCEDURE editUserType(idCandidate NUMBER, idPet NUMBER, statusName VARCHAR2);
     PROCEDURE editUserEdited(idperson NUMBER,IDType NUMBER);
+    PROCEDURE insertFollowUp(idAdoptionForm number,vNote VARCHAR2);
+    PROCEDURE insertFollowUpPhoto(idFollowUo number,PICTURE_PATH VARCHAR2);
     
 
 END userUsablePackage;
@@ -44,8 +46,8 @@ END userUsablePackage;
 --ALTER PACKAGE userUsablePackage COMPILE;
 --ALTER PACKAGE userUsablePackage COMPILE BODY;
 
-BEGIN
-userUsablePackage.editUserEdited(0,4);
-END;
+--BEGIN
+--userUsablePackage.editUserEdited(0,4);
+--END;
 
 

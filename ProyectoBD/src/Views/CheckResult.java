@@ -7,6 +7,7 @@ package Views;
 import BD.AdoptionFormsFunctions;
 import static BD.AdoptionFormsFunctions.getAnswers;
 import static BD.AdoptionFormsFunctions.getPersonAnswers;
+import BD.NormalUserFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -217,6 +218,15 @@ private void createSubmissionPanels(int idPerson) {
         JButton button1 = new JButton("Folow Up");
         button1.setPreferredSize(new Dimension(150, 30));
         submissionPanel.add(button1);
+        
+        button1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    FollowUp followUpWindow = new FollowUp( Integer.parseInt(dataList.get(3)));
+                    followUpWindow.setVisible(true);
+                    dispose();
+                }
+            });
         
         JLabel xd = new JLabel("");
         xd.setPreferredSize(new Dimension(150, 30));
