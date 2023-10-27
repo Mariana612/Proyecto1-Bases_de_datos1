@@ -113,7 +113,27 @@ BEGIN
     END IF;
     RETURN v_ammount;
     END;
-    
+
+FUNCTION checkForCandidate(idPerson NUMBER)RETURN NUMBER 
+AS
+    v_ammount NUMBER;
+BEGIN
+    SELECT COUNT(1)
+    INTO v_ammount
+    FROM candidate 
+    WHERE ID_PHYSICAL = idPerson;
+
+
+    -- Set the result in the OUT parameter
+    IF v_ammount > 0 THEN
+        v_ammount:= 1;
+    ELSE
+        v_ammount:= 0;
+
+    END IF;
+    RETURN v_ammount;
+    END;
+      
     
 FUNCTION  getAnswers(idPet NUMBER) RETURN SYS_REFCURSOR
     AS

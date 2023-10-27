@@ -109,6 +109,18 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
 
 END;
 
+    --=================================================  
+    PROCEDURE editUserEdited(idperson NUMBER,IDType NUMBER)
+    AS
+    BEGIN
+    UPDATE user_person
+    SET id_user_type = IDType
+    WHERE id_person = idperson;
+    
+    COMMIT;
+    
+    END;
+
 END userUsablePackage;
 
 

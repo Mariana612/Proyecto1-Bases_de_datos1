@@ -258,6 +258,20 @@ private void addComponents(int idPerson, String userType) {
 
         // Add the "Check pet Registration" button
         jPanel4.add(checkReg);
+        if(NormalUserFunctions.checkForCandidate(idPerson) == 1){
+                JButton adoptTest = new JButton("Check Adoption Test Results");
+        adoptTest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckResult checkResultWindow = new CheckResult(idPerson, userType);
+                checkResultWindow.setVisible(true);
+                dispose();
+            }
+        });
+
+        // Add the "Check Adoption Test Results" button
+        jPanel4.add(adoptTest);
+        }
     }
     }
 }

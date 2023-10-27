@@ -304,6 +304,41 @@ public class NormalUserFunctions {
             }
         }
     }
+    public static int checkForCandidate(int idPerson) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call formProcedures.checkForCandidate(?)}";
+                        
+
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setInt(2, idPerson);
+            
+
+            callableStatement.execute();
+
+            int result = callableStatement.getInt(1);
+
+            callableStatement.close();
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public static void createForm(int idPet, int idPerson) {
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();

@@ -5,6 +5,7 @@ CREATE OR REPLACE PACKAGE userUsablePackage IS
     FUNCTION getSelectedPetAmount(idPerson NUMBER) RETURN NUMBER;
     FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER;
     PROCEDURE editUserType(idCandidate NUMBER, idPet NUMBER, statusName VARCHAR2);
+    PROCEDURE editUserEdited(idperson NUMBER,IDType NUMBER);
     
 
 END userUsablePackage;
@@ -42,5 +43,9 @@ END userUsablePackage;
 
 --ALTER PACKAGE userUsablePackage COMPILE;
 --ALTER PACKAGE userUsablePackage COMPILE BODY;
+
+BEGIN
+userUsablePackage.editUserEdited(0,4);
+END;
 
 
