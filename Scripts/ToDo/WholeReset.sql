@@ -10,8 +10,8 @@ DELETE FROM user_password;
 DELETE FROM user_person;
 DELETE FROM email;
 delete from telephoneXperson;
-delete from telephone_type;
 delete from telephone;
+delete from telephone_type;
 DELETE FROM personxdistrict;
 DELETE FROM person;
 DELETE FROM status;
@@ -19,15 +19,20 @@ DELETE FROM user_type;
 delete from lost_pet;
 delete from found_pet;
 delete from rescuedxillness;
+
+
+delete from rescued;
 delete from photo_after;
 delete from photo_before;
-delete from rescued;
+delete from pet_photo;
 DELETE FROM pet;
 DELETE FROM pet_status;
 delete from breed;
 delete from pet_status;
 delete from pet_type;
 delete from color;
+
+
 delete from currency;
 delete from energy;
 delete from illness;
@@ -57,8 +62,8 @@ drop sequence sIllness;
 drop sequence sTreatment;
 drop sequence sSeverity;
 drop sequence sCurrency;
-drop sequence sTelephone_type;
 drop sequence sTelephone;
+drop sequence sTelephone_type;
 
 
 
@@ -252,6 +257,10 @@ adminProcedures.insertUserType ('Rescuer');
 adminProcedures.insertUserType ('Candidate');
 adminProcedures.insertUserType ('Owner');
 adminProcedures.insertUserType ('Foster Home');
+
+adminProcedures.insertStatus('Accepted');
+adminProcedures.insertStatus('Denied');
+adminProcedures.insertStatus('Waiting for Response');
 
 END;
 

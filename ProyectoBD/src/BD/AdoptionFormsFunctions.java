@@ -18,7 +18,87 @@ import java.util.List;
  */
 public class AdoptionFormsFunctions {
     
-        public static List<List<String>> getAnswers(int idPet){
+        public static List<List<String>> getPersonAnswers(int idPerson){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call formProcedures.getAnswersPerson(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setInt(2, idPerson);
+
+            callableStatement.execute();
+            List<List<String>> resultList = new ArrayList<>();
+
+            ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+            int listSize = getAmountPersonAnswers(idPerson);
+            String[] petListWithStatus = new String[listSize];
+            int index = 0;
+            while (resultSet.next()) {
+                List<String> rowData = new ArrayList<>();
+                rowData.add(resultSet.getString("pet_name"));
+                rowData.add(resultSet.getString("breed_name"));
+                rowData.add(resultSet.getString("status_name"));
+                
+                
+                
+                resultList.add(rowData);
+            }
+            resultSet.close();
+            callableStatement.close();
+
+            return resultList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+        public static int getAmountPersonAnswers(int idPet) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call formProcedures.getAmountAnswers(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+            callableStatement.setInt(2, idPet);
+
+            callableStatement.execute();
+
+            int result = callableStatement.getInt(1);
+
+            callableStatement.close();
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+     
+
+public static List<List<String>> getAnswers(int idPet){
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();
         try {

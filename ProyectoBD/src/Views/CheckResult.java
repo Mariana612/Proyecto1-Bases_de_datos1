@@ -6,6 +6,7 @@ package Views;
 
 import BD.AdoptionFormsFunctions;
 import static BD.AdoptionFormsFunctions.getAnswers;
+import static BD.AdoptionFormsFunctions.getPersonAnswers;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,13 +25,15 @@ import javax.swing.border.LineBorder;
  *
  * @author maria
  */
-public class CheckSubmission extends javax.swing.JFrame {
+public class CheckResult extends javax.swing.JFrame {
 
+    public String vUserTupe;
     /**
      * Creates new form CheckSubmission
      */
-    public CheckSubmission(int idPet, int idPerson) {
+    public CheckResult(int idPet, int idPerson, String userType) {
         initComponents(idPerson);
+        vUserTupe = userType;
 
         createSubmissionPanels(idPet,idPerson); 
     }
@@ -151,26 +154,23 @@ public class CheckSubmission extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt, int idPerson) {//GEN-FIRST:event_backButtonActionPerformed
-                CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(idPerson);
-                checkFormMain.setVisible(true);
+                NormalUserMain normalWindow = new NormalUserMain(idPerson,vUserTupe);
+                normalWindow.setVisible(true);
                 dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 private void createSubmissionPanels(int idPet, int idPerson) {
-    List<List<String>> data = getAnswers(idPet);
-
+    List<List<String>> data = getPersonAnswers(idPerson);
+    System.out.println(data);
+    
 
     // Create a parent panel to hold all the submission panels
     JPanel parentPanel = new JPanel();
     parentPanel.setLayout(new GridLayout(0, 1)); // Single column layout
 
     String[] titles = {
-        "Has Own House",
-        "Has Authorization",
-        "Purpose",
-        "Interest in Adoption",
-        "Accompaniment Average",
-        "Minimum Monthly Amount",
-        "Maximum Monthly Amount",
+        "Dog Name: ",
+        "Breed: ",
+        "Status",
        
     };
 
@@ -179,12 +179,12 @@ private void createSubmissionPanels(int idPet, int idPerson) {
     for (List<String> dataList : data) {
         // Create a new submission panel for each data entry
         id++;
-        if (Integer.parseInt(dataList.get(8)) == 2) {
+        
         JPanel submissionPanel = new JPanel();
-        submissionPanel.setLayout(new GridLayout(10, 2)); // Ten rows with two columns
+        submissionPanel.setLayout(new GridLayout(4, 2)); // Ten rows with two columns
         submissionPanel.setBackground(Color.WHITE);
 
-        JLabel algo = new JLabel("Candidato " + id);
+        JLabel algo = new JLabel("RESULTADO" + id);
         algo.setPreferredSize(new Dimension(150, 30));
         submissionPanel.add(algo);
         
@@ -192,7 +192,7 @@ private void createSubmissionPanels(int idPet, int idPerson) {
         algomas.setPreferredSize(new Dimension(150, 30));
         submissionPanel.add(algomas);
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 3; i++) {
             
             JLabel titleLabel = new JLabel(titles[i]);
             JLabel valueLabel = new JLabel(dataList.get(i));
@@ -214,40 +214,9 @@ private void createSubmissionPanels(int idPet, int idPerson) {
         
         }
 
-        // Create and add the first button (Approve)
-        JButton button1 = new JButton("Approve");
-        button1.setPreferredSize(new Dimension(150, 30));
-        submissionPanel.add(button1);
 
-        // Create and add the second button (Deny)
-        JButton button2 = new JButton("Deny");
-        button2.setPreferredSize(new Dimension(150, 30));
-        submissionPanel.add(button2);
-
-        // Get the candidate ID from the data
-        int candidateId = Integer.parseInt(dataList.get(7)); // Assuming candidate ID is at index 7
-
-        button2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AdoptionFormsFunctions.updateAFStatus(idPet, "Denied", candidateId);
-                updateSubmissionPanels(idPet, idPerson);
-                //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
-            }
-        });
-        button1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AdoptionFormsFunctions.updateAFStatus(idPet, "Accepted", candidateId);
-                AdoptionFormsFunctions.updateOPStatus(idPet, "Denied");
-                updateSubmissionPanels(idPet, idPerson);
-                //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
-            }
-        });
-
-        // Add the submission panel to the parent panel
         parentPanel.add(submissionPanel);
-    }
+    
     }
 
     // Add the parent panel with all submission panels to jPanel1
@@ -264,37 +233,38 @@ private void updateSubmissionPanels(int idPet, int idPerson) {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CheckSubmission.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CheckSubmission(1,5).setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(CheckResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(CheckResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(CheckResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(CheckResult.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new CheckResult(0,0).setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel1;

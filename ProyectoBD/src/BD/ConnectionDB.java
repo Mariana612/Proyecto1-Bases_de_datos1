@@ -22,7 +22,7 @@ public class ConnectionDB {
     private void conectar(){
         try {
             Class.forName("oracle.jdbc.OracleDriver"); //DRIVER
-            url = "jdbc:oracle:thin:@localhost:1521:MARIELADB"; // Git ignored
+            url = "jdbc:oracle:thin:@localhost:1521:MarianaBD"; // Git ignored
             user = "PR1";
             pass = "PR1";
             conn  = DriverManager.getConnection(url, user, pass);
@@ -40,7 +40,7 @@ public class ConnectionDB {
     public void desconectar(){
         try {
             conn.close();
-            System.out.println("Desconectado a la BD");
+            
         }catch(Exception e){
             System.out.println("Error, no se pudo desconectar a la BD");
         }

@@ -11,9 +11,37 @@ FUNCTION getAnswers(idPet NUMBER) RETURN SYS_REFCURSOR;
 FUNCTION getAmountAnswers(idPet NUMBER) RETURN NUMBER;
 PROCEDURE updateAFStatus(idPet NUMBER, statusName VARCHAR2, idCandidate NUMBER);
 PROCEDURE updateOPStatus(idPet NUMBER, statusName VARCHAR2);
+FUNCTION  getAnswersPerson(idPerson NUMBER) RETURN SYS_REFCURSOR;
+FUNCTION getAmountPersonAnswers(idPerson NUMBER) RETURN NUMBER;
 
 
 END formProcedures;
+
+
+
+DECLARE
+    answersCursor SYS_REFCURSOR;
+    vpet_name VARCHAR2(20);
+    vbreed_name VARCHAR2(20);
+    vid_status NUMBER(6);
+BEGIN
+    answersCursor := formProcedures.getAnswersPerson(0); -- Replace 123 with the desired idPerson
+
+    LOOP
+        FETCH answersCursor INTO vpet_name, vbreed_name, vid_status;
+        EXIT WHEN answersCursor%NOTFOUND;
+
+        -- You can print or use the values as needed
+        DBMS_OUTPUT.PUT_LINE('Pet Name: ' || vpet_name);
+        DBMS_OUTPUT.PUT_LINE('Breed Name: ' || vbreed_name);
+        DBMS_OUTPUT.PUT_LINE('Status: ' || vid_status);
+    END LOOP;
+
+    -- Close the cursor when done.
+    CLOSE answersCursor;
+END;
+
+
 
 --DECLARE
 --
@@ -47,8 +75,8 @@ END formProcedures;
 --
 --select * from adoption_form;
 --
-BEGIN
-    formProcedures.updateAFStatus(2,'En espera',7);
-    formProcedures.updateAFStatus(2,'En espera',6);
-    formProcedures.updateAFStatus(2,'En espera',2);
-END;
+--BEGIN
+--    formProcedures.updateAFStatus(2,'En espera',7);
+--    formProcedures.updateAFStatus(2,'En espera',6);
+--    formProcedures.updateAFStatus(2,'En espera',2);
+--END;

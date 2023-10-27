@@ -1,4 +1,6 @@
+SET SERVEROUTPUT ON;
 CREATE OR REPLACE PACKAGE BODY formProcedures AS
+
 v_candidate_count NUMBER;
 PROCEDURE insertAnswers( idPet NUMBER,idPerson NUMBER, pcOwnHouse VARCHAR2, 
                         pcInterestAdoption VARCHAR2, 
@@ -38,15 +40,24 @@ BEGIN
         INTO v_nameForm
         FROM pet
         WHERE pet.id = idPet;
+        
+        DBMS_OUTPUT.PUT_LINE(v_nameForm);
     
         SELECT COUNT(1)
         INTO v_ammount
         FROM candidate
         WHERE candidate.id_physical = idPerson;
         
+        DBMS_OUTPUT.PUT_LINE(v_ammount);
+        
         IF v_ammount = 0 THEN
             INSERT INTO candidate(id_physical)
             VALUES (idPerson);
+            
+            UPDATE user_person
+            SET id_user_type = 3
+            WHERE id_person = idPerson;
+            
         END IF;
         
         
@@ -60,7 +71,8 @@ BEGIN
             WHEN NO_DATA_FOUND THEN
                 v_idRescuer := NULL; -- Assign a default value or take other action.
         END;
-
+        DBMS_OUTPUT.PUT_LINE(v_idRescuer + 1);
+        
         BEGIN
             SELECT id_association
             INTO v_idAssociation
@@ -72,9 +84,10 @@ BEGIN
                 -- You can assign a default value or take other appropriate action.
                 v_idAssociation := NULL; -- Assign a default value or take other action.
         END;
+        DBMS_OUTPUT.PUT_LINE(v_idAssociation + 2);
 
         INSERT INTO adoption_form(id, id_candidate,id_pet, id_status, id_rescuer, id_association, form_name)
-        VALUES (sAdoptionForm.NEXTVAL, idPerson, idPet, 3, v_idRescuer, v_idAssociation, v_nameForm);
+        VALUES (sAdoptionForm.NEXTVAL, idPerson, idPet, 2, v_idRescuer, v_idAssociation, v_nameForm);
         
         
     END;
@@ -117,7 +130,7 @@ FUNCTION  getAnswers(idPet NUMBER) RETURN SYS_REFCURSOR
         RETURN answersCursor;
     END getAnswers;
     
-
+    
 FUNCTION getAmountAnswers(idPet NUMBER)
     RETURN NUMBER
     IS
@@ -130,6 +143,35 @@ FUNCTION getAmountAnswers(idPet NUMBER)
         RETURN amountP;
     
     END getAmountAnswers;
+    
+FUNCTION  getAnswersPerson(idPerson NUMBER) RETURN SYS_REFCURSOR
+    AS
+        answersCursor SYS_REFCURSOR;
+    BEGIN 
+        OPEN answersCursor FOR 
+        SELECT p.pet_name,b.breed_name,
+        s.status_name
+        FROM adoption_form af
+        JOIN pet p ON p.id = af.id_pet
+        JOIN breed b ON b.id = p.id_breed
+        JOIN status s ON s.id = af.id_status
+        WHERE af.id_candidate = idPerson;
+    
+        RETURN answersCursor;
+    END getAnswersPerson;
+ 
+FUNCTION getAmountPersonAnswers(idPerson NUMBER)
+    RETURN NUMBER
+    IS
+    amountP NUMBER(10);
+    BEGIN
+        SELECT COUNT(*)
+        INTO amountP
+        FROM Adoption_form
+        WHERE id_Candidate = idPerson;
+        RETURN amountP;
+    
+    END getAmountPersonAnswers;
     
 PROCEDURE updateAFStatus(idPet NUMBER, statusName VARCHAR2, idCandidate NUMBER)
 AS
