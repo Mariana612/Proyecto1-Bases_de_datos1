@@ -230,7 +230,7 @@ private void createSubmissionPanels(int idPet, int idPerson) {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdoptionFormsFunctions.updateAFStatus(idPet, "Cancelado", candidateId);
+                AdoptionFormsFunctions.updateAFStatus(idPet, "Denied", candidateId);
                 updateSubmissionPanels(idPet, idPerson);
                 //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
             }
@@ -238,8 +238,8 @@ private void createSubmissionPanels(int idPet, int idPerson) {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AdoptionFormsFunctions.updateAFStatus(idPet, "Aprovado", candidateId);
-                AdoptionFormsFunctions.updateOPStatus(idPet, "Cancelado");
+                AdoptionFormsFunctions.updateAFStatus(idPet, "Accepted", candidateId);
+                AdoptionFormsFunctions.updateOPStatus(idPet, "Denied");
                 updateSubmissionPanels(idPet, idPerson);
                 //System.out.println("Denying Candidate: " + candidateId + " for Pet: " + idPet + " by Person: " + idPerson);
             }
