@@ -201,12 +201,10 @@ private void addComponents(int idPerson) {
         imageButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("pet: " + petId + " person: " + idPerson );
                 CheckSubmission checkSubmissionMain = new CheckSubmission(petId, idPerson);
                 checkSubmissionMain.setVisible(true);
                 dispose();
- 
-                
-            System.out.println("Button clicked!" + petId ); // Example action
         }
     });
         

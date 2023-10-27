@@ -218,14 +218,15 @@ private void addComponents(int idPerson, String userType) {
         @Override
         public void actionPerformed(ActionEvent e) {
                 int check = NormalUserFunctions.checkFormExistance(petId, idPerson);
+                
                 if (check == 0){
                     NormalUserFunctions.createForm(petId, idPerson);
-                
+                    
                 }
-                AdoptionForm adoptionWindow = new AdoptionForm(idPerson, petId);
+                AdoptionForm adoptionWindow = new AdoptionForm(idPerson, petId,userType);
                 adoptionWindow.setVisible(true);
                 dispose();
-            System.out.println("Button clicked!" + petId); // Example action
+            // Example action
         }
     });
         

@@ -16,10 +16,10 @@ import javax.swing.JOptionPane;
  */
 public class AdoptionForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdoptionForm
-     */
-    public AdoptionForm( int idPerson, int petId) {
+private String vuserType; // Declare and initialize the instance variable
+
+    public AdoptionForm(int idPerson, int petId, String userType) {
+        vuserType = userType; // Assign the value of userType to vuserType
         initComponents(idPerson, petId);
     }
 
@@ -293,6 +293,9 @@ public class AdoptionForm extends javax.swing.JFrame {
             System.out.println(maximumTimeAnswer);
 
             NormalUserFunctions.insertAnswers(idPerson,petId,OwnHouseAnswer, PurposePetAnswer, petAuthorizationAnswer, estimatedTimeAnswer, interestInPetAnswer, minimumTimeAnswer, maximumTimeAnswer);
+            NormalUserMain normalUserWindow = new NormalUserMain(idPerson, vuserType);
+            normalUserWindow.setVisible(true);
+            dispose();
         }
         else {
             showMessageDialog("Por favor rellene toda la informacíon","Error");
