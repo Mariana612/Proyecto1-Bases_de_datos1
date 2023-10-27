@@ -109,6 +109,43 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
 
 END;
 
+    --=================================================  
+    PROCEDURE editUserEdited(idperson NUMBER,IDType NUMBER)
+    AS
+    BEGIN
+    UPDATE user_person
+    SET id_user_type = IDType
+    WHERE id_person = idperson;
+    
+    COMMIT;
+    
+    END;
+    
+    --=================================================  
+    FUNCTION insertFollowUp(idAdoptionForm number,vNote VARCHAR2) RETURN NUMBER
+    AS
+    BEGIN
+    INSERT INTO follow_up(ID, ID_ADOPTION_FORM, NOTE)
+    VALUES(sFollowUP.NEXTVAL,idAdoptionForm,vNote);
+    
+    COMMIT;
+    
+    RETURN sFollowUP.CURRVAL;
+    
+    END;
+    
+    --=================================================  
+    PROCEDURE insertFollowUpPhoto(idFollowUo number,PICTURE_PATH VARCHAR2)
+    AS
+    BEGIN
+    
+    INSERT INTO follow_up_photo(ID, ID_FOLLOW_UP, PICTURE_PATH)
+    VALUES(sFollowUPPhoto.NEXTVAL,idFollowUo,PICTURE_PATH);
+    
+    COMMIT;
+    
+    END;
+
 END userUsablePackage;
 
 

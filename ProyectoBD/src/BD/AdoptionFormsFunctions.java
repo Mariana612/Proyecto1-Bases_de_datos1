@@ -41,6 +41,7 @@ public class AdoptionFormsFunctions {
                 rowData.add(resultSet.getString("pet_name"));
                 rowData.add(resultSet.getString("breed_name"));
                 rowData.add(resultSet.getString("status_name"));
+                rowData.add(resultSet.getString("id"));
                 
                 
                 
