@@ -222,7 +222,7 @@ private void createSubmissionPanels(int idPerson) {
         button1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    FollowUp followUpWindow = new FollowUp( Integer.parseInt(dataList.get(3)));
+                    FollowUp followUpWindow = new FollowUp( Integer.parseInt(dataList.get(3)),idPerson,vUserTupe);
                     followUpWindow.setVisible(true);
                     dispose();
                 }

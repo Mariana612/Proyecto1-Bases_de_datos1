@@ -15,15 +15,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author maria
  */
 public class FollowUp extends javax.swing.JFrame {
-private DefaultListModel<String> listModel = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
-    /**
-     * Creates new form FollowUp
-     */
-     
+    
+    private DefaultListModel<String> listModel = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
     private int vidAdoptionF;
-    public FollowUp(int idAdoptionF) {
+    private int vidPerson;
+    private String vuserType;
+    public FollowUp(int idAdoptionF, int idPerson, String userType) {
         initComponents();
         vidAdoptionF =idAdoptionF;
+        vidPerson =idPerson;
+        vuserType =userType;
     }
 
     /**
@@ -191,15 +192,17 @@ private DefaultListModel<String> listModel = new DefaultListModel<>();//una list
 
     private void FINISHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FINISHActionPerformed
 
-//        String vNote = jTextField1.getText();
-//        System.out.println(vNote.length()); 
-//        SubmissionFunctions.insertFollowUp(vidAdoptionF, vNote); 
+        String vNote = jTextField1.getText(); 
+        int idneeded = SubmissionFunctions.insertFollowUp(vidAdoptionF, vNote); 
          for (int i = 0; i < listModel.size(); i++) {
                     String imagePath = listModel.getElementAt(i);
                      System.out.println(imagePath.length()); 
-                    SubmissionFunctions.insertFollowUpPhoto(vidAdoptionF, imagePath); 
+                    SubmissionFunctions.insertFollowUpPhoto(idneeded, imagePath); 
 //                    
                 }
+        NormalUserMain normalWindow = new NormalUserMain(vidPerson,vuserType);
+        normalWindow.setVisible(true);
+        dispose();
     }//GEN-LAST:event_FINISHActionPerformed
 
     /**

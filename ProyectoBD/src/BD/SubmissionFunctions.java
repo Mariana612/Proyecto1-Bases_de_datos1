@@ -13,21 +13,23 @@ import java.sql.SQLException;
  */
 public class SubmissionFunctions {
     
-    public static void insertFollowUp(int dAdoptionForm, String vNote) {
+    public static int insertFollowUp(int dAdoptionForm, String vNote) {
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();
+        int result = -1;
         try {
             ConnectionDB connection = new ConnectionDB();
-            String procedureCall = "{call userUsablePackage.insertFollowUp(?, ?)}";
+            String procedureCall = "{? = call userUsablePackage.insertFollowUp(?, ?)}";
 
             callableStatement = connection.conn.prepareCall(procedureCall);
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
 
-            callableStatement.setInt(1, dAdoptionForm);
-            callableStatement.setString(2, vNote);
+            callableStatement.setInt(2, dAdoptionForm);
+            callableStatement.setString(3, vNote);
 
             callableStatement.execute();
 
-            callableStatement.close();
+            result = callableStatement.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -40,7 +42,13 @@ public class SubmissionFunctions {
                 e.printStackTrace();
             }
         }
+
+        return result;
     }
+
+
+
+
     
         public static void insertFollowUpPhoto(int dAdoptionForm, String vpath) {
         CallableStatement callableStatement = null;

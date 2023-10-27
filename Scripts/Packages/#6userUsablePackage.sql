@@ -6,7 +6,7 @@ CREATE OR REPLACE PACKAGE userUsablePackage IS
     FUNCTION getUserId(pUsername VARCHAR2, pPassword VARCHAR2) RETURN NUMBER;
     PROCEDURE editUserType(idCandidate NUMBER, idPet NUMBER, statusName VARCHAR2);
     PROCEDURE editUserEdited(idperson NUMBER,IDType NUMBER);
-    PROCEDURE insertFollowUp(idAdoptionForm number,vNote VARCHAR2);
+    FUNCTION insertFollowUp(idAdoptionForm number,vNote VARCHAR2) RETURN NUMBER;
     PROCEDURE insertFollowUpPhoto(idFollowUo number,PICTURE_PATH VARCHAR2);
     
 
