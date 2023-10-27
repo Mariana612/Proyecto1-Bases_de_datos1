@@ -87,6 +87,15 @@ CREATE or replace package body fixRegister AS
         INSERT INTO physical_person(id_physical, id_gender, birth_date)
         VALUES(sPerson.CURRVAL, gender_id, pBirthDate);
         --------------------------------------------
+        
+        IF pUsertype = 'Rescuer' THEN 
+            INSERT INTO rescuer(id_physical) VALUES(sPerson.CURRVAL);
+        END IF;
+        
+        IF pUsertype = 'Foster_Home' THEN 
+            INSERT INTO foster_home(id_physical) VALUES (sPerson.CURRVAL);
+        END IF;
+        
         COMMIT;
     END registerPhysical; 
     
@@ -113,5 +122,25 @@ CREATE or replace package body fixRegister AS
         --Legal person
         INSERT INTO legal_person(id_legal) VALUES(sPerson.CURRVAL);
         
+        --All legal persons are Associations: 
+        INSERT INTO association(id_legal, association_name)
+        VALUES(sPerson.CURRVAL, pAsocName);
+        COMMIT;
     END registerLegal;
+    
+    FUNCTION checkUsername(pUsername VARCHAR2)
+    RETURN NUMBER
+    IS
+        userExist NUMBER;
+    BEGIN
+        SELECT COUNT(*) INTO userExist
+        FROM user_person u
+        WHERE u.username = pUsername;
+        
+        IF userExist > 0 THEN 
+            RETURN 1;
+        ELSE
+            RETURN 0;
+        END IF;
+    END;
 END fixRegister; 

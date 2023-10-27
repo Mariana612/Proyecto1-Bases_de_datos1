@@ -10,5 +10,6 @@ PROCEDURE registerPhysical(pDist VARCHAR2, pCanton VARCHAR2, pFirstname VARCHAR2
 PROCEDURE registerLegal(pDist VARCHAR, pCanton VARCHAR2, pAsocName VARCHAR2, pEmail VARCHAR2,
                         pUsername VARCHAR2, pPassword VARCHAR2, pUsertype VARCHAR2,
                         pPhone_number NUMBER, pPhone_type VARCHAR2);
+FUNCTION checkUsername(pUsername VARCHAR2) RETURN NUMBER;
 END fixRegister; 
 

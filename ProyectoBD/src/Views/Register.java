@@ -8,6 +8,7 @@ import BD.LoginFunctions;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -713,7 +714,12 @@ public class Register extends javax.swing.JFrame {
                 System.out.println(district);
                 System.out.println(userType);
                 // LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
-                LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType, gender, procDate);
+                if(!LoginFunctions.validateUser(username)){
+                    LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType, gender, procDate);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Please choose a different username", "Username already in use", JOptionPane.ERROR_MESSAGE);
+                }
             }
             else {
                 requiredFieldLabel.setText("Email format is not valid");

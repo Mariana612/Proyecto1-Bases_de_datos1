@@ -740,4 +740,37 @@ public class LoginFunctions {
             }
         }
     }
+    
+    public static boolean validateUser(String username){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call fixRegister.checkUsername(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+
+            callableStatement.setString(2, username);
+            
+            
+            callableStatement.execute();
+            
+            int resultado = callableStatement.getInt(1);
+            callableStatement.close();
+            return resultado == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    } 
 }
