@@ -16,10 +16,11 @@ public class AssoRescMain extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-
+    private int pidPerson;
     public AssoRescMain(int idPerson) {
 
         initComponents(idPerson);
+        pidPerson = idPerson;
     }
 
     /**
@@ -195,7 +196,9 @@ public class AssoRescMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LostPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LostPetActionPerformed
-        // TODO add your handling code here:
+        RegisterPetAssociationRescuer windowRegisterPet = new RegisterPetAssociationRescuer(pidPerson);
+        windowRegisterPet.setVisible(true);
+        dispose();
     }//GEN-LAST:event_LostPetActionPerformed
 
     
