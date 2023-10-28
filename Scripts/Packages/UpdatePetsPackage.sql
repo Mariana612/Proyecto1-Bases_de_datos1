@@ -1,0 +1,12 @@
+CREATE OR REPLACE PACKAGE updatePetPackage IS
+    FUNCTION updatePetName(idPet NUMBER, newName VARCHAR2) RETURN VARCHAR2;
+    FUNCTION updatePetChip(idPet NUMBER, newChip NUMBER) RETURN VARCHAR2;
+    FUNCTION updatePetStatus(idPet NUMBER, newStatus VARCHAR2) RETURN VARCHAR2;
+    FUNCTION updatePetType(idPet NUMBER, newType VARCHAR2) RETURN VARCHAR2;
+    FUNCTION updatePetBreed(idPet NUMBER, newBreed VARCHAR2) RETURN VARCHAR2;
+    FUNCTION updatePetColor(idPet NUMBER, newColor VARCHAR2) RETURN VARCHAR2;
+    FUNCTION updatePetAmountSpent(idPerson NUMBER, idPet NUMBER, newAmount NUMBER) RETURN VARCHAR2;
+    FUNCTION updatePetDateIn(idPerson NUMBER,idPet NUMBER, newDate VARCHAR2) RETURN VARCHAR2;
+    FUNCTION deletePetPhoto(idPet NUMBER, idPetPhoto NUMBER) RETURN VARCHAR2;
+END updatePetPackage;
+/
