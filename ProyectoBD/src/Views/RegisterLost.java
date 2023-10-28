@@ -20,10 +20,12 @@ public class RegisterLost extends javax.swing.JFrame {
      * Creates new form RegisterFound
      */
     int idPet;
+    int idPerson;
     private RegisterPetFunctions registerPetFunctions; //llama a la clase donde se encuentran las funciones para registrar mascotas
-    public RegisterLost(int idPetRegistered) {
+    public RegisterLost(int idPetRegistered, int idPersonParameter) {
         initComponents();
         idPet = idPetRegistered;
+        idPerson = idPersonParameter;
         registerPetFunctions = new RegisterPetFunctions();
     }
 
@@ -474,6 +476,9 @@ public class RegisterLost extends javax.swing.JFrame {
         }
         String resultMessage = registerPetFunctions.insertLost(idPet, "1990-03-15", 12345, "Dollars", "Carmen");
         System.out.println(resultMessage);
+        AssoRescMain assoRescWindow = new AssoRescMain(idPerson);
+        assoRescWindow.setVisible(true);
+        dispose();
     }//GEN-LAST:event_registerjButton2ActionPerformed
 
     /**
@@ -506,8 +511,8 @@ public class RegisterLost extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run(int idPetregistered) {
-                new RegisterLost(idPetregistered).setVisible(true);
+            public void run(int idPetregistered, int idPersonParameter) {
+                new RegisterLost(idPetregistered, idPersonParameter).setVisible(true);
             }
 
             @Override
