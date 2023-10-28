@@ -519,14 +519,17 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         String selectedValue = (String) typejComboBox.getSelectedItem();
         System.out.println(selectedValue);
         breedjComboBox.removeAllItems();
-        
+
         // Llama a la función para obtener la lista de tipos de mascotas
         List<String> petBreeds = registerPetFunctions.getBreedsByPetType(selectedValue);
-        
-        // Agrega los valores al ComboBox
+
+        // Agrega los valores al ComboBox, excluyendo "Adopted"
         for (String petBreed : petBreeds) {
-            breedjComboBox.addItem(petBreed);
+            if (!petBreed.equals("Adopted")) {
+                breedjComboBox.addItem(petBreed);
+            }
         }
+
     }//GEN-LAST:event_breedjComboBoxPopupMenuWillBecomeVisible
 
     private void colorjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_colorjComboBoxPopupMenuWillBecomeVisible
