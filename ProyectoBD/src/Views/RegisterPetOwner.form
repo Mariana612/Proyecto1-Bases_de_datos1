@@ -56,8 +56,9 @@
                                       <Component id="typejComboBox" min="-2" pref="143" max="-2" attributes="0"/>
                                       <Component id="jLabel7" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                                       <Component id="colorjComboBox" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <Component id="chipTextfield" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="breedjComboBox" min="-2" pref="143" max="-2" attributes="0"/>
@@ -84,7 +85,6 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="requiredFieldLabel2" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="chipTextfield" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                                       <Component id="jLabel3" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -137,9 +137,9 @@
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="requiredFieldLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="chipTextfield" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="17" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -163,7 +163,7 @@
                   <Component id="colorjComboBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" pref="306" max="-2" attributes="0"/>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
