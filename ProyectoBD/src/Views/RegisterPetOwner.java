@@ -592,7 +592,7 @@ public class RegisterPetOwner extends javax.swing.JFrame {
         String color = (String) colorjComboBox.getSelectedItem();
         String chipText = chipTextfield.getText();
         Double amountSpent = null;  
-        String formattedDate = "";
+        String formattedDate = "YYYY-MM-DD";
         Integer chip = null;
         Integer idPet;
         String district = districtComboBox.getSelectedItem() != null ? districtComboBox.getSelectedItem().toString() : null;
@@ -626,24 +626,25 @@ public class RegisterPetOwner extends javax.swing.JFrame {
             }
         }
 
-        try {
-            idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent, formattedDate);
+        
+        idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent, formattedDate);
 
-            if (idPet > 0) {
-                for (int i = 0; i < listModel.size(); i++) {
-                    String imagePath = listModel.getElementAt(i);
-                    System.out.println(registerPetFunctions.callInsertPetPhoto(idPet, imagePath));
-                }
-
-                String resultMessage = registerPetFunctions.insertLost(idPet, formattedDateLost, bounty, currency, district);
-                System.out.println(resultMessage);
-            } else {
-                JOptionPane.showMessageDialog(null, "There was an error in the insertion", "Error", JOptionPane.ERROR_MESSAGE);
+        if (idPet > 0) {
+            for (int i = 0; i < listModel.size(); i++) {
+                String imagePath = listModel.getElementAt(i);
+                System.out.println(registerPetFunctions.callInsertPetPhoto(idPet, imagePath));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+            String resultMessage = registerPetFunctions.insertLost(idPet, formattedDateLost, bounty, currency, district);
+            System.out.println(resultMessage);
+            
+        } else if (idPet == -1){
+            JOptionPane.showMessageDialog(null, idPet, "Required fields are required", JOptionPane.ERROR_MESSAGE);
+        }else if (idPet == -4){
+            JOptionPane.showMessageDialog(null, idPet, "Error in the insertion, please try again", JOptionPane.ERROR_MESSAGE);
         }
+        
+            
 
     }//GEN-LAST:event_registerjButton2ActionPerformed
 
