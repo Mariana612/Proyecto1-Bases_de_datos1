@@ -154,6 +154,7 @@ public class NormalUserMain extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         RegisterPetOwner windowRegisterPetOwner = new RegisterPetOwner(pidPerson);
         windowRegisterPetOwner.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 private ImageIcon resizeImage(String imagePath, int width, int height) {
     ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
