@@ -5,19 +5,24 @@
 package Views;
 
 import BD.NormalUserFunctions;
+import static BD.SubmissionFunctions.getFollowUp;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -113,121 +118,45 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
 }
 
 private void addComponents(int idPerson) {
-    ArrayList<String> imageTexts = new ArrayList<>();
-    ArrayList<Integer> petIds = new ArrayList<>();
+    List<List<String>> finallist = getFollowUp(idPerson);
+    int imageWidth = 400; // Set the width you want for the images
+    int imageHeight = 300; // Set the height you want for the images
 
-    String[] pets = NormalUserFunctions.getAllPets();
-    int[] petidv = NormalUserFunctions.getAllPetsID();
+    mainPanel.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
 
-    if (pets.length != 0) {
-        for (int i = 0; i < pets.length; i++) {
-            imageTexts.add(pets[i]);
-        }
+    for (List<String> innerList : finallist) {
+        JPanel innerListPanel = new JPanel(new BorderLayout());
 
-        for (int i = 0; i < petidv.length; i++) {
-            petIds.add(petidv[i]);
-        }
+        // Title
+        String title = innerList.get(0);
+        JLabel titleLabel = new JLabel("Title: " + title);
+        Font titleFont = new Font("Roboto", Font.BOLD, 20);
+        titleLabel.setFont(titleFont);
+        innerListPanel.add(titleLabel, BorderLayout.NORTH);
 
-        mainPanel.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
-
-        ArrayList<String> imagePaths = new ArrayList<>();
-
-        // Add your image paths and text here
-        imagePaths.add("/Images/perritosenadopcion (1).jpg");
-        imagePaths.add("/Images/perritosenadopcion (1).jpg");
-
-        int imageWidth = 400; // Set the width you want for the images
-        int imageHeight = 300; // Set the height you want for the images
-
-        for (int i = 0; i < imagePaths.size(); i++) {
-            String imagePath = imagePaths.get(i);
-            String imageText = imageTexts.get(i);
-            int petId = petIds.get(i);
-
+        // Images
+        JPanel imagePanel = new JPanel();
+        for (int i = 1; i < innerList.size() ; i++) {
+            String imagePath = innerList.get(i);
+            imagePath = imagePath.replace("\\", "/"); // Replace backslashes with forward slashes
+            System.out.println(imagePath);
             ImageIcon resizedIcon = resizeImage(imagePath, imageWidth, imageHeight);
-
             JLabel imageLabel = new JLabel(resizedIcon);
-            JLabel textLabel = new JLabel(imageText);
-            Font newFont = new Font("Roboto", Font.BOLD, 20);
-            textLabel.setFont(newFont);
-
-            // Create a button for each image
-            Color customColor = new Color(0, 102, 153);
-
-            JButton imageButton = new JButton("ADOPT ME");
-            imageButton.setFont(newFont);
-            imageButton.setForeground(Color.WHITE);
-            imageButton.setBackground(customColor);
-
-//            imageButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    int check = NormalUserFunctions.checkFormExistance(petId, idPerson);
-//
-//                    if (check == 0) {
-//                        NormalUserFunctions.createForm(petId, idPerson);
-//                    }
-//                    AdoptionForm adoptionWindow = new AdoptionForm(idPerson, petId, userType);
-//                    adoptionWindow.setVisible(true);
-//                    dispose();
-//                }
-//            });
-
-            JPanel imageTextPanel = new JPanel(new BorderLayout());
-
-            // Add a 20px gap to the right of the image
             imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 20));
+            imagePanel.add(imageLabel);
+        }
+        innerListPanel.add(imagePanel, BorderLayout.CENTER);
 
-            imageTextPanel.add(imageLabel, BorderLayout.WEST);
-            imageTextPanel.add(textLabel, BorderLayout.CENTER);
-            imageTextPanel.add(imageButton, BorderLayout.SOUTH);
-
-            mainPanel.add(imageTextPanel);
+        // Button
         
-        } 
-//            if ("Candidate".equals(userType)) {
-//        JButton adoptTest = new JButton("Check Adoption Test Results");
-//        adoptTest.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                CheckResult checkResultWindow = new CheckResult(idPerson, userType);
-//                checkResultWindow.setVisible(true);
-//                dispose();
-//            }
-//        });
-//
-//        // Add the "Check Adoption Test Results" button
-//        jPanel4.add(adoptTest);
-//    }
+        JButton button = new JButton("calificar");
+        innerListPanel.add(button, BorderLayout.SOUTH);
 
-//    if ("Owner".equals(userType)) {
-//        JButton checkReg = new JButton("Check pet Registration");
-//        checkReg.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                System.out.println("pressed");
-//            }
-//        });
-//
-//        // Add the "Check pet Registration" button
-//        jPanel4.add(checkReg);
-//        if(NormalUserFunctions.checkForCandidate(idPerson) == 1){
-//                JButton adoptTest = new JButton("Check Adoption Test Results");
-//        adoptTest.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                CheckResult checkResultWindow = new CheckResult(idPerson, userType);
-//                checkResultWindow.setVisible(true);
-//                dispose();
-//            }
-//        });
-//
-//        // Add the "Check Adoption Test Results" button
-//        jPanel4.add(adoptTest);
-//        }
-//    }
+        mainPanel.add(innerListPanel);
     }
 }
+
+
     /**
      * @param args the command line arguments
      */
