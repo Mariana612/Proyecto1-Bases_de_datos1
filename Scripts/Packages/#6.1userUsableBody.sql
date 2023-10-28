@@ -38,6 +38,35 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         RETURN petsCursor;
     END getAllSelectedPets;
     
+    FUNCTION getFollowUp(idPeople NUMBER) RETURN SYS_REFCURSOR
+    AS
+        resultCursor SYS_REFCURSOR;
+        vAdoptionF NUMBER;
+    BEGIN
+        SELECT id
+        INTO vAdoptionF
+        FROM adoption_form
+        WHERE id_association = idPeople;
+    
+        OPEN resultCursor FOR
+        SELECT fu.id, fu.note
+        FROM follow_up fu
+        WHERE ID_ADOPTION_FORM = vAdoptionF;
+    
+        RETURN resultCursor; -- Add this line to return the resultCursor
+    END;
+    
+FUNCTION getFollowUpPhoto(idFollowUp NUMBER) RETURN SYS_REFCURSOR
+AS
+   resultCursor SYS_REFCURSOR;
+BEGIN
+   OPEN resultCursor FOR
+      SELECT picture_path
+      FROM follow_up_photo
+      WHERE id_follow_up = idFollowUp;
+      
+   RETURN resultCursor;
+END;
     --=================================================
     
     FUNCTION getPetAmount
