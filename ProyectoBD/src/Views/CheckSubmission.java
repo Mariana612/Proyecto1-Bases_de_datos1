@@ -6,6 +6,7 @@ package Views;
 
 import BD.AdoptionFormsFunctions;
 import static BD.AdoptionFormsFunctions.getAnswers;
+import BD.SubmissionFunctions;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -291,7 +292,8 @@ private void updateSubmissionPanels(int idPet, int idPerson) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CheckSubmission(1,5).setVisible(true);
+                SubmissionFunctions.getFollowUp(4);
+                //new CheckSubmission(1,5).setVisible(true);
             }
         });
     }
