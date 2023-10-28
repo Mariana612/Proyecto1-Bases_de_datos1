@@ -83,7 +83,7 @@ public class SubmissionFunctions {
         }
     }
     
-        public static void getFollowUp(int idPerson) {
+        public static List<List<String>> getFollowUp(int idPerson) {
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();
         try {
@@ -97,6 +97,7 @@ public class SubmissionFunctions {
             callableStatement.execute();
 
             ResultSet res = (ResultSet) callableStatement.getObject(1); //a
+            List<List<String>> finalList = new ArrayList<>();
 
             while (res.next()) {
                 List<String> temp = new ArrayList<>();  
@@ -109,14 +110,25 @@ public class SubmissionFunctions {
 
                     callableStatementtemp.registerOutParameter(1, java.sql.Types.REF_CURSOR);
                     callableStatementtemp.setInt(2, res.getInt("id"));
+                    List<String> tempList = new ArrayList<>();
+                    tempList.add(res.getString("note"));
 
                     callableStatementtemp.execute();
 
                     ResultSet restemp = (ResultSet) callableStatementtemp.getObject(1); //a
+                   
+                    while (restemp.next()) {
+                        
+                        tempList.add(restemp.getString("picture_path"));
+                        
+                        
+                    }
+                    finalList.add(tempList);
+                    
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
-                    //return null;
+                    return null;
                 }
                 
 //                
@@ -133,11 +145,13 @@ public class SubmissionFunctions {
             }
             res.close();
             callableStatement.close();
+            
+            System.out.println(finalList);
 
-            //return petListWithStatus;
+            return finalList;
         } catch (SQLException e) {
             e.printStackTrace();
-            //return null;
+            return null;
         } finally {
             try {
                 if (callableStatement != null) {

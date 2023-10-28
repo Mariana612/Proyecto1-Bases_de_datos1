@@ -292,8 +292,8 @@ private void updateSubmissionPanels(int idPet, int idPerson) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SubmissionFunctions.getFollowUp(4);
-                //new CheckSubmission(1,5).setVisible(true);
+                
+                new CheckSubmission(1,5).setVisible(true);
             }
         });
     }
