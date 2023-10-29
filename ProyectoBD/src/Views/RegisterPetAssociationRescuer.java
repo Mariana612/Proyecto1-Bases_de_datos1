@@ -441,13 +441,35 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
+
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
+
             // Agrega el path al modelo de lista
             listModel.addElement(path);
 
             // Asigna el modelo de lista actualizado al JList
             PetPhotosjList.setModel(listModel);
         }
+
+//        JFileChooser fileChooser = new JFileChooser();
+//        // Configura el filtro de archivos para mostrar solo imágenes
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
+//        fileChooser.setFileFilter(filter);
+//
+//        int resultado = fileChooser.showOpenDialog(this);
+//
+//        if (resultado == JFileChooser.APPROVE_OPTION) {
+//            File archivoSeleccionado = fileChooser.getSelectedFile();
+//            String path = archivoSeleccionado.getPath();
+//            // Agrega el path al modelo de lista
+//            listModel.addElement(path);
+//
+//            // Asigna el modelo de lista actualizado al JList
+//            PetPhotosjList.setModel(listModel);
+//        }
         
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 

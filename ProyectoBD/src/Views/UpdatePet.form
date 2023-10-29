@@ -71,7 +71,7 @@
                                       <Component id="petBreedjRadioButton" min="-2" pref="98" max="-2" attributes="0"/>
                                       <Component id="petAmountSpentjRadioButton" min="-2" pref="108" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                                  <EmptySpace pref="41" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
@@ -117,23 +117,30 @@
               </Group>
               <Group type="103" rootIndex="4" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="526" max="32767" attributes="0"/>
-                      <Component id="changePetChip" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="510" max="32767" attributes="0"/>
                       <Component id="changeAmountSpentjPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
+              <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="516" max="32767" attributes="0"/>
                       <Component id="changePetBreedjPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="514" max="32767" attributes="0"/>
+                      <Component id="changePetChipjPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" rootIndex="7" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="501" max="32767" attributes="0"/>
+                      <Component id="changeDateInjPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -144,7 +151,7 @@
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" pref="13" max="32767" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
@@ -179,7 +186,7 @@
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="86" max="32767" attributes="0"/>
+                  <EmptySpace pref="87" max="32767" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
@@ -204,23 +211,30 @@
               </Group>
               <Group type="103" rootIndex="4" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="314" max="32767" attributes="0"/>
-                      <Component id="changePetChip" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="296" max="32767" attributes="0"/>
                       <Component id="changeAmountSpentjPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
+              <Group type="103" rootIndex="5" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="304" max="32767" attributes="0"/>
                       <Component id="changePetBreedjPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" rootIndex="6" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="297" max="32767" attributes="0"/>
+                      <Component id="changePetChipjPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" rootIndex="7" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="316" max="32767" attributes="0"/>
+                      <Component id="changeDateInjPanel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -340,6 +354,7 @@
             <Property name="text" type="java.lang.String" value="Pet Name"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petNamejRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petNamejRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -348,6 +363,7 @@
             <Property name="text" type="java.lang.String" value="Pet Status"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petStatusjRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petStatusjRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -356,6 +372,7 @@
             <Property name="text" type="java.lang.String" value="Pet Type"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petTypejRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petTypejRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -364,6 +381,7 @@
             <Property name="text" type="java.lang.String" value="Pet Color"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petColorjRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petColorjRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -372,6 +390,7 @@
             <Property name="text" type="java.lang.String" value="Pet Chip"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petChipjRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petChipjRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -380,6 +399,7 @@
             <Property name="text" type="java.lang.String" value="Pet Breed"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petBreedjRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petBreedjRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -388,6 +408,7 @@
             <Property name="text" type="java.lang.String" value="Date In"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petDateInjRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petDateInjRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -396,6 +417,7 @@
             <Property name="text" type="java.lang.String" value="Amount Spent"/>
           </Properties>
           <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="petAmountSpentjRadioButtonItemStateChanged"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="petAmountSpentjRadioButtonActionPerformed"/>
           </Events>
         </Component>
@@ -468,6 +490,78 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="newNamejTextField">
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="changeDateInjPanel">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="e8" red="cf" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="currentDateInjLabel" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="currentDatejLabel" min="-2" pref="122" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jDateChooser1" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="80" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="currentDateInjLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="currentDatejLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="130" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="currentDateInjLabel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Current Date In:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="currentDatejLabel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="New Date:"/>
+              </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
             </Component>
           </SubComponents>
         </Container>
@@ -711,85 +805,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="changePetChip">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="e8" red="cf" type="rgb"/>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="changePetChipjLabel" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
-                          <Component id="newChipjLabel" alignment="0" min="-2" pref="122" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="51" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                          <Component id="newChipjTextField" min="-2" pref="127" max="-2" attributes="0"/>
-                          <EmptySpace pref="90" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="changePetChipjLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="newChipjLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="68" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                          <Component id="newChipjTextField" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="75" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="changePetChipjLabel">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Current Chip:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="newChipjLabel">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="66" green="33" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="New Chip:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="newChipjTextField">
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="changeAmountSpentjPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -939,6 +954,78 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="changePetChipjPanel">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="e8" red="cf" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="currentChipjLabel" alignment="0" min="-2" pref="229" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="newChipjLabel" min="-2" pref="122" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="newChipjTextField" min="-2" pref="127" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="currentChipjLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="newChipjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="newChipjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="65" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="currentChipjLabel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Current Chip:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="newChipjLabel">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="66" green="33" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="New Name:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="newChipjTextField">
             </Component>
           </SubComponents>
         </Container>
