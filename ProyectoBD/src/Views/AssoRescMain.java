@@ -233,6 +233,9 @@ public class AssoRescMain extends javax.swing.JFrame {
 
     private void ReviewCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewCandidateActionPerformed
         ReviewCandidate revwindow = new ReviewCandidate(pidPerson);
+                revwindow.setVisible(true);
+        dispose();
+                   
     }//GEN-LAST:event_ReviewCandidateActionPerformed
 
     
