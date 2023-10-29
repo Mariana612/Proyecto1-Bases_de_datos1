@@ -1,3 +1,4 @@
+SET SERVEROUTPUT ON;
 CREATE OR REPLACE PACKAGE BODY userUsablePackage AS 
     FUNCTION getAllPets 
     RETURN SYS_REFCURSOR
@@ -37,7 +38,50 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
     
         RETURN petsCursor;
     END getAllSelectedPets;
+    --=================================================      
+    FUNCTION getFollowUp(idPeople NUMBER) RETURN SYS_REFCURSOR
+    AS
+        resultCursor SYS_REFCURSOR;
+        v_idPerson NUMBER;
+    BEGIN
+    BEGIN
+        -- Attempt to select id_rescuer
+        SELECT id
+        INTO v_idPerson
+        FROM adoption_form
+        WHERE id_rescuer = idPeople;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            -- If not found, try to select id_association
+            SELECT id
+            INTO v_idPerson
+            FROM adoption_form
+            WHERE id_association = idPeople;
+    END;
+        -- OPEN statement should be outside the EXCEPTION block
+        OPEN resultCursor FOR
+        SELECT fu.id, fu.note
+        FROM follow_up fu
+        WHERE ID_ADOPTION_FORM = v_idPerson;
     
+        RETURN resultCursor; -- Add this line to return the resultCursor
+    END;
+    
+    
+
+
+    --=================================================       
+FUNCTION getFollowUpPhoto(idFollowUp NUMBER) RETURN SYS_REFCURSOR
+AS
+   resultCursor SYS_REFCURSOR;
+BEGIN
+   OPEN resultCursor FOR
+      SELECT picture_path
+      FROM follow_up_photo
+      WHERE id_follow_up = idFollowUp;
+      
+   RETURN resultCursor;
+END;
     --=================================================
     
     FUNCTION getPetAmount

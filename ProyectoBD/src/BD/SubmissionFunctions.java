@@ -4,8 +4,12 @@
  */
 package BD;
 
+import static BD.NormalUserFunctions.getPetAmount;
 import java.sql.CallableStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -67,6 +71,76 @@ public class SubmissionFunctions {
             callableStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+        public static List<List<String>> getFollowUp(int idPerson) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call userUsablePackage.getFollowUp(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setInt(2, idPerson);
+
+            callableStatement.execute();
+
+            ResultSet res = (ResultSet) callableStatement.getObject(1); //a
+            List<List<String>> finalList = new ArrayList<>();
+
+            while (res.next()) {
+                List<String> temp = new ArrayList<>();  
+                    CallableStatement callableStatementtemp = null;
+                    ConnectionDB connectionDBtemp = new ConnectionDB();
+                try {
+                    ConnectionDB connectiontemp = new ConnectionDB();
+                    String procedureCalltemp = "{? = call userUsablePackage.getFollowUpPhoto(?)}";
+                    callableStatementtemp = connectiontemp.conn.prepareCall(procedureCalltemp);
+
+                    callableStatementtemp.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+                    callableStatementtemp.setInt(2, res.getInt("id"));
+                    List<String> tempList = new ArrayList<>();
+                    tempList.add(res.getString("note"));
+
+                    callableStatementtemp.execute();
+
+                    ResultSet restemp = (ResultSet) callableStatementtemp.getObject(1); //a
+                   
+                    while (restemp.next()) {
+                        
+                        tempList.add(restemp.getString("picture_path"));
+                        
+                        
+                    }
+                    finalList.add(tempList);
+                    
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                
+            }
+            res.close();
+            callableStatement.close();
+            
+            System.out.println(finalList);
+
+            return finalList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         } finally {
             try {
                 if (callableStatement != null) {
