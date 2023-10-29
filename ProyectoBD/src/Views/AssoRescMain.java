@@ -5,6 +5,7 @@
 package Views;
 
 import BD.LoginFunctions;
+import java.awt.event.ActionEvent;
 
 
 /**
@@ -16,6 +17,7 @@ public class AssoRescMain extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
     private int pidPerson;
     public AssoRescMain(int idPerson) {
 
@@ -43,6 +45,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         LostPet = new javax.swing.JButton();
         UpdatePet = new javax.swing.JButton();
         ReviewCandidate = new javax.swing.JButton();
+        RescuedPet = new javax.swing.JButton();
         CheckAdoptionForms = new javax.swing.JButton();
         BlackList = new javax.swing.JButton();
 
@@ -132,7 +135,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(3, 2, 200, 50));
 
         LostPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        LostPet.setText("Register Pet");
+        LostPet.setText("Register Lost Pet");
         LostPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LostPetActionPerformed(evt);
@@ -151,6 +154,11 @@ public class AssoRescMain extends javax.swing.JFrame {
 
         ReviewCandidate.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         ReviewCandidate.setText("Review Candidates");
+        ReviewCandidate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReviewCandidateActionPerformed(evt);
+            }
+        });
         jPanel5.add(ReviewCandidate);
 
         
@@ -265,6 +273,7 @@ public class AssoRescMain extends javax.swing.JFrame {
     private javax.swing.JButton BlackList;
     private javax.swing.JButton CheckAdoptionForms;
     private javax.swing.JButton LostPet;
+    private javax.swing.JButton RescuedPet;
     private javax.swing.JButton ReviewCandidate;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JLabel TitleLabel1;

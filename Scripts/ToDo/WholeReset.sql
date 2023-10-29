@@ -1,7 +1,12 @@
+DELETE FROM follow_up_photo;
+DELETE FROM follow_up;
 DELETE FROM adoption_form;
+DELETE FROM associationxcandidate;
 DELETE FROM associationxpet;
 DELETE FROM association;
 DELETE FROM legal_person;
+DELETE FROM rescuerxcandidate;
+DELETE FROM rescuerxfoster_home;
 DELETE FROM candidate;
 DELETE FROM rescuerxpet;
 DELETE FROM rescuer; 
@@ -64,10 +69,28 @@ drop sequence sSeverity;
 drop sequence sCurrency;
 drop sequence sTelephone;
 drop sequence sTelephone_type;
+drop sequence sFollowUP;
+drop sequence sFollowUPPhoto;
 
 
 
 CREATE SEQUENCE sPerson
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+ CREATE SEQUENCE sFollowUP
+  START WITH 000000
+  INCREMENT BY 1
+  MINVALUE 000000
+  MAXVALUE 999999
+  NOCACHE
+  CYCLE;
+  
+ CREATE SEQUENCE sFollowUPPhoto
   START WITH 000000
   INCREMENT BY 1
   MINVALUE 000000
@@ -263,7 +286,7 @@ adminProcedures.insertStatus('Denied');
 adminProcedures.insertStatus('Waiting for Response');
 
 END;
-
+--
 -- 2.
 INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'Lost');
 INSERT INTO pet_status(id,status_name) VALUES(sPetStatus.NEXTVAL, 'Found');

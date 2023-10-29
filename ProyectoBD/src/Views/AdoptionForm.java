@@ -298,7 +298,7 @@ private String vuserType; // Declare and initialize the instance variable
             dispose();
         }
         else {
-            showMessageDialog("Por favor rellene toda la informacíon","Error");
+            showMessageDialog("Please fill all the information","Error");
         }
     }//GEN-LAST:event_FinalizarActionPerformed
     public static void showMessageDialog(String message, String title) {
