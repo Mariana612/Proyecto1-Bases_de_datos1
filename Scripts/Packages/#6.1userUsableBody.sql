@@ -39,36 +39,46 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
         RETURN petsCursor;
     END getAllSelectedPets;
     --=================================================      
-    FUNCTION getFollowUp(idPeople NUMBER) RETURN SYS_REFCURSOR
-    AS
-        resultCursor SYS_REFCURSOR;
-        v_idPerson NUMBER;
-    BEGIN
-    BEGIN
-        -- Attempt to select id_rescuer
+FUNCTION getFollowUp(idPeople NUMBER) RETURN SYS_REFCURSOR
+AS
+    resultCursor SYS_REFCURSOR;
+    TYPE idCollection IS TABLE OF NUMBER;
+    v_idCollection idCollection;
+    v_idPerson NUMBER;
+
+BEGIN
+    -- Attempt to select id_rescuer and store the IDs in the collection
+    SELECT id
+    BULK COLLECT INTO v_idCollection
+    FROM adoption_form
+    WHERE id_rescuer = idPeople;
+
+    -- Check if any IDs were found
+    IF v_idCollection.COUNT = 0 THEN
+        -- If not found, try to select id_association
         SELECT id
-        INTO v_idPerson
+        BULK COLLECT INTO v_idCollection
         FROM adoption_form
-        WHERE id_rescuer = idPeople;
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            -- If not found, try to select id_association
-            SELECT id
-            INTO v_idPerson
-            FROM adoption_form
-            WHERE id_association = idPeople;
-    END;
-        -- OPEN statement should be outside the EXCEPTION block
+        WHERE id_association = idPeople;
+    END IF;
+
+    -- Check if any IDs were found in the collection
+    IF v_idCollection.COUNT > 0 THEN
+        -- Use the first ID from the collection
+        v_idPerson := v_idCollection(1);
+        
+        -- OPEN statement should be outside the IF block
         OPEN resultCursor FOR
-        SELECT fu.id, af.id_candidate,fu.note
+        SELECT fu.id, af.id_candidate, fu.note
         FROM follow_up fu
-        JOIN adoption_form af on af.id =   fu.ID_ADOPTION_FORM
+        JOIN adoption_form af ON af.id = fu.ID_ADOPTION_FORM
         WHERE fu.ID_ADOPTION_FORM = v_idPerson;
-    
-        RETURN resultCursor; -- Add this line to return the resultCursor
-    END;
-    
-    
+        
+        RETURN resultCursor;
+    ELSE
+             NULL;
+    END IF;
+END;
 
 
     --=================================================       
