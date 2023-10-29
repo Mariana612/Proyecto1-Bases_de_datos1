@@ -297,32 +297,34 @@ public class RegisterPetFunctions {
         String pcTraining,
         String pcIllness,
         String pcSeverity,
-        String pcDistrictN
-    ) {
-        String procedureCall = "{ ? = call petProcedures.insertRescued(?, ?, ?, ?, ?, ?, ?, ?) }";
-        String resultMessage = null;
+        String pcDistrictN,
+        String pcCantonN
+        ) {
+            String procedureCall = "{ ? = call petProcedures.insertRescued(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+            String resultMessage = "Inserción exitosa"; // Supongamos que la inserción es exitosa por defecto
 
-        try (Connection connection = connectionDB.getConnection();
-             CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
-            callableStatement.registerOutParameter(1, Types.VARCHAR);
-            callableStatement.setInt(2, pnIdPet);
-            callableStatement.setString(3, pcNotes);
-            callableStatement.setString(4, pcSpace);
-            callableStatement.setString(5, pcEnergy);
-            callableStatement.setString(6, pcTraining);
-            callableStatement.setString(7, pcIllness);
-            callableStatement.setString(8, pcSeverity);
-            callableStatement.setString(9, pcDistrictN);
+            try (Connection connection = connectionDB.getConnection();
+                 CallableStatement callableStatement = connection.prepareCall(procedureCall)) {
+                callableStatement.registerOutParameter(1, Types.VARCHAR);
+                callableStatement.setInt(2, pnIdPet);
+                callableStatement.setString(3, pcNotes);
+                callableStatement.setString(4, pcSpace);
+                callableStatement.setString(5, pcEnergy);
+                callableStatement.setString(6, pcTraining);
+                callableStatement.setString(7, pcIllness);
+                callableStatement.setString(8, pcSeverity);
+                callableStatement.setString(9, pcDistrictN);
+                callableStatement.setString(10, pcCantonN);
 
-            callableStatement.execute();
+                callableStatement.execute();
+                resultMessage = callableStatement.getString(1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
-            resultMessage = callableStatement.getString(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return resultMessage;
         }
-
-        return resultMessage;
-    }
+    
     public String insertPhotoBefore(int idPet, String imagePath) {
         String procedureCall = "{ ? = call petProcedures.insertPhotoBefore(?, ?) }";
         String errorMessage = "The photo insertion was successful";
@@ -381,8 +383,8 @@ public class RegisterPetFunctions {
 
         return currencyList;
     }
-    public String insertLost(int pnIdPet, String pnDateLost, Integer pnBounty, String pcCurrency, String pcDistrictN) {
-        String procedureCall = "{ ? = call petProcedures.insertLost(?, ?, ?, ?, ?) }";
+    public String insertLost(int pnIdPet, String pnDateLost, Integer pnBounty, String pcCurrency, String pcDistrictN, String pcCantonN) {
+        String procedureCall = "{ ? = call petProcedures.insertLost(?, ?, ?, ?, ?, ?) }";
         String errorMessage = "The lost pet insertion was successful";
 
         try (Connection connection = connectionDB.getConnection();
@@ -399,6 +401,7 @@ public class RegisterPetFunctions {
 
             callableStatement.setString(5, pcCurrency);
             callableStatement.setString(6, pcDistrictN);
+            callableStatement.setString(7, pcCantonN); // Agregar el parámetro pcCantonN
 
             callableStatement.execute();
 
@@ -409,8 +412,9 @@ public class RegisterPetFunctions {
 
         return errorMessage;
     }
-    public String insertfound(int pnIdPet, String pnDateFound, String pcDistrictN) {
-        String procedureCall = "{ ? = call petProcedures.insertfound(?, ?, ?) }";
+
+    public String insertfound(int pnIdPet, String pnDateFound, String pcDistrictN, String pcCantonN) {
+        String procedureCall = "{ ? = call petProcedures.insertfound(?, ?, ?, ?) }";
         String errorMessage = "The found pet insertion was successful";
 
         try (Connection connection = connectionDB.getConnection();
@@ -419,6 +423,7 @@ public class RegisterPetFunctions {
             callableStatement.setInt(2, pnIdPet);
             callableStatement.setString(3, pnDateFound);
             callableStatement.setString(4, pcDistrictN);
+            callableStatement.setString(5, pcCantonN); // Agregar el parámetro pcCantonN
 
             callableStatement.execute();
 
@@ -430,6 +435,8 @@ public class RegisterPetFunctions {
 
         return errorMessage;
     }
+
+    
 
 
 }

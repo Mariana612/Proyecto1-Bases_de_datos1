@@ -596,10 +596,11 @@ public class RegisterPetOwner extends javax.swing.JFrame {
         Integer chip = null;
         Integer idPet;
         String district = districtComboBox.getSelectedItem() != null ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
         String currency = currencyComboBox.getSelectedItem() != null ? currencyComboBox.getSelectedItem().toString() : null;
         Date date = dateLostjDateChooser.getDate();
         String formattedDateLost = null;
-
+        
         if (date != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             formattedDateLost = sdf.format(date);
@@ -635,7 +636,7 @@ public class RegisterPetOwner extends javax.swing.JFrame {
                 System.out.println(registerPetFunctions.callInsertPetPhoto(idPet, imagePath));
             }
 
-            String resultMessage = registerPetFunctions.insertLost(idPet, formattedDateLost, bounty, currency, district);
+            String resultMessage = registerPetFunctions.insertLost(idPet, formattedDateLost, bounty, currency, district, canton);
             System.out.println(resultMessage);
             
         } else if (idPet == -1){

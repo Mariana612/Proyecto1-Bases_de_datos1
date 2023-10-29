@@ -7,8 +7,12 @@ package Views;
 import BD.SubmissionFunctions;
 import static Views.AdoptionForm.showMessageDialog;
 import java.io.File;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -172,7 +176,7 @@ public class FollowUp extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void subirFotojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subirFotojButtonActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+    JFileChooser fileChooser = new JFileChooser();
         // Configura el filtro de archivos para mostrar solo imágenes
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(filter);
@@ -181,13 +185,20 @@ public class FollowUp extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
+
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
+
             // Agrega el path al modelo de lista
             listModel.addElement(path);
 
             // Asigna el modelo de lista actualizado al JList
             PetPhotosjList.setModel(listModel);
         }
+       
+
 
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 

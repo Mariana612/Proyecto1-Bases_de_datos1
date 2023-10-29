@@ -9,11 +9,15 @@ import BD.RegisterPetFunctions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -571,13 +575,19 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
+
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
+
             // Agrega el path al modelo de lista
             listPhotoBefore.addElement(path);
 
             // Asigna el modelo de lista actualizado al JList
             photosBeforejList.setModel(listPhotoBefore);
         }
+
     }//GEN-LAST:event_uploadPhotoBeforejButtonActionPerformed
 
     private void uploadPhotoAfterjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoAfterjButtonActionPerformed
@@ -590,13 +600,19 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
+
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
+
             // Agrega el path al modelo de lista
             listPhotoAfter.addElement(path);
 
             // Asigna el modelo de lista actualizado al JList
             photosAfterjList.setModel(listPhotoAfter);
         }
+
     }//GEN-LAST:event_uploadPhotoAfterjButtonActionPerformed
 
     private void registerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButtonActionPerformed
@@ -696,7 +712,19 @@ public class RegisterRescued extends javax.swing.JFrame {
     }//GEN-LAST:event_continentComboBoxPopupMenuWillBecomeVisible
 
     private void provinceComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeVisible
-
+        provinceComboBox.removeAllItems();
+        try {
+            String selectedCountry = countryComboBox.getSelectedItem().toString();
+            System.out.println(selectedCountry);
+            if(selectedCountry.equals("Costa Rica")){
+                String[] provinces = LoginFunctions.CostaRicanProvinces(selectedCountry);
+                for(int i = 0; i < provinces.length; i++){
+                    provinceComboBox.addItem(provinces[i]);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("No provinces avaible");
+        }
     }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeVisible
 
     private void countryComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_countryComboBoxPopupMenuWillBecomeVisible
@@ -725,19 +753,6 @@ public class RegisterRescued extends javax.swing.JFrame {
     }//GEN-LAST:event_countryComboBoxItemStateChanged
 
     private void provinceComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeInvisible
-        provinceComboBox.removeAllItems();
-        try {
-            String selectedCountry = countryComboBox.getSelectedItem().toString();
-            System.out.println(selectedCountry);
-            if(selectedCountry.equals("Costa Rica")){
-                String[] provinces = LoginFunctions.CostaRicanProvinces(selectedCountry);
-                for(int i = 0; i < provinces.length; i++){
-                    provinceComboBox.addItem(provinces[i]);
-                }
-            }
-        }catch (Exception e){
-            System.out.println("No provinces avaible");
-        }
         
     }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeInvisible
 
@@ -786,8 +801,8 @@ public class RegisterRescued extends javax.swing.JFrame {
     private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
         //String resultMessage = registerPetFunctions.insertRescued(11, "hola", "Yes", "Runner", "Very challenging", "Kennel Cough", "Serious", "Carmen");
         //System.out.println("Mensaje de Resultado: " + resultMessage);
-        
         String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
         String energy = (energyjComboBox.getSelectedItem() != null) ? energyjComboBox.getSelectedItem().toString() : null;
         String training = (trainingjComboBox.getSelectedItem() != null) ? trainingjComboBox.getSelectedItem().toString() : null;
         String illness = (illnessjComboBox.getSelectedItem() != null) ? illnessjComboBox.getSelectedItem().toString() : null;
@@ -803,7 +818,7 @@ public class RegisterRescued extends javax.swing.JFrame {
         }
         System.out.println("Space:" + space);
         
-        String resultMessage = registerPetFunctions.insertRescued(idPet, notes, space, energy, training, illness, severity, district);
+        String resultMessage = registerPetFunctions.insertRescued(idPet, notes, space, energy, training, illness, severity, district, canton);
         for (int i = 0; i < listPhotoBefore.size(); i++) {
             String imagePath = listPhotoBefore.getElementAt(i);
             System.out.println(registerPetFunctions.insertPhotoBefore(idPet,imagePath));

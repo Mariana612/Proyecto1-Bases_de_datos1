@@ -145,6 +145,11 @@ public class AssoRescMain extends javax.swing.JFrame {
 
         UpdatePet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         UpdatePet.setText("Update Registered Pets");
+        UpdatePet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdatePetActionPerformed(evt);
+            }
+        });
         jPanel5.add(UpdatePet);
 
         ReviewCandidate.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
@@ -156,9 +161,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         });
         jPanel5.add(ReviewCandidate);
 
-        RescuedPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        RescuedPet.setText("Register Recued Pet");
-        jPanel5.add(RescuedPet);
+        
 
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
@@ -220,12 +223,13 @@ public class AssoRescMain extends javax.swing.JFrame {
                 dispose();
     }//GEN-LAST:event_CheckAdoptionFormsActionPerformed
 
-    private void ReviewCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewCandidateActionPerformed
-                ReviewCandidate reviewCandidateMain = new ReviewCandidate(pidPerson);
-                reviewCandidateMain.setVisible(true);
-                dispose();
-        
-    }//GEN-LAST:event_ReviewCandidateActionPerformed
+    private void UpdatePetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePetActionPerformed
+        UpdatePet windowUpdatePet = new UpdatePet(pidPerson);
+        windowUpdatePet.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_UpdatePetActionPerformed
+
+    
 
     /**
      * @param args the command line arguments
