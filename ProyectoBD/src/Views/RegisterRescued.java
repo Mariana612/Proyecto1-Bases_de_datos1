@@ -9,11 +9,15 @@ import BD.RegisterPetFunctions;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -571,13 +575,27 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
-            // Agrega el path al modelo de lista
-            listPhotoBefore.addElement(path);
 
-            // Asigna el modelo de lista actualizado al JList
-            photosBeforejList.setModel(listPhotoBefore);
+                    try {
+                        // Verifica si el archivo seleccionado se encuentra en el directorio de recursos "Images"
+                        if (archivoSeleccionado.toURI().toString().startsWith(getClass().getResource("/Images/").toURI().toString())) {
+                            // El archivo seleccionado está en el directorio de recursos "Images"
+                            // Puedes obtener su ruta relativa al directorio de recursos
+                            String nombreImagen = archivoSeleccionado.getName();
+                            String path = "/Images/" + nombreImagen;
+
+                            // Agrega el path al modelo de lista
+                            listPhotoBefore.addElement(path);
+
+                            // Asigna el modelo de lista actualizado al JList
+                            photosBeforejList.setModel(listPhotoBefore);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Error");
+                        }       } catch (URISyntaxException ex) {
+                        Logger.getLogger(RegisterRescued.class.getName()).log(Level.SEVERE, null, ex);
+                    }
         }
+
     }//GEN-LAST:event_uploadPhotoBeforejButtonActionPerformed
 
     private void uploadPhotoAfterjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPhotoAfterjButtonActionPerformed
@@ -590,13 +608,27 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
-            // Agrega el path al modelo de lista
-            listPhotoAfter.addElement(path);
 
-            // Asigna el modelo de lista actualizado al JList
-            photosAfterjList.setModel(listPhotoAfter);
+                    try {
+                        // Verifica si el archivo seleccionado se encuentra en el directorio de recursos "Images"
+                        if (archivoSeleccionado.toURI().toString().startsWith(getClass().getResource("/Images/").toURI().toString())) {
+                            // El archivo seleccionado está en el directorio de recursos "Images"
+                            // Puedes obtener su ruta relativa al directorio de recursos
+                            String nombreImagen = archivoSeleccionado.getName();
+                            String path = "/Images/" + nombreImagen;
+
+                            // Agrega el path al modelo de lista
+                            listPhotoAfter.addElement(path);
+
+                            // Asigna el modelo de lista actualizado al JList
+                            photosAfterjList.setModel(listPhotoAfter);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Selecciona una imagen del directorio de recursos 'Images' en tu proyecto.");
+                        }       } catch (URISyntaxException ex) {
+                        Logger.getLogger(RegisterRescued.class.getName()).log(Level.SEVERE, null, ex);
+                    }
         }
+
     }//GEN-LAST:event_uploadPhotoAfterjButtonActionPerformed
 
     private void registerjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButtonActionPerformed
