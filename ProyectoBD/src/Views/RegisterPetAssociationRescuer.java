@@ -468,12 +468,18 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         if (text != null && !text.isEmpty()) {
         amountSpent = Double.valueOf(text);
         }
+        
         Date date = dateInjDateChooser.getDate();
         String formattedDate = null;
-        if (date != null) {
+        if (date != null &&  status != null && type != null) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             formattedDate = sdf.format(date);
         } 
+        else{
+        JOptionPane.showMessageDialog(null, "all elements with * must be filled", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+
   
         Integer chip = null;
         if (chipText != null && !chipText.isEmpty()) {
@@ -494,10 +500,11 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         windowLost.setVisible(true);
                         dispose();
                     }else if(status.equals("Found")){
-                        RegisterFound windowFound = new RegisterFound(idPet);
+                        RegisterFound windowFound = new RegisterFound(idPet,idPerson);
                         windowFound.setVisible(true);
                         dispose();
                     }
+                    
                     
                 }
                 else{
@@ -524,10 +531,11 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         windowLost.setVisible(true);
                         dispose();
                     } else if (status.equals("Found")) {
-                        RegisterFound windowFound = new RegisterFound(idPet);
+                        RegisterFound windowFound = new RegisterFound(idPet, idPerson);
                         windowFound.setVisible(true);
                         dispose();
                     }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "There was an error in the insertion", "Error", JOptionPane.ERROR_MESSAGE);
                 }

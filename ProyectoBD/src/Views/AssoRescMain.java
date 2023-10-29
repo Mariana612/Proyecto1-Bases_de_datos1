@@ -161,7 +161,9 @@ public class AssoRescMain extends javax.swing.JFrame {
         });
         jPanel5.add(ReviewCandidate);
 
-        
+        RescuedPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        RescuedPet.setText("Register Recued Pet");
+        jPanel5.add(RescuedPet);
 
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
@@ -228,6 +230,10 @@ public class AssoRescMain extends javax.swing.JFrame {
         windowUpdatePet.setVisible(true);
         dispose();
     }//GEN-LAST:event_UpdatePetActionPerformed
+
+    private void ReviewCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewCandidateActionPerformed
+        ReviewCandidate revwindow = new ReviewCandidate(pidPerson);
+    }//GEN-LAST:event_ReviewCandidateActionPerformed
 
     
 
