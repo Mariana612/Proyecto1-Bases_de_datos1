@@ -8,5 +8,6 @@ CREATE OR REPLACE PACKAGE updatePetPackage IS
     FUNCTION updatePetAmountSpent(idPerson NUMBER, idPet NUMBER, newAmount NUMBER) RETURN VARCHAR2;
     FUNCTION updatePetDateIn(idPerson NUMBER,idPet NUMBER, newDate VARCHAR2) RETURN VARCHAR2;
     FUNCTION deletePetPhoto(idPet NUMBER, idPetPhoto NUMBER) RETURN VARCHAR2;
+    FUNCTION getTypeUser(idPerson NUMBER) RETURN VARCHAR2;
 END updatePetPackage;
 /

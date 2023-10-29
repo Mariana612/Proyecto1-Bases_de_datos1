@@ -21,7 +21,7 @@ public class UpdatePetFunctions {
         this.connectionDB = new ConnectionDB();
     }
 
-    public DefaultTableModel executePetQuery(String rescuerId) {
+    public DefaultTableModel executePetQuery(String personId, String typeUser) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("id");
         model.addColumn("chip");
@@ -36,15 +36,27 @@ public class UpdatePetFunctions {
         try {
             Connection connection = connectionDB.getConnection();
             Statement stmt = connection.createStatement();
+            String sql = "";
 
-            String sql = "SELECT p.id, p.chip, p.pet_name, ps.status_name, pt.type_name, c.color_name, b.breed_name, rp.amount_spent, rp.date_in " +
-                         "FROM pet p " +
-                         "INNER JOIN rescuerxpet rp ON p.id = rp.id_pet " +
-                         "INNER JOIN pet_status ps ON p.id_pet_status = ps.id " +
-                         "INNER JOIN pet_type pt ON p.id_pet_type = pt.id " +
-                         "LEFT JOIN color c ON p.id_color = c.id " +
-                         "LEFT JOIN breed b ON p.id_breed = b.id " +
-                         "WHERE rp.id_rescuer = " + rescuerId;
+            if ("Rescuer".equals(typeUser)) {
+                sql = "SELECT p.id, p.chip, p.pet_name, ps.status_name, pt.type_name, c.color_name, b.breed_name, rp.amount_spent, rp.date_in " +
+                      "FROM pet p " +
+                      "INNER JOIN rescuerxpet rp ON p.id = rp.id_pet " +
+                      "INNER JOIN pet_status ps ON p.id_pet_status = ps.id " +
+                      "INNER JOIN pet_type pt ON p.id_pet_type = pt.id " +
+                      "LEFT JOIN color c ON p.id_color = c.id " +
+                      "LEFT JOIN breed b ON p.id_breed = b.id " +
+                      "WHERE rp.id_rescuer = " + personId;
+            } else if ("Association".equals(typeUser)) {
+                sql = "SELECT p.id, p.chip, p.pet_name, ps.status_name, pt.type_name, c.color_name, b.breed_name, ap.amount_spent, ap.date_in " +
+                      "FROM pet p " +
+                      "INNER JOIN associationxpet ap ON p.id = ap.id_pet " +
+                      "INNER JOIN pet_status ps ON p.id_pet_status = ps.id " +
+                      "INNER JOIN pet_type pt ON p.id_pet_type = pt.id " +
+                      "LEFT JOIN color c ON p.id_color = c.id " +
+                      "LEFT JOIN breed b ON p.id_breed = b.id " +
+                      "WHERE ap.id_association = " + personId;
+            }
 
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -71,6 +83,7 @@ public class UpdatePetFunctions {
 
         return model;
     }
+
     public String updatePetName(int idPet, String newName) {
         String result = null;
         try {
@@ -149,6 +162,100 @@ public class UpdatePetFunctions {
             e.printStackTrace();
         }
         return result;
+    }
+    public String updatePetStatus(int idPet, String newStatus) {
+        String result = null;
+        try {
+            Connection connection = connectionDB.getConnection();
+            // Llama a la función del paquete Oracle
+            CallableStatement cstmt = connection.prepareCall("{ ? = call updatePetPackage.updatePetStatus(?, ?) }");
+            cstmt.registerOutParameter(1, java.sql.Types.VARCHAR); // Tipo de retorno
+            cstmt.setInt(2, idPet);
+            cstmt.setString(3, newStatus);
+            cstmt.execute();
+
+            result = cstmt.getString(1); // Obtén el resultado de la función
+
+            cstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public String updatePetType(int idPet, String newType) {
+        String result = null;
+        try {
+            Connection connection = connectionDB.getConnection();
+            // Llama a la función del paquete Oracle
+            CallableStatement cstmt = connection.prepareCall("{ ? = call updatePetPackage.updatePetType(?, ?) }");
+            cstmt.registerOutParameter(1, java.sql.Types.VARCHAR); // Tipo de retorno
+            cstmt.setInt(2, idPet);
+            cstmt.setString(3, newType);
+            cstmt.execute();
+
+            result = cstmt.getString(1); // Obtén el resultado de la función
+
+            cstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String updatePetBreed(int idPet, String newBreed) {
+        String result = null;
+        try {
+            Connection connection = connectionDB.getConnection();
+            // Llama a la función del paquete Oracle
+            CallableStatement cstmt = connection.prepareCall("{ ? = call updatePetPackage.updatePetBreed(?, ?) }");
+            cstmt.registerOutParameter(1, java.sql.Types.VARCHAR); // Tipo de retorno
+            cstmt.setInt(2, idPet);
+            cstmt.setString(3, newBreed);
+            cstmt.execute();
+
+            result = cstmt.getString(1); // Obtén el resultado de la función
+
+            cstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String updatePetColor(int idPet, String newColor) {
+        String result = null;
+        try {
+            Connection connection = connectionDB.getConnection();
+            // Llama a la función del paquete Oracle
+            CallableStatement cstmt = connection.prepareCall("{ ? = call updatePetPackage.updatePetColor(?, ?) }");
+            cstmt.registerOutParameter(1, java.sql.Types.VARCHAR); // Tipo de retorno
+            cstmt.setInt(2, idPet);
+            cstmt.setString(3, newColor);
+            cstmt.execute();
+
+            result = cstmt.getString(1); // Obtén el resultado de la función
+
+            cstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getTypeUser(int idPerson) {
+        String userType = null;
+        try {
+            Connection connection = connectionDB.getConnection();
+            CallableStatement cstmt = connection.prepareCall("{ ? = call updatePetPackage.getTypeUser(?) }");
+            cstmt.registerOutParameter(1, java.sql.Types.VARCHAR); // Tipo de retorno
+            cstmt.setInt(2, idPerson);
+            cstmt.execute();
+
+            userType = cstmt.getString(1); // Obtén el resultado de la función
+
+            cstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userType;
     }
 
 }

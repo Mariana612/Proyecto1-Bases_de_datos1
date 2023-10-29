@@ -128,4 +128,14 @@ EXCEPTION
         RETURN 'Error deleting pet photo: ' || SQLERRM;
 END deletePetPhoto;
 ------------------------------------------------------------------------------
+FUNCTION getTypeUser(idPerson NUMBER) RETURN VARCHAR2 IS
+    vTyped VARCHAR2(100); -- Ajusta la restricción de longitud según tus necesidades
+BEGIN
+    SELECT ut.name_type INTO vTyped
+    FROM user_person up
+    INNER JOIN user_type ut ON up.id_user_type = ut.id
+    WHERE up.id_person = idPerson;
+    RETURN vTyped;
+END getTypeUser;
+------------------------------------------------------------------------------
 END updatePetPackage;

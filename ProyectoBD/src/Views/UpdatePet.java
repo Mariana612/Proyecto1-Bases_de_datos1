@@ -7,6 +7,8 @@ package Views;
 import BD.RegisterPetFunctions;
 import BD.UpdatePetFunctions;
 import java.awt.event.ItemEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -20,14 +22,19 @@ public class UpdatePet extends javax.swing.JFrame {
     ButtonGroup buttonGroup = new ButtonGroup();
     private RegisterPetFunctions registerPetFunctions;
     private UpdatePetFunctions updatePetFunctions;
+    private String typeUser;
+    private int idPerson;
     /**
      * Creates new form UpdatePet
      */
-    public UpdatePet() {
+    public UpdatePet(int idPersonP) {
         initComponents();
+        idPerson = idPersonP;
         registerPetFunctions = new RegisterPetFunctions();
         updatePetFunctions = new UpdatePetFunctions();
-        DefaultTableModel model = updatePetFunctions.executePetQuery("7");
+        typeUser = updatePetFunctions.getTypeUser(idPerson);
+        DefaultTableModel model = updatePetFunctions.executePetQuery(Integer.toString(idPerson), typeUser);
+        System.out.println("TYPE OF USER" + typeUser);
         PetsjTable.setModel(model);
         buttonGroup.add(petNamejRadioButton);
         buttonGroup.add(petStatusjRadioButton);
@@ -77,7 +84,7 @@ public class UpdatePet extends javax.swing.JFrame {
         newNamejTextField = new javax.swing.JTextField();
         changeDateInjPanel = new javax.swing.JPanel();
         currentDatejLabel = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dateInjDateChooser = new com.toedter.calendar.JDateChooser();
         changePetTypejPanel = new javax.swing.JPanel();
         neTypejLabel = new javax.swing.JLabel();
         petTypesjComboBox = new javax.swing.JComboBox<>();
@@ -96,6 +103,7 @@ public class UpdatePet extends javax.swing.JFrame {
         changePetChipjPanel = new javax.swing.JPanel();
         newChipjLabel = new javax.swing.JLabel();
         newChipjTextField = new javax.swing.JTextField();
+        returnButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 635));
@@ -299,7 +307,7 @@ public class UpdatePet extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(currentDatejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dateInjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         changeDateInjPanelLayout.setVerticalGroup(
@@ -308,7 +316,7 @@ public class UpdatePet extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(changeDateInjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(currentDatejLabel)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateInjDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(130, Short.MAX_VALUE))
         );
 
@@ -407,6 +415,7 @@ public class UpdatePet extends javax.swing.JFrame {
                 colorjComboBoxPopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                colorjComboBoxPopupMenuWillBecomeVisible(evt);
             }
         });
 
@@ -525,6 +534,16 @@ public class UpdatePet extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
+        returnButton.setBackground(new java.awt.Color(102, 204, 255));
+        returnButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        returnButton.setForeground(new java.awt.Color(255, 255, 255));
+        returnButton.setText("RETURN");
+        returnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -539,7 +558,9 @@ public class UpdatePet extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(changePetNamejPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(returnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nextButton, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
                                 .addGap(43, 43, 43))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -634,7 +655,9 @@ public class UpdatePet extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(296, Short.MAX_VALUE)
@@ -720,7 +743,6 @@ public class UpdatePet extends javax.swing.JFrame {
 
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
        int filaSeleccionada = PetsjTable.getSelectedRow();
-
         if (filaSeleccionada != -1) { // Asegurarse de que haya una fila seleccionada
             // Obtener el valor de la primera columna (columna 0) de la fila seleccionada
             Object valorCelda = PetsjTable.getValueAt(filaSeleccionada, 0);
@@ -738,17 +760,32 @@ public class UpdatePet extends javax.swing.JFrame {
                     int newAmount = Integer.valueOf(newAmountjTextField.getText());
                     String result = updatePetFunctions.updatePetAmountSpent(7, idPet, newAmount);
                 }else if (petDateInjRadioButton.isSelected()) {
-                    int newAmount = Integer.valueOf(newAmountjTextField.getText());
-                    String result = updatePetFunctions.updatePetAmountSpent(7, idPet, newAmount);
+                    Date date = dateInjDateChooser.getDate();
+                    String formattedDate = null;
+                    if (date != null) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        formattedDate = sdf.format(date);
+                    } 
+                    String result = updatePetFunctions.updatePetDateIn(7, idPet, formattedDate);
+                }else if (petStatusjRadioButton.isSelected()) {
+                    String status = (String) statusjComboBox.getSelectedItem();
+                    String result = updatePetFunctions.updatePetStatus(idPet, status);
+                }else if (petTypejRadioButton.isSelected()) {
+                    String type = (String) petTypesjComboBox.getSelectedItem();
+                    String result = updatePetFunctions.updatePetType(idPet, type);
+                }else if (petBreedjRadioButton.isSelected()) {
+                    String breed = (String) breedjComboBox.getSelectedItem();
+                    String result = updatePetFunctions.updatePetBreed(idPet, breed);
+                }else if (petColorjRadioButton.isSelected()) {
+                    String color = (String) colorjComboBox.getSelectedItem();
+                    String result = updatePetFunctions.updatePetColor(idPet, color);
                 }
             }
-            if (petNamejRadioButton.isSelected()) {
-                
-            }
+            
         } else {
             JOptionPane.showMessageDialog(this, "Please select a row", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        DefaultTableModel model = updatePetFunctions.executePetQuery("7");
+        DefaultTableModel model = updatePetFunctions.executePetQuery(Integer.toString(idPerson), typeUser);
         PetsjTable.setModel(model);
     }//GEN-LAST:event_nextButtonActionPerformed
 
@@ -824,13 +861,7 @@ public class UpdatePet extends javax.swing.JFrame {
     }//GEN-LAST:event_statusjComboBoxActionPerformed
 
     private void colorjComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_colorjComboBoxPopupMenuWillBecomeInvisible
-        colorjComboBox.removeAllItems();
-        // Llama a la función para obtener la lista de tipos de mascotas
-        List<String> petColors = registerPetFunctions.getAllPetColors();
-        // Agrega los valores al ComboBox
-        for (String petColor : petColors) {
-            colorjComboBox.addItem(petColor);
-        }
+   
     }//GEN-LAST:event_colorjComboBoxPopupMenuWillBecomeInvisible
 
     private void breedjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_breedjComboBoxPopupMenuWillBecomeVisible
@@ -870,6 +901,22 @@ public class UpdatePet extends javax.swing.JFrame {
         
         }
     }//GEN-LAST:event_statusjComboBoxPopupMenuWillBecomeVisible
+
+    private void colorjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_colorjComboBoxPopupMenuWillBecomeVisible
+        colorjComboBox.removeAllItems();
+        // Llama a la función para obtener la lista de tipos de mascotas
+        List<String> petColors = registerPetFunctions.getAllPetColors();
+        // Agrega los valores al ComboBox
+        for (String petColor : petColors) {
+            colorjComboBox.addItem(petColor);
+        }
+    }//GEN-LAST:event_colorjComboBoxPopupMenuWillBecomeVisible
+
+    private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
+        AssoRescMain windowAssoRescMain = new AssoRescMain(idPerson);
+        windowAssoRescMain.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_returnButtonActionPerformed
     
     
     /**
@@ -901,8 +948,13 @@ public class UpdatePet extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run(int idPersonP) {
+                new UpdatePet(idPersonP).setVisible(true);
+            }
+
+            @Override
             public void run() {
-                new UpdatePet().setVisible(true);
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
         });
     }
@@ -922,7 +974,7 @@ public class UpdatePet extends javax.swing.JFrame {
     private javax.swing.JPanel changePetTypejPanel;
     private javax.swing.JComboBox<String> colorjComboBox;
     private javax.swing.JLabel currentDatejLabel;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser dateInjDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -948,6 +1000,7 @@ public class UpdatePet extends javax.swing.JFrame {
     private javax.swing.JRadioButton petStatusjRadioButton;
     private javax.swing.JRadioButton petTypejRadioButton;
     private javax.swing.JComboBox<String> petTypesjComboBox;
+    private javax.swing.JToggleButton returnButton;
     private javax.swing.JComboBox<String> statusjComboBox;
     // End of variables declaration//GEN-END:variables
 
