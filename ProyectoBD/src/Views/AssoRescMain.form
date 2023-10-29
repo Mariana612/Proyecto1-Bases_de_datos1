@@ -247,6 +247,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Review Candidates"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReviewCandidateActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="RescuedPet">
               <Properties>
@@ -255,9 +258,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Register Recued Pet"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RescuedPetActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="CheckAdoptionForms">
               <Properties>

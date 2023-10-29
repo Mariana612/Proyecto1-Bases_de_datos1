@@ -60,9 +60,10 @@ CREATE OR REPLACE PACKAGE BODY userUsablePackage AS
     END;
         -- OPEN statement should be outside the EXCEPTION block
         OPEN resultCursor FOR
-        SELECT fu.id, fu.note
+        SELECT fu.id, af.id_candidate,fu.note
         FROM follow_up fu
-        WHERE ID_ADOPTION_FORM = v_idPerson;
+        JOIN adoption_form af on af.id =   fu.ID_ADOPTION_FORM
+        WHERE fu.ID_ADOPTION_FORM = v_idPerson;
     
         RETURN resultCursor; -- Add this line to return the resultCursor
     END;
