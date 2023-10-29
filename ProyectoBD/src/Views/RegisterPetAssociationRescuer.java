@@ -560,7 +560,6 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         // Llama a la función para obtener la lista de tipos de mascotas
         List<String> petBreeds = registerPetFunctions.getBreedsByPetType(selectedValue);
 
-        // Agrega los valores al ComboBox, excluyendo "Adopted"
         for (String petBreed : petBreeds) {
             breedjComboBox.addItem(petBreed);
         }
