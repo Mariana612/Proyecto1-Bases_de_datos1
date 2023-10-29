@@ -19,7 +19,7 @@ public class AssoRescMain extends javax.swing.JFrame {
     private int pidPerson;
     public AssoRescMain(int idPerson) {
 
-        initComponents(idPerson);
+        initComponents();
         pidPerson = idPerson;
     }
 
@@ -30,7 +30,7 @@ public class AssoRescMain extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int idPerson) {
+    private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
@@ -142,18 +142,24 @@ public class AssoRescMain extends javax.swing.JFrame {
 
         UpdatePet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         UpdatePet.setText("Update Registered Pets");
+        UpdatePet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdatePetActionPerformed(evt);
+            }
+        });
         jPanel5.add(UpdatePet);
 
         ReviewCandidate.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         ReviewCandidate.setText("Review Candidates");
         jPanel5.add(ReviewCandidate);
 
+        
 
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
         CheckAdoptionForms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckAdoptionFormsActionPerformed(evt, idPerson);
+                CheckAdoptionFormsActionPerformed(evt);
             }
         });
         jPanel5.add(CheckAdoptionForms);
@@ -203,11 +209,19 @@ public class AssoRescMain extends javax.swing.JFrame {
 
     
 
-    private void CheckAdoptionFormsActionPerformed(java.awt.event.ActionEvent evt, int idPerson) {//GEN-FIRST:event_CheckAdoptionFormsActionPerformed
-                CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(idPerson);
+    private void CheckAdoptionFormsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckAdoptionFormsActionPerformed
+                CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(pidPerson);
                 checkFormMain.setVisible(true);
                 dispose();
     }//GEN-LAST:event_CheckAdoptionFormsActionPerformed
+
+    private void UpdatePetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdatePetActionPerformed
+        UpdatePet windowUpdatePet = new UpdatePet(pidPerson);
+        windowUpdatePet.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_UpdatePetActionPerformed
+
+    
 
     /**
      * @param args the command line arguments
