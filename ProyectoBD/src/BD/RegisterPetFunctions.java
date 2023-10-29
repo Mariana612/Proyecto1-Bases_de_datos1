@@ -430,6 +430,26 @@ public class RegisterPetFunctions {
 
         return errorMessage;
     }
+    public String updatePetAmountSpent(int idPerson, int idPet, int newAmount) {
+    String result = null;
+    try {
+        Connection connection = connectionDB.getConnection();
+        // Llama a la función del paquete Oracle
+        CallableStatement cstmt = connection.prepareCall("{ ? = call updatePetPackage.updatePetAmountSpent(?, ?, ?) }");
+        cstmt.registerOutParameter(1, java.sql.Types.VARCHAR); // Tipo de retorno
+        cstmt.setInt(2, idPerson);
+        cstmt.setInt(3, idPet);
+        cstmt.setInt(4, newAmount);
+        cstmt.execute();
+
+        result = cstmt.getString(1); // Obtén el resultado de la función
+
+        cstmt.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+        return result;
+    }
 
 
 }

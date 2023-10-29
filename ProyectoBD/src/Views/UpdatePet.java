@@ -4,8 +4,10 @@
  */
 package Views;
 
+import BD.RegisterPetFunctions;
 import BD.UpdatePetFunctions;
 import java.awt.event.ItemEvent;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,12 +18,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UpdatePet extends javax.swing.JFrame {
     ButtonGroup buttonGroup = new ButtonGroup();
+    private RegisterPetFunctions registerPetFunctions;
+    private UpdatePetFunctions updatePetFunctions;
     /**
      * Creates new form UpdatePet
      */
     public UpdatePet() {
         initComponents();
-        UpdatePetFunctions updatePetFunctions = new UpdatePetFunctions();
+        registerPetFunctions = new RegisterPetFunctions();
+        updatePetFunctions = new UpdatePetFunctions();
         DefaultTableModel model = updatePetFunctions.executePetQuery("7");
         PetsjTable.setModel(model);
         buttonGroup.add(petNamejRadioButton);
@@ -68,35 +73,27 @@ public class UpdatePet extends javax.swing.JFrame {
         petDateInjRadioButton = new javax.swing.JRadioButton();
         petAmountSpentjRadioButton = new javax.swing.JRadioButton();
         changePetNamejPanel = new javax.swing.JPanel();
-        currentNamejLabel = new javax.swing.JLabel();
         newNamejLabel = new javax.swing.JLabel();
         newNamejTextField = new javax.swing.JTextField();
         changeDateInjPanel = new javax.swing.JPanel();
-        currentDateInjLabel = new javax.swing.JLabel();
         currentDatejLabel = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         changePetTypejPanel = new javax.swing.JPanel();
-        currentTypejLabel = new javax.swing.JLabel();
         neTypejLabel = new javax.swing.JLabel();
         petTypesjComboBox = new javax.swing.JComboBox<>();
         changePetStatusjPanel = new javax.swing.JPanel();
-        currentStatusjLabel = new javax.swing.JLabel();
         newStatusjLabel = new javax.swing.JLabel();
         statusjComboBox = new javax.swing.JComboBox<>();
         changePetColor = new javax.swing.JPanel();
-        currentColorjLabel = new javax.swing.JLabel();
         newColorjLabel = new javax.swing.JLabel();
-        colorsjComboBox = new javax.swing.JComboBox<>();
+        colorjComboBox = new javax.swing.JComboBox<>();
         changeAmountSpentjPanel = new javax.swing.JPanel();
-        currentAmountjLabel1 = new javax.swing.JLabel();
         newAmountjLabel = new javax.swing.JLabel();
         newAmountjTextField = new javax.swing.JTextField();
         changePetBreedjPanel = new javax.swing.JPanel();
-        currentBreedjLabel = new javax.swing.JLabel();
         newBreedjLabel = new javax.swing.JLabel();
         breedjComboBox = new javax.swing.JComboBox<>();
         changePetChipjPanel = new javax.swing.JPanel();
-        currentChipjLabel = new javax.swing.JLabel();
         newChipjLabel = new javax.swing.JLabel();
         newChipjTextField = new javax.swing.JTextField();
 
@@ -261,11 +258,6 @@ public class UpdatePet extends javax.swing.JFrame {
 
         changePetNamejPanel.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentNamejLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentNamejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentNamejLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentNamejLabel.setText("Current Name:");
-
         newNamejLabel.setBackground(new java.awt.Color(0, 51, 102));
         newNamejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newNamejLabel.setForeground(new java.awt.Color(0, 51, 102));
@@ -277,20 +269,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetNamejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetNamejPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changePetNamejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentNamejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changePetNamejPanelLayout.createSequentialGroup()
-                        .addComponent(newNamejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(newNamejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         changePetNamejPanelLayout.setVerticalGroup(
             changePetNamejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetNamejPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentNamejLabel)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changePetNamejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newNamejTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newNamejLabel))
@@ -298,11 +285,6 @@ public class UpdatePet extends javax.swing.JFrame {
         );
 
         changeDateInjPanel.setBackground(new java.awt.Color(207, 232, 255));
-
-        currentDateInjLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentDateInjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentDateInjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentDateInjLabel.setText("Current Date In:");
 
         currentDatejLabel.setBackground(new java.awt.Color(0, 51, 102));
         currentDatejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -315,20 +297,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changeDateInjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changeDateInjPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changeDateInjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(currentDateInjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changeDateInjPanelLayout.createSequentialGroup()
-                        .addComponent(currentDatejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(currentDatejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         changeDateInjPanelLayout.setVerticalGroup(
             changeDateInjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changeDateInjPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(currentDateInjLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addGroup(changeDateInjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(currentDatejLabel)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -337,15 +314,20 @@ public class UpdatePet extends javax.swing.JFrame {
 
         changePetTypejPanel.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentTypejLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentTypejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentTypejLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentTypejLabel.setText("Current Type:");
-
         neTypejLabel.setBackground(new java.awt.Color(0, 51, 102));
         neTypejLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         neTypejLabel.setForeground(new java.awt.Color(0, 51, 102));
         neTypejLabel.setText("New Type:");
+
+        petTypesjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                petTypesjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         javax.swing.GroupLayout changePetTypejPanelLayout = new javax.swing.GroupLayout(changePetTypejPanel);
         changePetTypejPanel.setLayout(changePetTypejPanelLayout);
@@ -353,20 +335,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetTypejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetTypejPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changePetTypejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentTypejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changePetTypejPanelLayout.createSequentialGroup()
-                        .addComponent(neTypejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(petTypesjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(neTypejLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(petTypesjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         changePetTypejPanelLayout.setVerticalGroup(
             changePetTypejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetTypejPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentTypejLabel)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changePetTypejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(neTypejLabel)
                     .addComponent(petTypesjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -375,15 +352,25 @@ public class UpdatePet extends javax.swing.JFrame {
 
         changePetStatusjPanel.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentStatusjLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentStatusjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentStatusjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentStatusjLabel.setText("Current Status:");
-
         newStatusjLabel.setBackground(new java.awt.Color(0, 51, 102));
         newStatusjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newStatusjLabel.setForeground(new java.awt.Color(0, 51, 102));
         newStatusjLabel.setText("New Status:");
+
+        statusjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                statusjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
+        statusjComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusjComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout changePetStatusjPanelLayout = new javax.swing.GroupLayout(changePetStatusjPanel);
         changePetStatusjPanel.setLayout(changePetStatusjPanelLayout);
@@ -391,20 +378,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetStatusjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetStatusjPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changePetStatusjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentStatusjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changePetStatusjPanelLayout.createSequentialGroup()
-                        .addComponent(newStatusjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statusjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(newStatusjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         changePetStatusjPanelLayout.setVerticalGroup(
             changePetStatusjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetStatusjPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentStatusjLabel)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changePetStatusjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newStatusjLabel)
                     .addComponent(statusjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -413,15 +395,20 @@ public class UpdatePet extends javax.swing.JFrame {
 
         changePetColor.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentColorjLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentColorjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentColorjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentColorjLabel.setText("Current Color:");
-
         newColorjLabel.setBackground(new java.awt.Color(0, 51, 102));
         newColorjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newColorjLabel.setForeground(new java.awt.Color(0, 51, 102));
         newColorjLabel.setText("New Color:");
+
+        colorjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                colorjComboBoxPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout changePetColorLayout = new javax.swing.GroupLayout(changePetColor);
         changePetColor.setLayout(changePetColorLayout);
@@ -429,37 +416,27 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetColorLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changePetColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentColorjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changePetColorLayout.createSequentialGroup()
-                        .addComponent(newColorjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorsjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(newColorjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(colorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         changePetColorLayout.setVerticalGroup(
             changePetColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetColorLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentColorjLabel)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changePetColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newColorjLabel)
-                    .addComponent(colorsjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(colorjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
         changeAmountSpentjPanel.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentAmountjLabel1.setBackground(new java.awt.Color(0, 51, 102));
-        currentAmountjLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentAmountjLabel1.setForeground(new java.awt.Color(0, 51, 102));
-        currentAmountjLabel1.setText("Current Amount:");
-
         newAmountjLabel.setBackground(new java.awt.Color(0, 51, 102));
         newAmountjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newAmountjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        newAmountjLabel.setText("New Name:");
+        newAmountjLabel.setText("New Amount:");
 
         javax.swing.GroupLayout changeAmountSpentjPanelLayout = new javax.swing.GroupLayout(changeAmountSpentjPanel);
         changeAmountSpentjPanel.setLayout(changeAmountSpentjPanelLayout);
@@ -467,20 +444,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changeAmountSpentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changeAmountSpentjPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changeAmountSpentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentAmountjLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changeAmountSpentjPanelLayout.createSequentialGroup()
-                        .addComponent(newAmountjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newAmountjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(newAmountjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newAmountjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         changeAmountSpentjPanelLayout.setVerticalGroup(
             changeAmountSpentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changeAmountSpentjPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentAmountjLabel1)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changeAmountSpentjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newAmountjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newAmountjLabel))
@@ -489,15 +461,20 @@ public class UpdatePet extends javax.swing.JFrame {
 
         changePetBreedjPanel.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentBreedjLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentBreedjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentBreedjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentBreedjLabel.setText("Current Breed:");
-
         newBreedjLabel.setBackground(new java.awt.Color(0, 51, 102));
         newBreedjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newBreedjLabel.setForeground(new java.awt.Color(0, 51, 102));
         newBreedjLabel.setText("New Breed:");
+
+        breedjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                breedjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
 
         javax.swing.GroupLayout changePetBreedjPanelLayout = new javax.swing.GroupLayout(changePetBreedjPanel);
         changePetBreedjPanel.setLayout(changePetBreedjPanelLayout);
@@ -505,20 +482,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetBreedjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetBreedjPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changePetBreedjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentBreedjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changePetBreedjPanelLayout.createSequentialGroup()
-                        .addComponent(newBreedjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(breedjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(newBreedjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(breedjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         changePetBreedjPanelLayout.setVerticalGroup(
             changePetBreedjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetBreedjPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentBreedjLabel)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changePetBreedjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newBreedjLabel)
                     .addComponent(breedjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -527,15 +499,10 @@ public class UpdatePet extends javax.swing.JFrame {
 
         changePetChipjPanel.setBackground(new java.awt.Color(207, 232, 255));
 
-        currentChipjLabel.setBackground(new java.awt.Color(0, 51, 102));
-        currentChipjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        currentChipjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        currentChipjLabel.setText("Current Chip:");
-
         newChipjLabel.setBackground(new java.awt.Color(0, 51, 102));
         newChipjLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newChipjLabel.setForeground(new java.awt.Color(0, 51, 102));
-        newChipjLabel.setText("New Name:");
+        newChipjLabel.setText("New Chip:");
 
         javax.swing.GroupLayout changePetChipjPanelLayout = new javax.swing.GroupLayout(changePetChipjPanel);
         changePetChipjPanel.setLayout(changePetChipjPanelLayout);
@@ -543,20 +510,15 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetChipjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetChipjPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(changePetChipjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(currentChipjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(changePetChipjPanelLayout.createSequentialGroup()
-                        .addComponent(newChipjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newChipjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(newChipjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(newChipjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         changePetChipjPanelLayout.setVerticalGroup(
             changePetChipjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(changePetChipjPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(currentChipjLabel)
-                .addGap(31, 31, 31)
+                .addGap(84, 84, 84)
                 .addGroup(changePetChipjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newChipjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newChipjLabel))
@@ -572,68 +534,69 @@ public class UpdatePet extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(74, 74, 74)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(petNamejRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(petTypejRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(petChipjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(petDateInjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(petColorjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(petStatusjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(petBreedjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(petAmountSpentjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE))
+                            .addComponent(changePetNamejPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(changePetNamejPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(43, 43, 43))))))
+                                .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(petNamejRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(petStatusjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(petTypejRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(petColorjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(petChipjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(petBreedjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(petDateInjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(petAmountSpentjRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(37, 37, 37))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(510, Short.MAX_VALUE)
+                    .addContainerGap(534, Short.MAX_VALUE)
                     .addComponent(changePetStatusjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(516, Short.MAX_VALUE)
+                    .addContainerGap(544, Short.MAX_VALUE)
                     .addComponent(changePetTypejPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(17, 17, 17)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(516, Short.MAX_VALUE)
+                    .addContainerGap(544, Short.MAX_VALUE)
                     .addComponent(changePetColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(17, 17, 17)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(510, Short.MAX_VALUE)
+                    .addContainerGap(538, Short.MAX_VALUE)
                     .addComponent(changeAmountSpentjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(516, Short.MAX_VALUE)
+                    .addContainerGap(544, Short.MAX_VALUE)
                     .addComponent(changePetBreedjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(17, 17, 17)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(514, Short.MAX_VALUE)
+                    .addContainerGap(538, Short.MAX_VALUE)
                     .addComponent(changePetChipjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(501, Short.MAX_VALUE)
+                    .addContainerGap(525, Short.MAX_VALUE)
                     .addComponent(changeDateInjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(7, 7, 7)))
         );
@@ -643,7 +606,7 @@ public class UpdatePet extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 13, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -671,7 +634,7 @@ public class UpdatePet extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(296, Short.MAX_VALUE)
@@ -722,7 +685,7 @@ public class UpdatePet extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void petNamejRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petNamejRadioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_petNamejRadioButtonActionPerformed
@@ -761,18 +724,32 @@ public class UpdatePet extends javax.swing.JFrame {
         if (filaSeleccionada != -1) { // Asegurarse de que haya una fila seleccionada
             // Obtener el valor de la primera columna (columna 0) de la fila seleccionada
             Object valorCelda = PetsjTable.getValueAt(filaSeleccionada, 0);
-
-            // Puedes convertir el valor a un tipo específico si es necesario
             if (valorCelda != null) {
                 String valorComoString = valorCelda.toString();
                 int idPet = Integer.parseInt(valorComoString);
                 System.out.println(idPet);
+                if (petNamejRadioButton.isSelected()) {
+                    String newName = newNamejTextField.getText();
+                    String result = updatePetFunctions.updatePetName(idPet, newName);
+                }else if (petChipjRadioButton.isSelected()) {
+                    int newChip = Integer.valueOf(newChipjTextField.getText());
+                    String result = updatePetFunctions.updatePetChip(idPet, newChip);
+                }else if (petAmountSpentjRadioButton.isSelected()) {
+                    int newAmount = Integer.valueOf(newAmountjTextField.getText());
+                    String result = updatePetFunctions.updatePetAmountSpent(7, idPet, newAmount);
+                }else if (petDateInjRadioButton.isSelected()) {
+                    int newAmount = Integer.valueOf(newAmountjTextField.getText());
+                    String result = updatePetFunctions.updatePetAmountSpent(7, idPet, newAmount);
+                }
+            }
+            if (petNamejRadioButton.isSelected()) {
+                
             }
         } else {
-            // No se ha seleccionado ninguna fila, muestra un mensaje de error en inglés
             JOptionPane.showMessageDialog(this, "Please select a row", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        DefaultTableModel model = updatePetFunctions.executePetQuery("7");
+        PetsjTable.setModel(model);
     }//GEN-LAST:event_nextButtonActionPerformed
 
     private void petNamejRadioButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_petNamejRadioButtonItemStateChanged
@@ -808,7 +785,6 @@ public class UpdatePet extends javax.swing.JFrame {
             changePetChipjPanel.setVisible(true);
         } else if (evt.getStateChange() == ItemEvent.DESELECTED) 
            changePetChipjPanel.setVisible(false);
-           System.out.println("x"+changePetChipjPanel.getAlignmentX()+" y:"+changePetChipjPanel.getAlignmentY());
     }//GEN-LAST:event_petChipjRadioButtonItemStateChanged
 
     private void petBreedjRadioButtonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_petBreedjRadioButtonItemStateChanged
@@ -833,6 +809,69 @@ public class UpdatePet extends javax.swing.JFrame {
            changeDateInjPanel.setVisible(false);
     }//GEN-LAST:event_petDateInjRadioButtonItemStateChanged
 
+    private void petTypesjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_petTypesjComboBoxPopupMenuWillBecomeVisible
+        petTypesjComboBox.removeAllItems();
+        // Llama a la función para obtener la lista de tipos de mascotas
+        List<String> petTypes = registerPetFunctions.getAllPetTypes();
+        // Agrega los valores al ComboBox
+        for (String petType : petTypes) {
+            petTypesjComboBox.addItem(petType);
+        }
+    }//GEN-LAST:event_petTypesjComboBoxPopupMenuWillBecomeVisible
+
+    private void statusjComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusjComboBoxActionPerformed
+      
+    }//GEN-LAST:event_statusjComboBoxActionPerformed
+
+    private void colorjComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_colorjComboBoxPopupMenuWillBecomeInvisible
+        colorjComboBox.removeAllItems();
+        // Llama a la función para obtener la lista de tipos de mascotas
+        List<String> petColors = registerPetFunctions.getAllPetColors();
+        // Agrega los valores al ComboBox
+        for (String petColor : petColors) {
+            colorjComboBox.addItem(petColor);
+        }
+    }//GEN-LAST:event_colorjComboBoxPopupMenuWillBecomeInvisible
+
+    private void breedjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_breedjComboBoxPopupMenuWillBecomeVisible
+        // Verifica si hay una fila seleccionada
+        int selectedRow = PetsjTable.getSelectedRow();
+        if (selectedRow != -1) {
+            // Obtiene el valor de la primera columna de la fila seleccionada
+            Object selectedValue = PetsjTable.getValueAt(selectedRow, 4);
+            if (selectedValue != null) {
+                String selectedValueStr = selectedValue.toString(); // Convierte a String si es necesario
+                System.out.println(selectedValueStr);
+                breedjComboBox.removeAllItems();
+                // Llama a la función para obtener la lista de tipos de mascotas
+                List<String> petBreeds = registerPetFunctions.getBreedsByPetType(selectedValueStr);
+                for (String petBreed : petBreeds) {
+                    breedjComboBox.addItem(petBreed);
+                }
+            } else {
+                // Muestra un JOptionPane en caso de valor nulo
+                JOptionPane.showMessageDialog(null, "The selected value is null", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            // Muestra un JOptionPane en caso de que no haya fila seleccionada
+            JOptionPane.showMessageDialog(null, "No Row Selected", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_breedjComboBoxPopupMenuWillBecomeVisible
+
+    private void statusjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_statusjComboBoxPopupMenuWillBecomeVisible
+        // Llama a la función getAllPetStatus para obtener la lista de estados de mascotas
+        List<String> petStatusList = registerPetFunctions.getAllPetStatus();
+        // Limpia el JComboBox para eliminar elementos previos si es necesario
+        statusjComboBox.removeAllItems();
+        // Agrega los estados de mascotas a JComboBox
+        for (String status : petStatusList) {
+            statusjComboBox.addItem(status);
+        
+        }
+    }//GEN-LAST:event_statusjComboBoxPopupMenuWillBecomeVisible
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -867,6 +906,7 @@ public class UpdatePet extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable PetsjTable;
@@ -880,16 +920,8 @@ public class UpdatePet extends javax.swing.JFrame {
     private javax.swing.JPanel changePetNamejPanel;
     private javax.swing.JPanel changePetStatusjPanel;
     private javax.swing.JPanel changePetTypejPanel;
-    private javax.swing.JComboBox<String> colorsjComboBox;
-    private javax.swing.JLabel currentAmountjLabel1;
-    private javax.swing.JLabel currentBreedjLabel;
-    private javax.swing.JLabel currentChipjLabel;
-    private javax.swing.JLabel currentColorjLabel;
-    private javax.swing.JLabel currentDateInjLabel;
+    private javax.swing.JComboBox<String> colorjComboBox;
     private javax.swing.JLabel currentDatejLabel;
-    private javax.swing.JLabel currentNamejLabel;
-    private javax.swing.JLabel currentStatusjLabel;
-    private javax.swing.JLabel currentTypejLabel;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

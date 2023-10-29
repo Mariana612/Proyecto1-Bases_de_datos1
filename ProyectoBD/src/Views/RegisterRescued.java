@@ -575,25 +575,17 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
 
-                    try {
-                        // Verifica si el archivo seleccionado se encuentra en el directorio de recursos "Images"
-                        if (archivoSeleccionado.toURI().toString().startsWith(getClass().getResource("/Images/").toURI().toString())) {
-                            // El archivo seleccionado está en el directorio de recursos "Images"
-                            // Puedes obtener su ruta relativa al directorio de recursos
-                            String nombreImagen = archivoSeleccionado.getName();
-                            String path = "/Images/" + nombreImagen;
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
 
-                            // Agrega el path al modelo de lista
-                            listPhotoBefore.addElement(path);
+            // Agrega el path al modelo de lista
+            listPhotoBefore.addElement(path);
 
-                            // Asigna el modelo de lista actualizado al JList
-                            photosBeforejList.setModel(listPhotoBefore);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Error");
-                        }       } catch (URISyntaxException ex) {
-                        Logger.getLogger(RegisterRescued.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            // Asigna el modelo de lista actualizado al JList
+            photosBeforejList.setModel(listPhotoBefore);
         }
 
     }//GEN-LAST:event_uploadPhotoBeforejButtonActionPerformed
@@ -608,25 +600,17 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
 
-                    try {
-                        // Verifica si el archivo seleccionado se encuentra en el directorio de recursos "Images"
-                        if (archivoSeleccionado.toURI().toString().startsWith(getClass().getResource("/Images/").toURI().toString())) {
-                            // El archivo seleccionado está en el directorio de recursos "Images"
-                            // Puedes obtener su ruta relativa al directorio de recursos
-                            String nombreImagen = archivoSeleccionado.getName();
-                            String path = "/Images/" + nombreImagen;
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
 
-                            // Agrega el path al modelo de lista
-                            listPhotoAfter.addElement(path);
+            // Agrega el path al modelo de lista
+            listPhotoAfter.addElement(path);
 
-                            // Asigna el modelo de lista actualizado al JList
-                            photosAfterjList.setModel(listPhotoAfter);
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Error.");
-                        }       } catch (URISyntaxException ex) {
-                        Logger.getLogger(RegisterRescued.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            // Asigna el modelo de lista actualizado al JList
+            photosAfterjList.setModel(listPhotoAfter);
         }
 
     }//GEN-LAST:event_uploadPhotoAfterjButtonActionPerformed
@@ -728,7 +712,19 @@ public class RegisterRescued extends javax.swing.JFrame {
     }//GEN-LAST:event_continentComboBoxPopupMenuWillBecomeVisible
 
     private void provinceComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeVisible
-
+        provinceComboBox.removeAllItems();
+        try {
+            String selectedCountry = countryComboBox.getSelectedItem().toString();
+            System.out.println(selectedCountry);
+            if(selectedCountry.equals("Costa Rica")){
+                String[] provinces = LoginFunctions.CostaRicanProvinces(selectedCountry);
+                for(int i = 0; i < provinces.length; i++){
+                    provinceComboBox.addItem(provinces[i]);
+                }
+            }
+        }catch (Exception e){
+            System.out.println("No provinces avaible");
+        }
     }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeVisible
 
     private void countryComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_countryComboBoxPopupMenuWillBecomeVisible
@@ -757,19 +753,6 @@ public class RegisterRescued extends javax.swing.JFrame {
     }//GEN-LAST:event_countryComboBoxItemStateChanged
 
     private void provinceComboBoxPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_provinceComboBoxPopupMenuWillBecomeInvisible
-        provinceComboBox.removeAllItems();
-        try {
-            String selectedCountry = countryComboBox.getSelectedItem().toString();
-            System.out.println(selectedCountry);
-            if(selectedCountry.equals("Costa Rica")){
-                String[] provinces = LoginFunctions.CostaRicanProvinces(selectedCountry);
-                for(int i = 0; i < provinces.length; i++){
-                    provinceComboBox.addItem(provinces[i]);
-                }
-            }
-        }catch (Exception e){
-            System.out.println("No provinces avaible");
-        }
         
     }//GEN-LAST:event_provinceComboBoxPopupMenuWillBecomeInvisible
 
