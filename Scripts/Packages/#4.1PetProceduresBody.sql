@@ -261,10 +261,13 @@ FUNCTION getTreatmentIdByIllness(pcTreatment VARCHAR2, idIllness NUMBER) RETURN 
   FUNCTION getDistrictId(pcDistrictN VARCHAR2, pcCantonN VARCHAR2) RETURN NUMBER IS
     vDistrictId NUMBER;
   BEGIN
-    SELECT d.id INTO vDistrictId
-    FROM district d
+    SELECT d.id
+    INTO vDistrictId
+    FROM canton c 
+    INNER JOIN district d
+    ON c.id = d.id_canton
     WHERE d.district_name = pcDistrictN
-    AND d.id_canton = (SELECT c.id FROM canton c WHERE c.canton_name = pcCantonN);
+    AND c.canton_name = pcCantonN;
     RETURN vDistrictId;
   END getDistrictId;
 
