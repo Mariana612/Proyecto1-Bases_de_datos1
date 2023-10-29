@@ -37,7 +37,10 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
 
         // Agrega los estados de mascotas a JComboBox
         for (String status : petStatusList) {
-        statusjComboBox.addItem(status);
+            if (!status.equals("Adopted")){
+                statusjComboBox.addItem(status);
+            }
+        
         }
         
         typejComboBox.removeAllItems();
@@ -89,6 +92,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         nextjButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         PetPhotosjList = new javax.swing.JList<>();
+        returnjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(840, 635));
@@ -129,6 +133,15 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 102, 153));
         jLabel4.setText("Status*");
 
+        statusjComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                statusjComboBoxPopupMenuWillBecomeVisible(evt);
+            }
+        });
         statusjComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusjComboBoxActionPerformed(evt);
@@ -341,6 +354,16 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(PetPhotosjList);
 
+        returnjButton.setBackground(new java.awt.Color(51, 102, 255));
+        returnjButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        returnjButton.setForeground(new java.awt.Color(255, 255, 255));
+        returnjButton.setText("Return");
+        returnjButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnjButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -352,7 +375,9 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         .addComponent(requiredFieldLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(2, 2, 2)
-                            .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(returnjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14))))
@@ -372,7 +397,9 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(82, 82, 82)
                 .addComponent(nextjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(returnjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -432,7 +459,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         String color = (String) colorjComboBox.getSelectedItem();
         String chipText = chipTextfield.getText(); 
         Double amountSpent = null;  // Valor predeterminado en caso de que la conversión falle
-        String text = chipTextfield.getText();
+        String text = amountSpentTextfield.getText();
         if (text != null && !text.isEmpty()) {
         amountSpent = Double.valueOf(text);
         }
@@ -447,7 +474,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         if (chipText != null && !chipText.isEmpty()) {
             try {
                 chip = Integer.valueOf(chipText);
-                Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, 0, amountSpent,formattedDate);
+                Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent,formattedDate);
                 if (idPet > 0){
                     for (int i = 0; i < listModel.size(); i++) {
                         String imagePath = listModel.getElementAt(i);
@@ -458,7 +485,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         windowRescued.setVisible(true);
                         dispose();
                     }else if(status.equals("Lost")){
-                        RegisterLost windowLost = new RegisterLost(idPet);
+                        RegisterLost windowLost = new RegisterLost(idPet, idPerson);
                         windowLost.setVisible(true);
                         dispose();
                     }else if(status.equals("Found")){
@@ -476,29 +503,34 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error: The value in chipText is not a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else{
-            Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent,formattedDate);
-            if (idPet > 0){
-                for (int i = 0; i < listModel.size(); i++) {
-                    String imagePath = listModel.getElementAt(i);
-                    System.out.println(registerPetFunctions.callInsertPetPhoto(idPet,imagePath));
-                }
-                if(status.equals("Rescued")){
+            try {
+                Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent, formattedDate);
+                if (idPet > 0) {
+                    for (int i = 0; i < listModel.size(); i++) {
+                        String imagePath = listModel.getElementAt(i);
+                        System.out.println(registerPetFunctions.callInsertPetPhoto(idPet, imagePath));
+                    }
+                    if (status.equals("Rescued")) {
                         RegisterRescued windowRescued = new RegisterRescued(idPet);
                         windowRescued.setVisible(true);
                         dispose();
-                }else if(status.equals("Lost")){
-                        RegisterLost windowLost = new RegisterLost(idPet);
+                    } else if (status.equals("Lost")) {
+                        RegisterLost windowLost = new RegisterLost(idPet, idPerson);
                         windowLost.setVisible(true);
                         dispose();
-                }else if(status.equals("Found")){
+                    } else if (status.equals("Found")) {
                         RegisterFound windowFound = new RegisterFound(idPet);
                         windowFound.setVisible(true);
                         dispose();
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "There was an error in the insertion", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace(); // Aquí puedes agregar un manejo específico de la excepción si es necesario.
+                JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-            else{
-                JOptionPane.showMessageDialog(null, "There was an error in the insertion", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+
         }
         
     }//GEN-LAST:event_nextjButtonActionPerformed
@@ -519,14 +551,15 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         String selectedValue = (String) typejComboBox.getSelectedItem();
         System.out.println(selectedValue);
         breedjComboBox.removeAllItems();
-        
+
         // Llama a la función para obtener la lista de tipos de mascotas
         List<String> petBreeds = registerPetFunctions.getBreedsByPetType(selectedValue);
-        
-        // Agrega los valores al ComboBox
+
+        // Agrega los valores al ComboBox, excluyendo "Adopted"
         for (String petBreed : petBreeds) {
             breedjComboBox.addItem(petBreed);
         }
+
     }//GEN-LAST:event_breedjComboBoxPopupMenuWillBecomeVisible
 
     private void colorjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_colorjComboBoxPopupMenuWillBecomeVisible
@@ -544,6 +577,16 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
     private void amountSpentTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountSpentTextfieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_amountSpentTextfieldActionPerformed
+
+    private void returnjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnjButtonActionPerformed
+        AssoRescMain assoRescWindow = new AssoRescMain(idPerson);
+        assoRescWindow.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_returnjButtonActionPerformed
+
+    private void statusjComboBoxPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_statusjComboBoxPopupMenuWillBecomeVisible
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusjComboBoxPopupMenuWillBecomeVisible
 
     /**
      * @param args the command line arguments
@@ -614,6 +657,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
     private javax.swing.JLabel requiredFieldLabel;
     private javax.swing.JLabel requiredFieldLabel1;
     private javax.swing.JLabel requiredFieldLabel2;
+    private javax.swing.JButton returnjButton;
     private javax.swing.JComboBox<String> statusjComboBox;
     private javax.swing.JButton subirFotojButton;
     private javax.swing.JComboBox<String> typejComboBox;

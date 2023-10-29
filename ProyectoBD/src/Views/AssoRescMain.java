@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -16,10 +16,11 @@ public class AssoRescMain extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-
+    private int pidPerson;
     public AssoRescMain(int idPerson) {
 
         initComponents(idPerson);
+        pidPerson = idPerson;
     }
 
     /**
@@ -42,7 +43,6 @@ public class AssoRescMain extends javax.swing.JFrame {
         LostPet = new javax.swing.JButton();
         UpdatePet = new javax.swing.JButton();
         ReviewCandidate = new javax.swing.JButton();
-        RescuedPet = new javax.swing.JButton();
         CheckAdoptionForms = new javax.swing.JButton();
         BlackList = new javax.swing.JButton();
 
@@ -132,7 +132,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(3, 2, 200, 50));
 
         LostPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        LostPet.setText("Register Lost Pet");
+        LostPet.setText("Register Pet");
         LostPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LostPetActionPerformed(evt);
@@ -148,14 +148,6 @@ public class AssoRescMain extends javax.swing.JFrame {
         ReviewCandidate.setText("Review Candidates");
         jPanel5.add(ReviewCandidate);
 
-        RescuedPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        RescuedPet.setText("Register Recued Pet");
-        RescuedPet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RescuedPetActionPerformed(evt);
-            }
-        });
-        jPanel5.add(RescuedPet);
 
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
@@ -204,12 +196,12 @@ public class AssoRescMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LostPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LostPetActionPerformed
-        // TODO add your handling code here:
+        RegisterPetAssociationRescuer windowRegisterPet = new RegisterPetAssociationRescuer(pidPerson);
+        windowRegisterPet.setVisible(true);
+        dispose();
     }//GEN-LAST:event_LostPetActionPerformed
 
-    private void RescuedPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RescuedPetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RescuedPetActionPerformed
+    
 
     private void CheckAdoptionFormsActionPerformed(java.awt.event.ActionEvent evt, int idPerson) {//GEN-FIRST:event_CheckAdoptionFormsActionPerformed
                 CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(idPerson);
@@ -259,7 +251,6 @@ public class AssoRescMain extends javax.swing.JFrame {
     private javax.swing.JButton BlackList;
     private javax.swing.JButton CheckAdoptionForms;
     private javax.swing.JButton LostPet;
-    private javax.swing.JButton RescuedPet;
     private javax.swing.JButton ReviewCandidate;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JLabel TitleLabel1;

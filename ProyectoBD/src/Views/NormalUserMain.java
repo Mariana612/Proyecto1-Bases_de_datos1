@@ -16,6 +16,7 @@ import java.lang.String;
  */
 public class NormalUserMain extends javax.swing.JFrame {
     public String vUserTupe;
+    public int pidPerson;
     /**
      * Creates new form NormalUserMain
      */
@@ -23,6 +24,7 @@ public class NormalUserMain extends javax.swing.JFrame {
         vUserTupe = userType;
         initComponents();
         addComponents(idPerson,userType);
+        pidPerson = idPerson;
 //        NormalUserFunctions.displayPets(this);
 //        
         
@@ -150,7 +152,9 @@ public class NormalUserMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        RegisterPetOwner windowRegisterPetOwner = new RegisterPetOwner(pidPerson);
+        windowRegisterPetOwner.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 private ImageIcon resizeImage(String imagePath, int width, int height) {
     ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));

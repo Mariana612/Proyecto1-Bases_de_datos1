@@ -5,6 +5,7 @@
 package Views;
 
 import BD.SubmissionFunctions;
+import static Views.AdoptionForm.showMessageDialog;
 import java.io.File;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -192,7 +193,10 @@ public class FollowUp extends javax.swing.JFrame {
 
     private void FINISHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FINISHActionPerformed
 
+
+        
         String vNote = jTextField1.getText(); 
+        if(!listModel.isEmpty()&& !vNote.isEmpty()){
         int idneeded = SubmissionFunctions.insertFollowUp(vidAdoptionF, vNote); 
          for (int i = 0; i < listModel.size(); i++) {
                     String imagePath = listModel.getElementAt(i);
@@ -203,6 +207,10 @@ public class FollowUp extends javax.swing.JFrame {
         NormalUserMain normalWindow = new NormalUserMain(vidPerson,vuserType);
         normalWindow.setVisible(true);
         dispose();
+        }
+        else {
+            showMessageDialog("Please send photos of the pet","Error");
+        }
     }//GEN-LAST:event_FINISHActionPerformed
 
     /**
