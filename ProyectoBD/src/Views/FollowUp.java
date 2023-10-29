@@ -7,8 +7,12 @@ package Views;
 import BD.SubmissionFunctions;
 import static Views.AdoptionForm.showMessageDialog;
 import java.io.File;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -173,21 +177,33 @@ public class FollowUp extends javax.swing.JFrame {
 
     private void subirFotojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subirFotojButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
-        // Configura el filtro de archivos para mostrar solo imágenes
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
-        fileChooser.setFileFilter(filter);
+    // Configura el filtro de archivos para mostrar solo imágenes
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
+    fileChooser.setFileFilter(filter);
 
-        int resultado = fileChooser.showOpenDialog(this);
+    int resultado = fileChooser.showOpenDialog(this);
 
-        if (resultado == JFileChooser.APPROVE_OPTION) {
-            File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
-            // Agrega el path al modelo de lista
-            listModel.addElement(path);
+    if (resultado == JFileChooser.APPROVE_OPTION) {
+        File archivoSeleccionado = fileChooser.getSelectedFile();
+        try {
+            // Verifica si el archivo seleccionado se encuentra en el directorio de recursos "Images"
+            if (archivoSeleccionado.toURI().toString().startsWith(getClass().getResource("/Images/").toURI().toString())) {
+                // El archivo seleccionado está en el directorio de recursos "Images"
+                String nombreImagen = archivoSeleccionado.getName();
+                String path = "/Images/" + nombreImagen;
 
-            // Asigna el modelo de lista actualizado al JList
-            PetPhotosjList.setModel(listModel);
+                // Agrega el path al modelo de lista
+                listModel.addElement(path);
+
+                // Asigna el modelo de lista actualizado al JList
+                PetPhotosjList.setModel(listModel);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error");
+            }       } catch (URISyntaxException ex) {
+            Logger.getLogger(FollowUp.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
 
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 
