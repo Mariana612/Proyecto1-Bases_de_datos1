@@ -31,13 +31,16 @@ public class RegisterRescued extends javax.swing.JFrame {
     private DefaultListModel<String> listPhotoAfter = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
     ButtonGroup buttonGroup = new ButtonGroup();
     int idPet;
+    int idPerson;
+    
     /**
      * Creates new form RegisterResu
      * @param idPetRegistered
      */
-    public RegisterRescued(int idPetRegistered) {
+    public RegisterRescued(int idPetRegistered, int idPersonParameter) {
         initComponents();
         idPet = idPetRegistered;
+        idPerson = idPersonParameter;
         registerPetFunctions = new RegisterPetFunctions();
         buttonGroup.add(yesBigSpacejRadioButton);
         buttonGroup.add(noBigSpacejRadioButton1);
@@ -802,7 +805,7 @@ public class RegisterRescued extends javax.swing.JFrame {
         //String resultMessage = registerPetFunctions.insertRescued(11, "hola", "Yes", "Runner", "Very challenging", "Kennel Cough", "Serious", "Carmen");
         //System.out.println("Mensaje de Resultado: " + resultMessage);
         String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
-        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? cantonComboBox.getSelectedItem().toString() : null;
         String energy = (energyjComboBox.getSelectedItem() != null) ? energyjComboBox.getSelectedItem().toString() : null;
         String training = (trainingjComboBox.getSelectedItem() != null) ? trainingjComboBox.getSelectedItem().toString() : null;
         String illness = (illnessjComboBox.getSelectedItem() != null) ? illnessjComboBox.getSelectedItem().toString() : null;
@@ -828,6 +831,9 @@ public class RegisterRescued extends javax.swing.JFrame {
             System.out.println(registerPetFunctions.insertPhotoAfter(idPet,imagePath));
         }
         System.out.println("Mensaje de Resultado: " + resultMessage);
+        AssoRescMain windowAssoRescMain = new AssoRescMain(idPerson);
+        windowAssoRescMain.setVisible(true);
+        dispose();
     }//GEN-LAST:event_registerjButton2ActionPerformed
 
     private void continentComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continentComboBoxActionPerformed
@@ -864,8 +870,8 @@ public class RegisterRescued extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run(int idPetregistered) {
-                new RegisterRescued(idPetregistered).setVisible(true);
+            public void run(int idPetregistered, int idPersonParameter) {
+                new RegisterRescued(idPetregistered, idPersonParameter).setVisible(true);
             }
 
             @Override

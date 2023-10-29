@@ -492,7 +492,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         System.out.println(registerPetFunctions.callInsertPetPhoto(idPet,imagePath));
                     }
                     if(status.equals("Rescued")){
-                        RegisterRescued windowRescued = new RegisterRescued(idPet);
+                        RegisterRescued windowRescued = new RegisterRescued(idPet, idPerson);
                         windowRescued.setVisible(true);
                         dispose();
                     }else if(status.equals("Lost")){
@@ -523,7 +523,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
                         System.out.println(registerPetFunctions.callInsertPetPhoto(idPet, imagePath));
                     }
                     if (status.equals("Rescued")) {
-                        RegisterRescued windowRescued = new RegisterRescued(idPet);
+                        RegisterRescued windowRescued = new RegisterRescued(idPet, idPerson);
                         windowRescued.setVisible(true);
                         dispose();
                     } else if (status.equals("Lost")) {

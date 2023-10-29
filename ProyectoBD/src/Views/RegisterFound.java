@@ -397,7 +397,7 @@ public class RegisterFound extends javax.swing.JFrame {
     }//GEN-LAST:event_cantonComboBoxItemStateChanged
 
     private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
-        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? cantonComboBox.getSelectedItem().toString() : null;
         String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
         Date date = dateFoundjDateChooser.getDate();
         String formattedDate = null;
