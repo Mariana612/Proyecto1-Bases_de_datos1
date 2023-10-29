@@ -1,0 +1,17 @@
+--ALTER TABLE person
+--DROP CONSTRAINT FIRST_LAST_NAME;
+--ALTER TABLE person
+--DROP CONSTRAINT FIRST_NAME_FORMAT;
+--ALTER TABLE person
+--DROP CONSTRAINT MIDDLE_NAME_FORMAT;
+--ALTER TABLE person
+--DROP CONSTRAINT SECOND_LAST_NAME;
+----ALTER TABLE person
+----ADD CONSTRAINT flname_format CHECK (REGEXP_LIKE(first_last_name, '^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$'));
+--ALTER TABLE person
+--ADD CONSTRAINT slname_format CHECK (REGEXP_LIKE(second_last_name, '^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$'));
+--ALTER TABLE person
+--ADD CONSTRAINT middlename_format CHECK (REGEXP_LIKE(middle_name, '^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$'));
+--ALTER TABLE person
+--ADD CONSTRAINT firstname_format CHECK (REGEXP_LIKE(first_name, '^[a-zA-ZÀ-ÖØ-öø-ÿ ]+$'));
+
