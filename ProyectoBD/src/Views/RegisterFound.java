@@ -405,8 +405,8 @@ public class RegisterFound extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             formattedDate = sdf.format(date);
         } 
-        String resultMessage;
-        resultMessage = registerPetFunctions.insertfound(idPet, formattedDate, district);
+        
+        String resultMessage = registerPetFunctions.insertfound(idPet, formattedDate, district,canton);
          AssoRescMain assoRescWindow = new AssoRescMain(idPerson);
          assoRescWindow.setVisible(true);
          dispose();
