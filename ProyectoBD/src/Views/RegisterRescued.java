@@ -623,7 +623,7 @@ public class RegisterRescued extends javax.swing.JFrame {
                             // Asigna el modelo de lista actualizado al JList
                             photosAfterjList.setModel(listPhotoAfter);
                         } else {
-                            JOptionPane.showMessageDialog(this, "Selecciona una imagen del directorio de recursos 'Images' en tu proyecto.");
+                            JOptionPane.showMessageDialog(this, "Error.");
                         }       } catch (URISyntaxException ex) {
                         Logger.getLogger(RegisterRescued.class.getName()).log(Level.SEVERE, null, ex);
                     }
