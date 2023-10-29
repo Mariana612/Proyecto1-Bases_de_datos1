@@ -5,6 +5,7 @@
 package Views;
 
 import BD.LoginFunctions;
+import java.awt.event.ActionEvent;
 
 
 /**
@@ -16,10 +17,11 @@ public class AssoRescMain extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
     private int pidPerson;
     public AssoRescMain(int idPerson) {
 
-        initComponents(idPerson);
+        initComponents();
         pidPerson = idPerson;
     }
 
@@ -30,7 +32,7 @@ public class AssoRescMain extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int idPerson) {
+    private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
@@ -43,6 +45,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         LostPet = new javax.swing.JButton();
         UpdatePet = new javax.swing.JButton();
         ReviewCandidate = new javax.swing.JButton();
+        RescuedPet = new javax.swing.JButton();
         CheckAdoptionForms = new javax.swing.JButton();
         BlackList = new javax.swing.JButton();
 
@@ -132,7 +135,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(3, 2, 200, 50));
 
         LostPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        LostPet.setText("Register Pet");
+        LostPet.setText("Register Lost Pet");
         LostPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LostPetActionPerformed(evt);
@@ -146,14 +149,22 @@ public class AssoRescMain extends javax.swing.JFrame {
 
         ReviewCandidate.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         ReviewCandidate.setText("Review Candidates");
+        ReviewCandidate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReviewCandidateActionPerformed(evt);
+            }
+        });
         jPanel5.add(ReviewCandidate);
 
+        RescuedPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        RescuedPet.setText("Register Recued Pet");
+        jPanel5.add(RescuedPet);
 
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
         CheckAdoptionForms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckAdoptionFormsActionPerformed(evt, idPerson);
+                CheckAdoptionFormsActionPerformed(evt);
             }
         });
         jPanel5.add(CheckAdoptionForms);
@@ -203,11 +214,18 @@ public class AssoRescMain extends javax.swing.JFrame {
 
     
 
-    private void CheckAdoptionFormsActionPerformed(java.awt.event.ActionEvent evt, int idPerson) {//GEN-FIRST:event_CheckAdoptionFormsActionPerformed
-                CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(idPerson);
+    private void CheckAdoptionFormsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckAdoptionFormsActionPerformed
+                CheckFormSubmissionMain checkFormMain = new CheckFormSubmissionMain(pidPerson);
                 checkFormMain.setVisible(true);
                 dispose();
     }//GEN-LAST:event_CheckAdoptionFormsActionPerformed
+
+    private void ReviewCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReviewCandidateActionPerformed
+                ReviewCandidate reviewCandidateMain = new ReviewCandidate(pidPerson);
+                reviewCandidateMain.setVisible(true);
+                dispose();
+        
+    }//GEN-LAST:event_ReviewCandidateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,6 +269,7 @@ public class AssoRescMain extends javax.swing.JFrame {
     private javax.swing.JButton BlackList;
     private javax.swing.JButton CheckAdoptionForms;
     private javax.swing.JButton LostPet;
+    private javax.swing.JButton RescuedPet;
     private javax.swing.JButton ReviewCandidate;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JLabel TitleLabel1;

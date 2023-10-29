@@ -4,40 +4,27 @@
  */
 package Views;
 
-import BD.NormalUserFunctions;
-import static BD.SubmissionFunctions.getFollowUp;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import static BD.SubmissionFunctions.qualifyUser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author maria
  */
-public class ReviewCandidate extends javax.swing.JFrame {
+public class Qualify extends javax.swing.JFrame {
 
     /**
-     * Creates new form ReviewCandidate
+     * Creates new form Qualify
      */
-    private int  vidperson ;
-    public ReviewCandidate(int idPerson) {
+    
+    private int vidperson;
+    private int vidCandidate;
+    public Qualify(int idPerson, int idCandidate) {
         vidperson = idPerson;
+        vidCandidate = idCandidate;
         initComponents();
-        addComponents(idPerson);
+        
     }
 
     /**
@@ -49,15 +36,18 @@ public class ReviewCandidate extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPane1 = new java.awt.ScrollPane();
-        mainPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         TitleLabel15 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        doneButton = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        mainPanel.setBackground(new java.awt.Color(207, 232, 255));
+        jPanel1.setBackground(new java.awt.Color(207, 232, 255));
+        jPanel1.setForeground(new java.awt.Color(207, 232, 255));
 
         jPanel18.setBackground(new java.awt.Color(0, 102, 153));
         jPanel18.setForeground(new java.awt.Color(0, 102, 153));
@@ -65,7 +55,7 @@ public class ReviewCandidate extends javax.swing.JFrame {
         TitleLabel15.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         TitleLabel15.setForeground(new java.awt.Color(255, 255, 255));
         TitleLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TitleLabel15.setText("Submissions");
+        TitleLabel15.setText("qualify");
         TitleLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         backButton.setBackground(new java.awt.Color(207, 232, 255));
@@ -99,99 +89,90 @@ public class ReviewCandidate extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 540, Short.MAX_VALUE))
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("PLEASE GRADE THE CHOSEN USER");
 
-        scrollPane1.add(mainPanel);
+        doneButton.setBackground(new java.awt.Color(207, 232, 255));
+        doneButton.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        doneButton.setForeground(new java.awt.Color(255, 255, 255));
+        doneButton.setText("DONE");
+        doneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doneButtonActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("number between 1 and 5");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(doneButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 384, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void doneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doneButtonActionPerformed
+                                               
+
+    try {
+       int  text = Integer.parseInt(jTextField1.getText());
+        System.out.println(text);
+        
+        if (text<0 || text> 6){ throw new Exception("Value is out of the valid range (0-6)");}
+        else{
+
+        qualifyUser(vidperson,vidCandidate, text);
+         JOptionPane.showMessageDialog(this, "SENT!");
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Please enter valid information", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    }//GEN-LAST:event_doneButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         AssoRescMain assoRescWindow = new AssoRescMain(vidperson);
         assoRescWindow.setVisible(true);
         dispose();
     }//GEN-LAST:event_backButtonActionPerformed
-private ImageIcon resizeImage(String imagePath, int width, int height) {
-    ImageIcon originalIcon = new ImageIcon(getClass().getResource(imagePath));
-    Image image = originalIcon.getImage();
-    Image resizedImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    return new ImageIcon(resizedImage);
-}
-
-private void addComponents(int idPerson) {
-    List<List<String>> finallist = getFollowUp(idPerson);
-    int imageWidth = 400; // Set the width you want for the images
-    int imageHeight = 300; // Set the height you want for the images
-
-    mainPanel.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
-
-    for (List<String> innerList : finallist) {
-        JPanel innerListPanel = new JPanel(new BorderLayout());
-
-        // Title
-        String title = innerList.get(0);
-        JLabel titleLabel = new JLabel("Title: " + title);
-        Font titleFont = new Font("Roboto", Font.BOLD, 20);
-        titleLabel.setFont(titleFont);
-        innerListPanel.add(titleLabel, BorderLayout.NORTH);
-        
-        int idCandidate = Integer.parseInt(innerList.get(1));
-        System.out.println(idCandidate);
-
-        // Images
-        JPanel imagePanel = new JPanel();
-        for (int i = 2; i < innerList.size() ; i++) {
-            String imagePath = innerList.get(i);
-            imagePath = imagePath.replace("\\", "/"); // Replace backslashes with forward slashes
-            System.out.println(imagePath);
-            ImageIcon resizedIcon = resizeImage(imagePath, imageWidth, imageHeight);
-            JLabel imageLabel = new JLabel(resizedIcon);
-            imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 20));
-            imagePanel.add(imageLabel);
-        }
-        innerListPanel.add(imagePanel, BorderLayout.CENTER);
-
-        // Button
-        
-        JButton button = new JButton("calificar");
-        button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                         Qualify qualifyWindow = new Qualify(vidperson,idCandidate);
-                        qualifyWindow.setVisible(true);
-                        dispose();
-                }
-            });
-        innerListPanel.add(button, BorderLayout.SOUTH);
-        
-        
-        
-
-        mainPanel.add(innerListPanel);
-    }
-}
 
 
     /**
@@ -211,29 +192,32 @@ private void addComponents(int idPerson) {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReviewCandidate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualify.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReviewCandidate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualify.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReviewCandidate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualify.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReviewCandidate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Qualify.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReviewCandidate(4).setVisible(true);
+                new Qualify(4,0).setVisible(true);
             }
         });
     }
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TitleLabel15;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton doneButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel mainPanel;
-    private java.awt.ScrollPane scrollPane1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

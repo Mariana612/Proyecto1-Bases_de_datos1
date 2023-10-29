@@ -112,6 +112,7 @@ public class SubmissionFunctions {
                     callableStatementtemp.setInt(2, res.getInt("id"));
                     List<String> tempList = new ArrayList<>();
                     tempList.add(res.getString("note"));
+                    tempList.add(res.getString("ID_CANDIDATE"));
 
                     callableStatementtemp.execute();
 
@@ -152,5 +153,36 @@ public class SubmissionFunctions {
             }
         }
     }
+        
+    public static void qualifyUser(int idPhysical,int idCandidate, int grade ) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{call associationXRescuerPackage.qualifyUser(?, ?,?)}";
+
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.setInt(1, idPhysical);
+            callableStatement.setInt(2, idCandidate);
+            callableStatement.setInt(3, grade);
+
+            callableStatement.execute();
+
+            callableStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     
 }
