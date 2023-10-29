@@ -9,7 +9,7 @@ CREATE OR REPLACE PACKAGE userUsablePackage IS
     FUNCTION insertFollowUp(idAdoptionForm number,vNote VARCHAR2) RETURN NUMBER;
     PROCEDURE insertFollowUpPhoto(idFollowUo number,PICTURE_PATH VARCHAR2);
     --=================================================   
-    FUNCTION getFollowUpPhoto(idFollowUp number)RETURN SYS_REFCURSOR;
+     PROCEDURE insertFollowUpPhoto(idFollowUp NUMBER, PICTURE_PATH VARCHAR2);
     FUNCTION getFollowUp(idPeople number)RETURN SYS_REFCURSOR;
 
     

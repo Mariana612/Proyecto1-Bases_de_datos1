@@ -44,7 +44,6 @@ AS
     resultCursor SYS_REFCURSOR;
     TYPE idCollection IS TABLE OF NUMBER;
     v_idCollection idCollection;
-    v_idPerson NUMBER;
 
 BEGIN
     -- Attempt to select id_rescuer and store the IDs in the collection
@@ -64,23 +63,30 @@ BEGIN
 
     -- Check if any IDs were found in the collection
     IF v_idCollection.COUNT > 0 THEN
-        -- Use the first ID from the collection
-        v_idPerson := v_idCollection(1);
-        
-        -- OPEN statement should be outside the IF block
-        OPEN resultCursor FOR
-        SELECT fu.id, af.id_candidate, fu.note
-        FROM follow_up fu
-        JOIN adoption_form af ON af.id = fu.ID_ADOPTION_FORM
-        WHERE fu.ID_ADOPTION_FORM = v_idPerson;
-        
+        -- Construct a comma-separated list of IDs
+        DECLARE
+            idList VARCHAR2(4000);
+        BEGIN
+            FOR i IN 1..v_idCollection.COUNT LOOP
+                idList := idList || v_idCollection(i) || ',';
+            END LOOP;
+
+            -- Remove the trailing comma
+            idList := SUBSTR(idList, 1, LENGTH(idList) - 1);
+
+            -- Construct the dynamic SQL statement
+            OPEN resultCursor FOR
+                'SELECT fu.id, af.id_candidate, fu.note ' ||
+                'FROM follow_up fu ' ||
+                'JOIN adoption_form af ON af.id = fu.ID_ADOPTION_FORM ' ||
+                'WHERE fu.ID_ADOPTION_FORM IN (' || idList || ')';
+        END;
+
         RETURN resultCursor;
     ELSE
-             NULL;
+        RETURN NULL; -- Return NULL if no IDs were found
     END IF;
 END;
-
-
     --=================================================       
 FUNCTION getFollowUpPhoto(idFollowUp NUMBER) RETURN SYS_REFCURSOR
 AS
