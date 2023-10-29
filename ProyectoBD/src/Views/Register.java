@@ -5,6 +5,7 @@
 package Views;
 
 import BD.LoginFunctions;
+import static Views.AdoptionForm.showMessageDialog;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -166,7 +167,7 @@ public class Register extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Telephone");
+        jLabel9.setText("Telephone*");
 
         telephoneTextfield.setBackground(new java.awt.Color(0, 102, 153));
         telephoneTextfield.setForeground(new java.awt.Color(255, 255, 255));
@@ -179,7 +180,7 @@ public class Register extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Type of telephone");
+        jLabel10.setText("Type of telephone*");
 
         telTypeComboBox.setBackground(new java.awt.Color(0, 102, 153));
         telTypeComboBox.setForeground(new java.awt.Color(255, 255, 255));
@@ -263,7 +264,7 @@ public class Register extends javax.swing.JFrame {
 
         genderLabel.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         genderLabel.setForeground(new java.awt.Color(255, 255, 255));
-        genderLabel.setText("Gender");
+        genderLabel.setText("Gender*");
 
         genderComboBox.setBackground(new java.awt.Color(0, 102, 153));
         genderComboBox.setForeground(new java.awt.Color(255, 255, 255));
@@ -679,6 +680,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_ReturnjButton1ActionPerformed
 
     private void signUpjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpjButtonActionPerformed
+        try {
         Date bDate = birthDateChooser.getDate();
         java.sql.Date procDate = new java.sql.Date(bDate.getTime());
         String continent = continentComboBox.getSelectedItem().toString();
@@ -697,40 +699,48 @@ public class Register extends javax.swing.JFrame {
         String gender = genderComboBox.getSelectedItem().toString();
         int phoneNumber = Integer.parseInt(telephoneTextfield.getText());
         String phoneType = telTypeComboBox.getSelectedItem().toString();
-        if (!firstName.isEmpty() || !firstLastname.isEmpty() || !email.isEmpty() || !username.isEmpty() || !password.isEmpty()){
-            if(checkEmail(email)){
-                System.out.println(firstName);
-                System.out.println(middleName);
-                System.out.println(firstLastname);
-                System.out.println(secondLastname);
-                System.out.println(email);
-                System.out.println(username);
-                System.out.println(password);
-                System.out.println(bDate);
-                System.out.println(continent);
-                System.out.println(country);
-                System.out.println(province);
-                System.out.println(canton);
-                System.out.println(district);
-                System.out.println(userType);
-                // LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
-                if(!LoginFunctions.validateUser(username)){
-                    LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType, gender, procDate);
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Please choose a different username", "Username already in use", JOptionPane.ERROR_MESSAGE);
-                }
+       
+        if(checkEmail(email)){
+            System.out.println(firstName);
+            System.out.println(middleName);
+            System.out.println(firstLastname);
+            System.out.println(secondLastname);
+            System.out.println(email);
+            System.out.println(username);
+            System.out.println(password);
+            System.out.println(bDate);
+            System.out.println(continent);
+            System.out.println(country);
+            System.out.println(province);
+            System.out.println(canton);
+            System.out.println(district);
+            System.out.println(userType);
+            // LoginFunctions.insertPerson(district, canton, firstName, middleName, firstLastname, secondLastname, username, password, email, userType, gender, phoneNumber, phoneType);
+            if(!LoginFunctions.validateUser(username)){
+                LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType, gender, procDate);
             }
-            else {
-                requiredFieldLabel.setText("Email format is not valid");
-                requiredFieldLabel.setVisible(true);
+            else{
+                JOptionPane.showMessageDialog(this, "Please choose a different username", "Username already in use", JOptionPane.ERROR_MESSAGE);
             }
         }
         else {
-            requiredFieldLabel.setText("Fields with * are required!");
+            requiredFieldLabel.setText("Email format is not valid");
             requiredFieldLabel.setVisible(true);
         }
-        // Preguntar si esto se vale o si tiene que ser directamente en SQL
+
+        
+        } catch (NullPointerException ex) {
+            showMessageDialog("Fields with * are required!", "Error");
+        }
+        catch (java.sql.SQLIntegrityConstraintViolationException ex) {
+    if (ex.getMessage().contains("FIRSTNAME_FORMAT")) {
+        showMessageDialog("Invalid format for the First Name field.", "Error");
+    } else if (ex.getMessage().contains("MIDDLENAME_FORMAT")) {
+        showMessageDialog("Invalid format for the Middle Name field.", "Error");
+    } else {
+        showMessageDialog("A constraint violation occurred: " + ex.getMessage(), "Error");
+    }
+}
     }//GEN-LAST:event_signUpjButtonActionPerformed
 
     private void districtComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_districtComboBoxActionPerformed
