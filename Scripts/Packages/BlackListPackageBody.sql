@@ -88,6 +88,70 @@ CREATE OR REPLACE PACKAGE BODY blackListPack AS
         RETURN asocBlacklists;
         CLOSE asocBlacklists;
     END;
+    FUNCTION checkPerson(pFirstname VARCHAR2, pLastname varchar2) return number
+    as
+        personResult NUMBER;
+    BEGIN
+        SELECT COUNT(*) INTO personResult
+        FROM person p
+        WHERE p.first_name = pFirstName
+        AND p.first_last_name = pLastname;
+        
+        IF personResult = 1 THEN 
+            RETURN 1;
+        ELSE
+            RETURN 0;
+        END IF;
+    END checkPerson;
+    
+    FUNCTION getPerson(pFirst VARCHAR2, pLast VARCHAR2) RETURN NUMBER
+    AS
+        person_id NUMBER;
+    BEGIN
+        select p.id 
+        INTO person_id
+        from person p
+        where p.first_name = pFirst
+        AND p.first_last_name = pLast;
+        RETURN person_id;
+    END getPerson;
+    
+    FUNCTION checkPhysical(pFirstName VARCHAR2,pLastname VARCHAR2)
+    RETURN NUMBER
+    AS
+        personResult NUMBER;
+        person_id NUMBER;
+        physicalResult NUMBER;
+        
+    BEGIN
+        personResult := checkPerson(pFirstName, pLastname);
+        
+        IF personResult = 1 THEN 
+            person_id := getPerson(pFirstName, pLastname);
+            SELECT COUNT(*)
+            INTO physicalResult
+            FROM physical_person ph
+            WHERE ph.id_physical =  person_id;
+            
+            IF physicalResult = 1 THEN 
+                RETURN 1;
+            ELSE
+                RETURN 0;
+            END IF;
+        ELSE
+            RETURN 0;
+        END IF;
+    END checkPhysical;
+    PROCEDURE insertToBlacklist(person_id NUMBER, bList_name VARCHAR2, listee_id NUMBER)
+    IS
+        bList_id NUMBER;
+    BEGIN
+        SELECT b.id
+        INTO bList_id
+        FROM black_list b
+        WHERE b.blacklist_name = bList_name;
+        
+    END;
         
         
 END blackListPack;

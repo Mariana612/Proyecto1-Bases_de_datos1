@@ -16,5 +16,15 @@ FUNCTION getAsocBlackLists(person_id NUMBER) RETURN SYS_REFCURSOR;
 
 FUNCTION getRescBlackLists(person_id NUMBER) RETURN SYS_REFCURSOR;
 
+FUNCTION checkPerson(pFirstname VARCHAR2, pLastname varchar2) return number;
+
+FUNCTION getPerson(pFirst VARCHAR2, pLast VARCHAR2) RETURN NUMBER;
+
+FUNCTION checkPhysical(pFirstName VARCHAR2,pLastname VARCHAR2) RETURN NUMBER;
+
+
+
+PROCEDURE insertToBlacklist(person_id NUMBER, bList_name VARCHAR2, listee_id NUMBER);
+
 
 END blackListPack;
