@@ -462,6 +462,7 @@ public class RegisterLost extends javax.swing.JFrame {
 
     private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
         String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
         String currency = (currencyComboBox.getSelectedItem() != null) ? currencyComboBox.getSelectedItem().toString() : null;
         Date date = dateLostjDateChooser.getDate();
         String formattedDate = null;
@@ -474,7 +475,7 @@ public class RegisterLost extends javax.swing.JFrame {
         if (text != null && !text.isEmpty()) {
             bounty = Integer.parseInt(text);
         }
-        String resultMessage = registerPetFunctions.insertLost(idPet, "1990-03-15", 12345, "Dollars", "Carmen");
+        String resultMessage = registerPetFunctions.insertLost(idPet, formattedDate, bounty, currency, district, canton);
         System.out.println(resultMessage);
         AssoRescMain assoRescWindow = new AssoRescMain(idPerson);
         assoRescWindow.setVisible(true);

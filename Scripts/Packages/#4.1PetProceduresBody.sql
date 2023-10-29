@@ -258,14 +258,16 @@ FUNCTION getTreatmentIdByIllness(pcTreatment VARCHAR2, idIllness NUMBER) RETURN 
     RETURN vSeverityId;
   END getSeverityId;
 ------------------------------------------------------------------------
-  FUNCTION getDistrictId(pcDistrictN VARCHAR2) RETURN NUMBER IS
-    vDistricId NUMBER;
+  FUNCTION getDistrictId(pcDistrictN VARCHAR2, pcCantonN VARCHAR2) RETURN NUMBER IS
+    vDistrictId NUMBER;
   BEGIN
-    SELECT d.id INTO vDistricId
+    SELECT d.id INTO vDistrictId
     FROM district d
-    WHERE d.district_name = pcDistrictN;
-    RETURN vDistricId;
+    WHERE d.district_name = pcDistrictN
+    AND d.id_canton = (SELECT c.id FROM canton c WHERE c.canton_name = pcCantonN);
+    RETURN vDistrictId;
   END getDistrictId;
+
 ------------------------------------------------------------------------
 FUNCTION getAllEnergy 
     RETURN SYS_REFCURSOR 
@@ -320,16 +322,8 @@ BEGIN
     RETURN SeverityCursor;
 END getAllSeverity;
 ------------------------------------------------------------------------
-FUNCTION insertRescued(
-    pnIdPet NUMBER,
-    pcNotes VARCHAR,
-    pcSpace VARCHAR,
-    pcEnergy VARCHAR,
-    pcTraining VARCHAR,
-    pcIllness VARCHAR,
-    pcSeverity VARCHAR,
-    pcDistrictN VARCHAR2
-) RETURN VARCHAR2 AS
+FUNCTION insertRescued(pnIdPet NUMBER,pcNotes VARCHAR,pcSpace VARCHAR,pcEnergy VARCHAR,pcTraining VARCHAR,pcIllness VARCHAR,pcSeverity VARCHAR,pcDistrictN VARCHAR2, pcCantonN VARCHAR2)
+ RETURN VARCHAR2 AS
     vEnergyId NUMBER;
     vTrainingId NUMBER;
     vSeverityId NUMBER;
@@ -377,7 +371,8 @@ BEGIN
     -- Verificar si pcDistrictN no es nulo, y si no es nulo, obtener el ID
     IF pcDistrictN IS NOT NULL THEN
         BEGIN
-            vDistrictId := getDistrictId(pcDistrictN);
+            vDistrictId := getDistrictId(pcDistrictN, pcCantonN);
+  
         EXCEPTION
             WHEN NO_DATA_FOUND THEN
                 poResultMessage := 'Error: No se encontró el ID del distrito para ' || pcDistrictN;
@@ -476,7 +471,8 @@ FUNCTION insertLost(
     pnDateLost VARCHAR2,
     pnBounty NUMBER,
     pcCurrency VARCHAR2,
-    pcDistrictN VARCHAR2
+    pcDistrictN VARCHAR2,
+    pcCantonN VARCHAR2
 ) RETURN VARCHAR2 IS
     vCurrencyId NUMBER := NULL;
     vDistrictId NUMBER := NULL;
@@ -494,7 +490,7 @@ BEGIN
         -- Check if pcDistrictN is not NULL and get the district ID
         IF pcDistrictN IS NOT NULL THEN
             BEGIN
-                vDistrictId := getDistrictId(pcDistrictN);
+                vDistrictId := getDistrictId(pcDistrictN, pcCantonN);
             EXCEPTION
                 WHEN NO_DATA_FOUND THEN
                     vErrorMessage := 'Error: District ID not found for ' || pcDistrictN;
@@ -521,7 +517,7 @@ BEGIN
     RETURN CurrencyCursor;
 END getAllCurrency;
 ------------------------------------------------------------------------
-FUNCTION insertfound(pnIdPet NUMBER, pnDateFound VARCHAR2, pcDistrictN VARCHAR2) RETURN VARCHAR2 IS
+FUNCTION insertfound(pnIdPet NUMBER, pnDateFound VARCHAR2, pcDistrictN VARCHAR2,pcCantonN VARCHAR2) RETURN VARCHAR2 IS
   vDistrictId NUMBER;
   vErrorMessage VARCHAR2(200); -- Variable to store error messages
   
@@ -538,7 +534,7 @@ BEGIN
   -- Check if pcDistrictN is not NULL and get the district ID
   IF pcDistrictN IS NOT NULL THEN
     BEGIN
-      vDistrictId := getDistrictId(pcDistrictN);
+      vDistrictId := getDistrictId(pcDistrictN, pcCantonN);
     EXCEPTION
       WHEN NO_DATA_FOUND THEN
         vErrorMessage := 'Error: District ID not found for ' || pcDistrictN;
