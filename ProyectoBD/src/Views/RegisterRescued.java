@@ -801,8 +801,8 @@ public class RegisterRescued extends javax.swing.JFrame {
     private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
         //String resultMessage = registerPetFunctions.insertRescued(11, "hola", "Yes", "Runner", "Very challenging", "Kennel Cough", "Serious", "Carmen");
         //System.out.println("Mensaje de Resultado: " + resultMessage);
-        
         String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
         String energy = (energyjComboBox.getSelectedItem() != null) ? energyjComboBox.getSelectedItem().toString() : null;
         String training = (trainingjComboBox.getSelectedItem() != null) ? trainingjComboBox.getSelectedItem().toString() : null;
         String illness = (illnessjComboBox.getSelectedItem() != null) ? illnessjComboBox.getSelectedItem().toString() : null;
@@ -818,7 +818,7 @@ public class RegisterRescued extends javax.swing.JFrame {
         }
         System.out.println("Space:" + space);
         
-        String resultMessage = registerPetFunctions.insertRescued(idPet, notes, space, energy, training, illness, severity, district);
+        String resultMessage = registerPetFunctions.insertRescued(idPet, notes, space, energy, training, illness, severity, district, canton);
         for (int i = 0; i < listPhotoBefore.size(); i++) {
             String imagePath = listPhotoBefore.getElementAt(i);
             System.out.println(registerPetFunctions.insertPhotoBefore(idPet,imagePath));
