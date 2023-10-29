@@ -5,6 +5,9 @@
 package Views;
 
 import BD.LoginFunctions;
+import static Views.AdoptionForm.showMessageDialog;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -66,7 +69,7 @@ public class RegisterAssociation extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Telephone");
+        jLabel9.setText("Telephone*");
 
         telephoneTextfield.setBackground(new java.awt.Color(0, 102, 153));
         telephoneTextfield.setForeground(new java.awt.Color(255, 255, 255));
@@ -79,7 +82,7 @@ public class RegisterAssociation extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Type of telephone");
+        jLabel10.setText("Type of telephone*");
 
         telTypeComboBox.setBackground(new java.awt.Color(0, 102, 153));
         telTypeComboBox.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -471,8 +474,14 @@ public class RegisterAssociation extends javax.swing.JFrame {
         logWindow.setVisible(true);
         dispose();
     }//GEN-LAST:event_ReturnjButton1ActionPerformed
-
+    public static boolean checkEmail(String address){
+        String regExpression = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(regExpression);
+        Matcher checkMatch = pattern.matcher(address);
+        return checkMatch.matches();
+    }
     private void signUpjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpjButtonActionPerformed
+        try {
         String district = districtComboBox.getSelectedItem().toString();
         String canton = cantonComboBox.getSelectedItem().toString();
         String firstName = nameTextfield.getText().strip();
@@ -483,7 +492,23 @@ public class RegisterAssociation extends javax.swing.JFrame {
         String phoneType = telTypeComboBox.getSelectedItem().toString().strip();
         String username = usernameTextfield.getText().strip();
         String password = passwordTextfield.getText().strip();
-        LoginFunctions.insertLegal(district, canton, firstName, email, username, password, userType, phoneNumber, phoneType);
+        if(checkEmail(email)){
+                        if(!LoginFunctions.validateUser(username)){
+                LoginFunctions.insertLegal(district, canton, firstName, email, username, password, userType, phoneNumber, phoneType);}
+            
+            else{
+                showMessageDialog("Please choose a different username", "Error");
+
+            }
+        }
+        else{showMessageDialog("Email format is not valid", "Error");}
+        }
+        catch (NullPointerException ex) {
+            showMessageDialog("Fields with * are required!", "Error");
+        }
+        catch (Exception ex) {
+            showMessageDialog("Please enter a valid name or number", "Error");
+        }
         
         // Preguntar si esto se vale o si tiene que ser directamente en SQL
     }//GEN-LAST:event_signUpjButtonActionPerformed

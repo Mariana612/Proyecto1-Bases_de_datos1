@@ -14,3 +14,4 @@
 --ADD CONSTRAINT middlename_format CHECK (REGEXP_LIKE(middle_name, '^[a-zA-ZР-жи-іј-џ ]+$'));
 --ALTER TABLE person
 --ADD CONSTRAINT firstname_format CHECK (REGEXP_LIKE(first_name, '^[a-zA-ZР-жи-іј-џ ]+$'));
+

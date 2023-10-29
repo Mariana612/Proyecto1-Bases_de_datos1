@@ -720,27 +720,22 @@ public class Register extends javax.swing.JFrame {
                 LoginFunctions.insertFixed(district, canton, firstName, middleName, firstLastname, secondLastname, email, username, password, userType, phoneNumber, phoneType, gender, procDate);
             }
             else{
-                JOptionPane.showMessageDialog(this, "Please choose a different username", "Username already in use", JOptionPane.ERROR_MESSAGE);
+                showMessageDialog("Please choose a different username", "Error");
+
             }
         }
         else {
-            requiredFieldLabel.setText("Email format is not valid");
-            requiredFieldLabel.setVisible(true);
+            showMessageDialog("Email format is not valid", "Error");
+         
         }
 
         
         } catch (NullPointerException ex) {
             showMessageDialog("Fields with * are required!", "Error");
         }
-        catch (java.sql.SQLIntegrityConstraintViolationException ex) {
-    if (ex.getMessage().contains("FIRSTNAME_FORMAT")) {
-        showMessageDialog("Invalid format for the First Name field.", "Error");
-    } else if (ex.getMessage().contains("MIDDLENAME_FORMAT")) {
-        showMessageDialog("Invalid format for the Middle Name field.", "Error");
-    } else {
-        showMessageDialog("A constraint violation occurred: " + ex.getMessage(), "Error");
-    }
-}
+        catch (Exception ex) {
+            showMessageDialog("Please enter a valid name or number", "Error");
+        }
     }//GEN-LAST:event_signUpjButtonActionPerformed
 
     private void districtComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_districtComboBoxActionPerformed
