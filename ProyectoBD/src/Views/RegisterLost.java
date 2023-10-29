@@ -462,7 +462,7 @@ public class RegisterLost extends javax.swing.JFrame {
 
     private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
         String district = (districtComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
-        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? cantonComboBox.getSelectedItem().toString() : null;
         String currency = (currencyComboBox.getSelectedItem() != null) ? currencyComboBox.getSelectedItem().toString() : null;
         Date date = dateLostjDateChooser.getDate();
         String formattedDate = null;

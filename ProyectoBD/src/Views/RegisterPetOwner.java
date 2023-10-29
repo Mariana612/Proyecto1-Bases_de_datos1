@@ -596,7 +596,7 @@ public class RegisterPetOwner extends javax.swing.JFrame {
         Integer chip = null;
         Integer idPet;
         String district = districtComboBox.getSelectedItem() != null ? districtComboBox.getSelectedItem().toString() : null;
-        String canton = (cantonComboBox.getSelectedItem() != null) ? districtComboBox.getSelectedItem().toString() : null;
+        String canton = (cantonComboBox.getSelectedItem() != null) ? cantonComboBox.getSelectedItem().toString() : null;
         String currency = currencyComboBox.getSelectedItem() != null ? currencyComboBox.getSelectedItem().toString() : null;
         Date date = dateLostjDateChooser.getDate();
         String formattedDateLost = null;
@@ -644,7 +644,9 @@ public class RegisterPetOwner extends javax.swing.JFrame {
         }else if (idPet == -4){
             JOptionPane.showMessageDialog(null, idPet, "Error in the insertion, please try again", JOptionPane.ERROR_MESSAGE);
         }
-        
+        AssoRescMain windowAssoRescMain = new AssoRescMain(idPerson);
+        windowAssoRescMain.setVisible(true);
+        dispose();
             
 
     }//GEN-LAST:event_registerjButton2ActionPerformed
