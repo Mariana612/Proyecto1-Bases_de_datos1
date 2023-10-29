@@ -17,10 +17,17 @@ public class AssoRescMain extends javax.swing.JFrame {
      * Creates new form Login
      */
     private int pidPerson;
+    private int typeUser;
     public AssoRescMain(int idPerson) {
 
-        initComponents(idPerson);
-        pidPerson = idPerson;
+        initComponents();
+        this.pidPerson = idPerson;
+    }
+    
+    public AssoRescMain(int idPerson, int typeUser){
+        initComponents();
+        this.pidPerson = idPerson;
+        this.typeUser = typeUser;
     }
 
     /**
@@ -30,7 +37,7 @@ public class AssoRescMain extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents(int idPerson) {
+    private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel2 = new javax.swing.JPanel();
@@ -43,6 +50,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         LostPet = new javax.swing.JButton();
         UpdatePet = new javax.swing.JButton();
         ReviewCandidate = new javax.swing.JButton();
+        RescuedPet = new javax.swing.JButton();
         CheckAdoptionForms = new javax.swing.JButton();
         BlackList = new javax.swing.JButton();
 
@@ -115,8 +123,8 @@ public class AssoRescMain extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(TitleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(187, 187, 187)
+                .addComponent(TitleLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -132,7 +140,7 @@ public class AssoRescMain extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.GridLayout(3, 2, 200, 50));
 
         LostPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        LostPet.setText("Register Pet");
+        LostPet.setText("Register Lost Pet");
         LostPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LostPetActionPerformed(evt);
@@ -148,18 +156,31 @@ public class AssoRescMain extends javax.swing.JFrame {
         ReviewCandidate.setText("Review Candidates");
         jPanel5.add(ReviewCandidate);
 
+        RescuedPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        RescuedPet.setText("Register Recued Pet");
+        RescuedPet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RescuedPetActionPerformed(evt);
+            }
+        });
+        jPanel5.add(RescuedPet);
 
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
         CheckAdoptionForms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckAdoptionFormsActionPerformed(evt, idPerson);
+                CheckAdoptionFormsActionPerformed(evt);
             }
         });
         jPanel5.add(CheckAdoptionForms);
 
         BlackList.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         BlackList.setText("Black List");
+        BlackList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BlackListActionPerformed(evt);
+            }
+        });
         jPanel5.add(BlackList);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -209,6 +230,12 @@ public class AssoRescMain extends javax.swing.JFrame {
                 dispose();
     }//GEN-LAST:event_CheckAdoptionFormsActionPerformed
 
+    private void BlackListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlackListActionPerformed
+        BlackListMenu bMenu = new BlackListMenu(pidPerson);
+        bMenu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BlackListActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,6 +278,7 @@ public class AssoRescMain extends javax.swing.JFrame {
     private javax.swing.JButton BlackList;
     private javax.swing.JButton CheckAdoptionForms;
     private javax.swing.JButton LostPet;
+    private javax.swing.JButton RescuedPet;
     private javax.swing.JButton ReviewCandidate;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JLabel TitleLabel1;
