@@ -52,7 +52,6 @@ public class AssoRescMain extends javax.swing.JFrame {
         LostPet = new javax.swing.JButton();
         UpdatePet = new javax.swing.JButton();
         ReviewCandidate = new javax.swing.JButton();
-        RescuedPet = new javax.swing.JButton();
         CheckAdoptionForms = new javax.swing.JButton();
         BlackList = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -169,15 +168,6 @@ public class AssoRescMain extends javax.swing.JFrame {
         });
         jPanel5.add(ReviewCandidate);
 
-        RescuedPet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
-        RescuedPet.setText("Register Recued Pet");
-        RescuedPet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RescuedPetActionPerformed(evt);
-            }
-        });
-        jPanel5.add(RescuedPet);
-
         CheckAdoptionForms.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
         CheckAdoptionForms.setText("Check Adoption Forms");
         CheckAdoptionForms.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +253,26 @@ public class AssoRescMain extends javax.swing.JFrame {
         bMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_BlackListActionPerformed
+                                               
+
+    private void UpdatePetActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        UpdatePet windowUpdatePet = new UpdatePet(pidPerson);
+        windowUpdatePet.setVisible(true);
+        dispose();
+    }                                         
+
+    private void ReviewCandidateActionPerformed(java.awt.event.ActionEvent evt) {                                                
+        ReviewCandidate revwindow = new ReviewCandidate(pidPerson);
+        revwindow.setVisible(true);
+        dispose();
+                   
+    }                                               
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        Login loginwindow = new Login();
+        loginwindow.setVisible(true);
+        dispose();
+    }                                        
 
     /**
      * @param args the command line arguments
@@ -306,7 +316,6 @@ public class AssoRescMain extends javax.swing.JFrame {
     private javax.swing.JButton BlackList;
     private javax.swing.JButton CheckAdoptionForms;
     private javax.swing.JButton LostPet;
-    private javax.swing.JButton RescuedPet;
     private javax.swing.JButton ReviewCandidate;
     private javax.swing.JLabel TitleLabel;
     private javax.swing.JLabel TitleLabel1;

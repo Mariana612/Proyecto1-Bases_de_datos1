@@ -6,6 +6,7 @@ package Views;
 
 import BD.NormalUserFunctions;
 import static BD.SubmissionFunctions.getFollowUp;
+import static Views.AdoptionForm.showMessageDialog;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -141,6 +142,7 @@ private ImageIcon resizeImage(String imagePath, int width, int height) {
 }
 
 private void addComponents(int idPerson) {
+    try{
     List<List<String>> finallist = getFollowUp(idPerson);
     int imageWidth = 400; // Set the width you want for the images
     int imageHeight = 300; // Set the height you want for the images
@@ -191,6 +193,7 @@ private void addComponents(int idPerson) {
 
         mainPanel.add(innerListPanel);
     }
+    }catch(Exception ex){showMessageDialog("There are no adoption forms filled", "Error");}
 }
 
 

@@ -4,6 +4,8 @@
  */
 package Views;
 import BD.NormalUserFunctions;
+import static BD.NormalUserFunctions.getphotopet;
+import static Views.AdoptionForm.showMessageDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,9 +23,7 @@ public class CheckFormSubmissionMain extends javax.swing.JFrame {
      */
     public CheckFormSubmissionMain(int idPerson ) {
         initComponents();
-        addComponents(idPerson);
-//        NormalUserFunctions.displayPets(this);
-//        
+        addComponents(idPerson);        
         
     }
 
@@ -144,37 +144,31 @@ private void addComponents(int idPerson) {
     
     ArrayList<String> imageTexts = new ArrayList<>();
     ArrayList<Integer> petIds = new ArrayList<>();
+    ArrayList<String> petStatus = new ArrayList<>();
     
-    String[] pets = NormalUserFunctions.getAllSelectedPets(idPerson);
-    int[] petidv = NormalUserFunctions.getAllSelectedPetsID(idPerson);
-    
-    if(pets.length != 0){
-    for(int i = 0; i < pets.length; i++){
-        imageTexts.add(pets[i]);
-        
-    
-    }
-    
-    for(int i = 0; i < petidv.length; i++){
-        petIds.add(petidv[i]);
-        
-    
-    }
+    try{
+    String[] pets = NormalUserFunctions.getAllPets();
+    int[] petidv = NormalUserFunctions.getAllPetsID();
+     String[] petsStat = NormalUserFunctions.getAllStatus();
+
+    if (pets.length != 0) {
+        for (int i = 0; i < pets.length; i++) {
+            imageTexts.add(pets[i]);
+        }
+
+        for (int i = 0; i < petidv.length; i++) {
+            petIds.add(petidv[i]);
+        }
+        for (int i = 0; i < petsStat.length; i++) {
+            petStatus.add(petsStat[i]);
+        }
     PetDisplay.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
-    
-
-    ArrayList<String> imagePaths = new ArrayList<>();
-
-    // Add your image paths and text here
-    imagePaths.add("/Images/perritosenadopcion (1).jpg");
-    //imagePaths.add("/Images/perritosenadopcion (1).jpg");
-
 
     int imageWidth = 400; // Set the width you want for the images
     int imageHeight = 300; // Set the height you want for the images
 
-    for (int i = 0; i < imagePaths.size(); i++) {
-        String imagePath = imagePaths.get(i);
+    for (int i = 0; i < petidv.length; i++) {
+        String imagePath = getphotopet(petidv[i]);
         String imageText = imageTexts.get(i);
         int petId = petIds.get(i);
         
@@ -224,6 +218,10 @@ private void addComponents(int idPerson) {
     }
 
     }
+    }catch(Exception ex){showMessageDialog("There are no adoption forms filled", "Error");}
+    
+    
+    
 }
     /**
      * @param args the command line arguments
