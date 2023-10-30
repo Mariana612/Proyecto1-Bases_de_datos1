@@ -48,7 +48,6 @@ public class NormalUserMain extends javax.swing.JFrame {
         PetDisplay = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(840, 635));
@@ -57,9 +56,9 @@ public class NormalUserMain extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 153));
 
-        jButton1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 20)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("¿DESEA REPORTAR A UNA MASCOTA COMO PERDIDA?");
+        jButton1.setText("Do you want to report a lost pet?");
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
@@ -75,7 +74,7 @@ public class NormalUserMain extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -102,10 +101,7 @@ public class NormalUserMain extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("A continuacion puedes ver algunas de las mascotas disponibles que puedes adoptar.");
-
-        jButton4.setText("Make Test Preferences");
-        jPanel4.add(jButton4);
+        jLabel1.setText("You can se some of the pets that are at disposition");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,7 +113,7 @@ public class NormalUserMain extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(381, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -131,9 +127,9 @@ public class NormalUserMain extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -172,6 +168,7 @@ private void addComponents(int idPerson, String userType) {
 
     String[] pets = NormalUserFunctions.getAllPets();
     int[] petidv = NormalUserFunctions.getAllPetsID();
+     String[] petsStat = NormalUserFunctions.getAllStatus();
 
     if (pets.length != 0) {
         for (int i = 0; i < pets.length; i++) {
@@ -181,6 +178,10 @@ private void addComponents(int idPerson, String userType) {
         for (int i = 0; i < petidv.length; i++) {
             petIds.add(petidv[i]);
         }
+        for (int i = 0; i < petsStat.length; i++) {
+            petStatus.add(petsStat[i]);
+        }
+
 
         PetDisplay.setLayout(new GridLayout(0, 1)); // 0 rows and 1 column
 
@@ -195,6 +196,7 @@ private void addComponents(int idPerson, String userType) {
 
         for (int i = 0; i < petidv.length; i++) {
             String imagePath = getphotopet(petidv[i]);
+            System.out.println(imagePath);
             String imageText = imageTexts.get(i);
             int petId = petIds.get(i);
 
@@ -208,6 +210,16 @@ private void addComponents(int idPerson, String userType) {
             // Create a button for each image
             Color customColor = new Color(0, 102, 153);
 
+            
+
+            JPanel imageTextPanel = new JPanel(new BorderLayout());
+
+            // Add a 20px gap to the right of the image
+            imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 20));
+
+            imageTextPanel.add(imageLabel, BorderLayout.WEST);
+            imageTextPanel.add(textLabel, BorderLayout.CENTER);
+            if(petStatus.get(i).equals("Rescued")){
             JButton imageButton = new JButton("ADOPT ME");
             imageButton.setFont(newFont);
             imageButton.setForeground(Color.WHITE);
@@ -226,15 +238,9 @@ private void addComponents(int idPerson, String userType) {
                     dispose();
                 }
             });
-
-            JPanel imageTextPanel = new JPanel(new BorderLayout());
-
-            // Add a 20px gap to the right of the image
-            imageLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 20));
-
-            imageTextPanel.add(imageLabel, BorderLayout.WEST);
-            imageTextPanel.add(textLabel, BorderLayout.CENTER);
             imageTextPanel.add(imageButton, BorderLayout.SOUTH);
+            }
+            
 
             PetDisplay.add(imageTextPanel);
         
@@ -322,7 +328,6 @@ private void addComponents(int idPerson, String userType) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel PetDisplay;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -22,6 +22,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
     private RegisterPetFunctions registerPetFunctions; //llama a la clase donde se encuentran las funciones para registrar mascotas
     private DefaultListModel<String> listModel = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
     int idPerson;
+    boolean changed = false;
     /**
      * Creates new form Pet
      */
@@ -452,6 +453,8 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
 
             // Asigna el modelo de lista actualizado al JList
             PetPhotosjList.setModel(listModel);
+            
+            changed = true;
         }
 
     }//GEN-LAST:event_subirFotojButtonActionPerformed
@@ -465,6 +468,9 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
         String chipText = chipTextfield.getText(); 
         Double amountSpent = null;  // Valor predeterminado en caso de que la conversión falle
         String text = amountSpentTextfield.getText();
+        
+        if(changed){
+         
         if (text != null && !text.isEmpty()) {
         amountSpent = Double.valueOf(text);
         }
@@ -545,6 +551,8 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
             }
 
         }
+        }
+        else{JOptionPane.showMessageDialog(null, "please insert an image", "Error", JOptionPane.ERROR_MESSAGE);}
         
     }//GEN-LAST:event_nextjButtonActionPerformed
 

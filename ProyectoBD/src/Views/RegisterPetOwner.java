@@ -23,6 +23,7 @@ public class RegisterPetOwner extends javax.swing.JFrame {
     private RegisterPetFunctions registerPetFunctions; //llama a la clase donde se encuentran las funciones para registrar mascotas
     private DefaultListModel<String> listModel = new DefaultListModel<>();//una lista que funcionará para guardar las imagenes y mostrarlas en un jList
     int idPerson;
+    boolean changed = false;
     /**
      * Creates new form Pet
      */
@@ -550,7 +551,7 @@ public class RegisterPetOwner extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void subirFotojButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subirFotojButtonActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+         JFileChooser fileChooser = new JFileChooser();
         // Configura el filtro de archivos para mostrar solo imágenes
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Imágenes", "jpg", "jpeg", "png", "gif");
         fileChooser.setFileFilter(filter);
@@ -559,14 +560,21 @@ public class RegisterPetOwner extends javax.swing.JFrame {
 
         if (resultado == JFileChooser.APPROVE_OPTION) {
             File archivoSeleccionado = fileChooser.getSelectedFile();
-            String path = archivoSeleccionado.getPath();
+            // Asumiendo que la imagen se encuentra en el directorio de recursos "Images"
+            String nombreImagen = archivoSeleccionado.getName();
+
+            // Usa la ruta relativa desde el directorio de recursos
+            String path = "/Images/" + nombreImagen;
+
             // Agrega el path al modelo de lista
             listModel.addElement(path);
 
             // Asigna el modelo de lista actualizado al JList
             PetPhotosjList.setModel(listModel);
+            
+            changed = true;
         }
-        
+
     }//GEN-LAST:event_subirFotojButtonActionPerformed
 
     private void currencyComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currencyComboBoxActionPerformed
@@ -585,6 +593,7 @@ public class RegisterPetOwner extends javax.swing.JFrame {
     }//GEN-LAST:event_currencyComboBoxPopupMenuWillBecomeVisible
 
     private void registerjButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerjButton2ActionPerformed
+        if(changed){
         String name = nameTextfield.getText();
         String status = "Lost";
         String type = (String) typejComboBox.getSelectedItem();
@@ -644,10 +653,11 @@ public class RegisterPetOwner extends javax.swing.JFrame {
         }else if (idPet == -4){
             JOptionPane.showMessageDialog(null, idPet, "Error in the insertion, please try again", JOptionPane.ERROR_MESSAGE);
         }
-        AssoRescMain windowAssoRescMain = new AssoRescMain(idPerson);
-        windowAssoRescMain.setVisible(true);
+        Login LoginMain = new Login();
+        LoginMain.setVisible(true);
         dispose();
-            
+        }
+        else{JOptionPane.showMessageDialog(null, "please insert an image", "Error", JOptionPane.ERROR_MESSAGE);}
 
     }//GEN-LAST:event_registerjButton2ActionPerformed
 

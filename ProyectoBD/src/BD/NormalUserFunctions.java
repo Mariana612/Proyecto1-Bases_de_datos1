@@ -103,6 +103,48 @@ public class NormalUserFunctions {
         }
     }
     
+        public static String[] getAllStatus() {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call userUsablePackage.getAllPets()}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+
+            callableStatement.execute();
+
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            int listSize = getPetAmount();
+           
+            String[] petListWithStatus = new String[listSize];
+            int index = 0;
+            while (res.next()) {
+                
+                String status = res.getString("status_name");
+                petListWithStatus[index] = status;
+                index++;
+            }
+            res.close();
+            callableStatement.close();
+
+            return petListWithStatus;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
         public static int[] getAllPetsID() {
         CallableStatement callableStatement = null;
         ConnectionDB connectionDB = new ConnectionDB();

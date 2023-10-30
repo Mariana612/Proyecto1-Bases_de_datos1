@@ -264,14 +264,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ReviewCandidateActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="RescuedPet">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Yu Gothic UI Semibold" size="18" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Register Recued Pet"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JButton" name="CheckAdoptionForms">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
