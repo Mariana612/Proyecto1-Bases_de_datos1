@@ -97,7 +97,7 @@ CREATE OR REPLACE PACKAGE BODY blackListPack AS
         WHERE p.first_name = pFirstName
         AND p.first_last_name = pLastname;
         
-        IF personResult = 1 THEN 
+        IF personResult > 0 THEN 
             RETURN 1;
         ELSE
             RETURN 0;
@@ -142,15 +142,50 @@ CREATE OR REPLACE PACKAGE BODY blackListPack AS
             RETURN 0;
         END IF;
     END checkPhysical;
-    PROCEDURE insertToBlacklist(person_id NUMBER, bList_name VARCHAR2, listee_id NUMBER)
+    
+    PROCEDURE insertBlacklist(bList_name VARCHAR2, firstName VARCHAR2, lastname VARCHAR2)
     IS
         bList_id NUMBER;
+        person_id NUMBER;
     BEGIN
         SELECT b.id
         INTO bList_id
         FROM black_list b
         WHERE b.blacklist_name = bList_name;
         
+        SELECT p.id
+        INTO person_id
+        FROM person p
+        WHERE p.first_name = firstName
+        AND p.first_last_name = lastname;
+        
+        INSERT INTO black_listXphysical(id_physical, id_black_list)
+        VALUES(person_id, bList_id);
+        COMMIT;
+    END insertBlacklist;
+    
+    FUNCTION getFromBlacklist(pBname VARCHAR2)
+    RETURN SYS_REFCURSOR
+    AS
+        blackCursor SYS_REFCURSOR;
+        list_id NUMBER;
+    BEGIN
+        SELECT b.id
+        INTO list_id
+        FROM black_list b
+        WHERE b.blacklist_name = pBname;
+        
+        OPEN blackCursor FOR
+        SELECT p.first_name, p.first_last_name
+        FROM black_listXphysical n 
+        INNER JOIN physical_person f
+        ON n.id_physical = f.id_physical
+        INNER JOIN person p
+        ON f.id_physical = p.id
+        WHERE n.id_black_list = list_id;
+        
+        RETURN blackCursor;
+        CLOSE blackCursor;
     END;
         
         

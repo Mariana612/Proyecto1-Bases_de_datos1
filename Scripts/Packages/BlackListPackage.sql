@@ -22,9 +22,9 @@ FUNCTION getPerson(pFirst VARCHAR2, pLast VARCHAR2) RETURN NUMBER;
 
 FUNCTION checkPhysical(pFirstName VARCHAR2,pLastname VARCHAR2) RETURN NUMBER;
 
+PROCEDURE insertBlacklist(bList_name VARCHAR2, firstName VARCHAR2, lastname VARCHAR2);
 
-
-PROCEDURE insertToBlacklist(person_id NUMBER, bList_name VARCHAR2, listee_id NUMBER);
+FUNCTION getFromBlacklist(pBname VARCHAR2) RETURN SYS_REFCURSOR;
 
 
 END blackListPack;

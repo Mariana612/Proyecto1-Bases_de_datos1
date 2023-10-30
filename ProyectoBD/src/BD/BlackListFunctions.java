@@ -252,5 +252,118 @@ public class BlackListFunctions {
                 e.printStackTrace();
             }
         }
-    } 
+    }
+
+    public static boolean checkPhysical(String name, String lastName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call blackListPack.checkPhysical(?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
+
+            callableStatement.setString(2, name);
+            callableStatement.setString(3, lastName);
+
+            
+            
+            callableStatement.execute();
+            
+            int resultado = callableStatement.getInt(1);
+            callableStatement.close();
+            return resultado == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void insertToBlacklist(String blacklistName, String firstName, String lastName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            // Establece la conexión a la base de datos utilizando la clase ConnectionDB
+            ConnectionDB connection = new ConnectionDB();
+            // Llama al procedimiento almacenado en el paquete
+            String procedureCall = "{call blackListPack.insertBlacklist(?, ?, ?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            // Configura los parámetros del procedimiento almacenado
+            callableStatement.setString(1, blacklistName);
+            callableStatement.setString(2, firstName);
+            callableStatement.setString(3, lastName);
+
+            
+            // Ejecuta el procedimiento almacenado
+            callableStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                // Cierra la conexión utilizando la clase ConnectionDB
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static String getListPersons(String listName){
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call blackListPack.getFromBlacklist(?)}";
+            callableStatement = connection.conn.prepareCall(procedureCall);
+            
+            callableStatement.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            callableStatement.setString(2, listName);
+            
+            callableStatement.execute();
+            
+            ResultSet res = (ResultSet) callableStatement.getObject(1);
+            String lista = "Black List " + listName + ":\n " + "First Name    " + "Last Name" + "\n";
+            int index = 0; 
+            while(res.next()){
+                String firstN = res.getString("first_name");
+                String lastName = res.getString("first_last_name");
+                lista = lista.concat(firstN);
+                lista = lista.concat("    ");
+                lista = lista.concat(lastName);
+                lista = lista.concat("\n");
+                index = index + 1;
+            }
+            res.close();
+            callableStatement.close();
+            return lista;
+  
+        } catch (SQLException e) {
+            e.printStackTrace();
+            String[] cont = null;
+            return "";
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
