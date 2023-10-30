@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -30,6 +31,7 @@ public class FollowUp extends javax.swing.JFrame {
         vidAdoptionF =idAdoptionF;
         vidPerson =idPerson;
         vuserType =userType;
+        setIconImage(new ImageIcon(getClass().getResource("/Images/icon.jpg")).getImage());
     }
 
     /**
