@@ -411,4 +411,40 @@ public class NormalUserFunctions {
     
     
     }
+        public static String getphotopet(int idPet) {
+        CallableStatement callableStatement = null;
+        ConnectionDB connectionDB = new ConnectionDB();
+        try {
+            ConnectionDB connection = new ConnectionDB();
+            String procedureCall = "{? = call petProcedures.getPetPhoto(?)}";
+                        
+
+            callableStatement = connection.conn.prepareCall(procedureCall);
+
+            callableStatement.registerOutParameter(1, java.sql.Types.VARCHAR);
+            callableStatement.setInt(2, idPet);
+            
+
+            callableStatement.execute();
+
+            String result = callableStatement.getString(1);
+
+            callableStatement.close();
+
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } finally {
+            try {
+                if (callableStatement != null) {
+                    callableStatement.close();
+                }
+                connectionDB.desconectar();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }

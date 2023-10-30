@@ -486,7 +486,7 @@ public class RegisterPetAssociationRescuer extends javax.swing.JFrame {
             try {
                 chip = Integer.valueOf(chipText);
                 Integer idPet = registerPetFunctions.insertPet(name, status, type, color, breed, chip, idPerson, amountSpent,formattedDate);
-                if (idPet > 0){
+                if (idPet >= 0){
                     for (int i = 0; i < listModel.size(); i++) {
                         String imagePath = listModel.getElementAt(i);
                         System.out.println(registerPetFunctions.callInsertPetPhoto(idPet,imagePath));

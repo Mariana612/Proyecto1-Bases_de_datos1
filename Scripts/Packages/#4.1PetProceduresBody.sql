@@ -562,6 +562,20 @@ BEGIN
   RETURN vErrorMessage;
 END insertfound;
 ------------------------------------------------------------------------
+FUNCTION getPetPhoto(idPet NUMBER) RETURN VARCHAR2
+AS
+    photoPath VARCHAR2(255);
+BEGIN
+    SELECT picture_path
+    INTO photoPath
+    FROM pet_photo
+    WHERE id_pet = idPet
+    AND ROWNUM = 1
+    ORDER BY dbms_random.value;
+    
+    
+    RETURN photoPath;
+END getPetPhoto;
 END petProcedures;
 
 
