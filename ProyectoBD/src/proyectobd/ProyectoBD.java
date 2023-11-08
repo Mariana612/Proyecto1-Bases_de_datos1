@@ -9,6 +9,7 @@ package proyectobd;
  * @author marie
  */
 import BD.CallProcedureInPackage;
+import BD.ConnectionDB;
 import Views.Login;
 public class ProyectoBD {
 
@@ -18,8 +19,10 @@ public class ProyectoBD {
     public static void main(String[] args) {
         //CallProcedureInPackage.createJustPerson("Julio", "Rafael", "Jaramillo", "Guzman", "julioAOO", "motica12", "julio@gmail.com");
         //CallProcedureInPackage.callCreateUserPerson("Benito", "bad123");
-        Login mainWindow = new Login(); 
-        mainWindow.setVisible(true); 
+//        Login mainWindow = new Login(); 
+//        mainWindow.setVisible(true); 
+        
+        ConnectionDB con = new ConnectionDB();
     }
     
 }

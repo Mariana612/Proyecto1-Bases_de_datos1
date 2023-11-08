@@ -21,10 +21,10 @@ public class ConnectionDB {
     
     private void conectar(){
         try {
-            Class.forName("oracle.jdbc.OracleDriver"); //DRIVER
-            url = "jdbc:oracle:thin:@localhost:1521:MarianaBD"; // Git ignored
-            user = "PR1";
-            pass = "PR1";
+            // "jdbc:mysql://localhost:3306/your_schema_name" 
+            url = "jdbc:mysql://localhost:3306/pr2"; // Git ignored
+            user = "proyecto2";
+            pass = "abc123";
             conn  = DriverManager.getConnection(url, user, pass);
             System.out.println("Conectado a la BD");
         }catch(Exception e){
